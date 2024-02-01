@@ -1,12 +1,14 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import MainPage from './views/MainPage';
+import UserMenu from './components/mainPage/TopBar';
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
       <div>
-        sweetener
+        <MainPage />
+              
       </div>
     </>
   )
