@@ -5,7 +5,20 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['Work Sans', 'sans-serif'],
+      },
+      colors: {
+        greenAccent: '#046244',
+        blackAccent: '#110b11',
+        yellowAccent: '#ffc233',
+        redAccent: '#bf211e',
+        blueAccent: '#21a2e8',
+        greyAccent: '#696969',
+        
+      }
+    },
   },
   plugins: [],
 }
