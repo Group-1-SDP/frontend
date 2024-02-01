@@ -9,9 +9,7 @@ function MainPage() {
       <TopBar />
       <ControlsMenu />
       <StudyStreakBar />
-      
-      
-      
+    
     </div>
   )
 }

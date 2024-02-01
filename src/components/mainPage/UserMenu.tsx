@@ -1,21 +1,37 @@
 import React, { useEffect, useState, useRef } from "react";
-import { MotionProps, Variants } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
-const item = {
-  variants: {
-    closed: { x: -16, opacity: 0 },
-    open: { x: 0, opacity: 1 },
-  },
-  transition: { opacity: { duration: 0.2 } },
-} satisfies MotionProps;
+export interface MenuItemProps {
+  itemName: string;
+  top?: boolean;
+  bottom?: boolean;
+}
+
+function MenuItem({ itemName, top, bottom }: MenuItemProps) {
+  return (
+    <div
+      className={
+        "pl-3 py-2 border-white hover:bg-gray-300 transition-colors w-full " +
+        (top ? "rounded-t-xl " : "") +
+        (bottom ? "rounded-b-xl " : "")
+      }
+    >
+      {itemName}
+    </div>
+  );
+}
 
 function UserMenu() {
   const [open, setOpen] = useState(false);
+  const [hovering, setHovering] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setOpen(false);
       }
     };
@@ -26,31 +42,45 @@ function UserMenu() {
     };
   }, [dropdownRef, open]);
 
-
   return (
-    <div className="relative" ref={dropdownRef}>
-      <div
-        className="flex items-center hover:bg-gray-200 transition-colors font-semibold text-xl px-4 py-2 mx-3 rounded-xl"
-        onClick={() => setOpen(!open)}
-      >
-        <div className="p-5 mr-2 rounded-full bg-black"></div>
-        <h1>Hello, user!</h1>
-      </div>
-      {open && (
-        <div
-          className="px-4 mx-3 py-2 my-2 space-y-4 rounded-xl font-semibold text-xl absolute bg-gray-200"
-          ref={dropdownRef}
+    <div className="relative">
+      <div ref={dropdownRef}>
+        <motion.div
+          className={
+            "flex items-center transition-colors font-semibold text-xl px-4 py-2 mx-3 rounded-xl" +
+            (open ? " bg-gray-300" : "")
+          }
+          onClick={() => {
+            setOpen(!open);
+          }}
+          onMouseEnter={() => setHovering(true)}
+          onMouseLeave={() => setHovering(false)}
+          animate={{
+            backgroundColor: open || hovering ? "#d1d5db" : "#ffffff",
+          }}
         >
-          <ul>
-            <li className="px-3 rounded-full bg-gray-300 hover:bg-gray-400">
-              Add Friends
-            </li>
-            <li className="px-3 rounded-full bg-gray-300 hover:bg-gray-400">
-              Add module
-            </li>
-          </ul>
-        </div>
-      )}
+          <div className="p-5 mr-2 rounded-full bg-black"></div>
+          <h1>Hello, user!</h1>
+        </motion.div>
+        <div></div>
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              className="left-3 my-2 space-y-4 rounded-xl font-semibold text-xl absolute bg-gray-200 w-full"
+              animate={{ opacity: open ? 1 : 0 }}
+              initial={{ opacity: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="grid divide-y-2 rounded-t-xl rounded-b-xl">
+                <MenuItem itemName="Add Friends" top={true} />
+                <MenuItem itemName="Add Modules" />
+                <MenuItem itemName="Settings" bottom={true} />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   );
 }
