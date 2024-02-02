@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Icon from '../components/Authenticator/Icon';
 import Image from '../components/Authenticator/Image';
 import Modal from '../components/Authenticator/Modal';
