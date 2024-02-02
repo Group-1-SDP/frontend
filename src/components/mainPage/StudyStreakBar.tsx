@@ -1,6 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
+function TickBox() {
+  return <div className="bg-black rounded-full p-5 mx-2"></div>;
+}
+
 function Bar() {
   const [open, setOpen] = useState(false);
   const [hovering, setHovering] = useState(false);
@@ -35,7 +39,7 @@ function Bar() {
       >
         <motion.div
           className="h-6 w-[600px] rounded-xl m-5"
-          animate={{ backgroundColor: hovering ? "#333" : "#999" }}
+          animate={{ backgroundColor: hovering || open ? "#333" : "#999" }}
         />
       </motion.header>
       <AnimatePresence>
@@ -47,13 +51,15 @@ function Bar() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <p>
-              Currently working on:{" "}
+            <div className="flex items-center">
+              <p className="pr-1">Currently working on: </p>
               <span className="font-bold">Read Chapter 4</span>
-            </p>
-            <p>
-              Time Left: <span className="font-bold">2 hours</span>
-            </p>
+              <TickBox />
+            </div>
+            <div className="flex items-center">
+              <p className="px-1">Time Left:</p>
+              <span className="font-bold">2 hours</span>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
