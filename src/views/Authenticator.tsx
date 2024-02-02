@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Icon from '../components/Authenticator/Icon';
 import Image from '../components/Authenticator/Image';
 import Modal from '../components/Authenticator/Modal';
-import ConnectButton from '../components/Authenticator/ConnectButton';
+import ConnectButton from '../components/Authenticator/OpenModal';
 
 const Authenticator = () => {
   const [modalVisible, setModalVisible] = useState(false);
