@@ -67,7 +67,7 @@ function Bar() {
           animate={{ backgroundColor: hovering || open ? "#333" : "#999" }}
         >
           <motion.div 
-            className="w-[400px] bg-green-600 rounded-xl"
+            className="w-[400px] bg-gradient-to-tr from-greenAccent to-greenHighlight  rounded-xl"
             initial={{ width: 0 }} 
             animate={{ width: `${(timeRemaining.time / 60) * 100}%` }} 
             transition={{ duration: 1, type: "tween", ease: "linear" }} 

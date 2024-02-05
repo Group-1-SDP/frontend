@@ -39,7 +39,7 @@ function controlsMenu() {
 
   return (
     <div>
-      <div className="items-center flex">
+      <div className="justify-center items-center pl-8 flex">
         <div className="justify-center flex flex-col w-[320px] h-[300px] mx-12">
           <div
             ref={menuRef}

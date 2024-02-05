@@ -10,11 +10,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<MainPage />} />
-
+        {!authenticated ? <Route path="/" element={<Authenticator />} /> : <Route path="/" element={<MainPage />} />}
         <Route path="todo" element={<TodoList />} />
       </Routes>
-      <Authenticator />
     </BrowserRouter>
   );
 }

@@ -11,6 +11,7 @@ export default {
       },
       colors: {
         greenAccent: '#046244',
+        greenHighlight: '#368169',
         blackAccent: '#110b11',
         yellowAccent: '#ffc233',
         redAccent: '#bf211e',

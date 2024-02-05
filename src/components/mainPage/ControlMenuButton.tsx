@@ -17,11 +17,11 @@ function ControlMenuButton({
   return (
     <motion.div
       animate={{
-        width: focused || defaultState ? 350 : 150,
+        width: focused || defaultState ? 300 : 150,
         height: focused ? 200 : 100,
       }}
-      transition={{ duration: 0.6 }}
-      className={`bg-gray-200 rounded-xl py-[10px] my-2 flex flex-col items-center ${
+      transition={{ duration: 0.3 }}
+      className={`bg-gray-200 bg-gradient-to-tr from-greenAccent to-greenAccent rounded-xl py-[10px] my-2 flex flex-col items-center ${
         focused && "border border-solid border-black text "
       }`}
     >
