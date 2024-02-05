@@ -9,6 +9,7 @@ export const TodoForm = ({ addTask }: TodoFormProps) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!value.trim()) { return; }
     addTask(value);
     setValue("");
   };
@@ -16,11 +17,12 @@ export const TodoForm = ({ addTask }: TodoFormProps) => {
   return (
     <div className="p-4 m-4 rounded-md flex items-center hover:shadow-xl transition duration-300">
       <form action="" className="TodoForm" onSubmit={handleSubmit}>
-        <button className="mr-2 p-2 bg-slate-100 rounded-lg" type="submit">Add Task</button>
+        <button className="mr-2 p-2 bg-slate-100 rounded-lg hover:bg-greenAccent hover:text-white" type="submit">Add Task</button>
         <input
           type="text"
           className="outline-none"
           placeholder="What is the task today?"
+          value={value}
           onChange={(e) => setValue(e.target.value)}
         />
       </form>
