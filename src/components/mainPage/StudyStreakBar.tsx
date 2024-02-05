@@ -1,14 +1,41 @@
 import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-function TickBox() {
-  return <div className="bg-black rounded-full p-5 mx-2"></div>;
+interface TimeState {
+  time: number,
+  seconds: number,
+  minutes: number
 }
 
 function Bar() {
   const [open, setOpen] = useState(false);
   const [hovering, setHovering] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const [timeRemaining, setTimeRemaining] = useState<TimeState>({
+    time: 60, 
+    seconds: 0,
+    minutes: 1,
+  });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (timeRemaining.time <= 0) {
+        setTimeRemaining(prevTime => ({
+          time: 60,
+          minutes: 0,
+          seconds: 1
+        }));
+      }
+
+      setTimeRemaining(prevTime => ({
+        time: prevTime.time - 1,
+        minutes: Math.floor((prevTime.time - 1) / 60),
+        seconds: (prevTime.time - 1) % 60
+      }));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -26,8 +53,6 @@ function Bar() {
     };
   }, [dropdownRef]);
 
-  useEffect(() => {});
-
   return (
     <div className="flex flex-col items-center" ref={dropdownRef}>
       <motion.header
@@ -38,9 +63,17 @@ function Bar() {
         className="flex flex-col items-center h-16 w-[700px] rounded-xl m-5"
       >
         <motion.div
-          className="h-6 w-[600px] rounded-xl m-5"
+          className="h-6 w-[600px] rounded-xl m-5 flex z-[-1] justify-between"
           animate={{ backgroundColor: hovering || open ? "#333" : "#999" }}
-        />
+        >
+          <motion.div 
+            className="w-[400px] bg-green-600 rounded-xl"
+            initial={{ width: 0 }} 
+            animate={{ width: `${(timeRemaining.time / 60) * 100}%` }} 
+            transition={{ duration: 1, type: "tween", ease: "linear" }} 
+          />
+          <div className="z-[-1] text-white">{timeRemaining.minutes}:{timeRemaining.seconds}</div>
+        </motion.div>
       </motion.header>
       <AnimatePresence>
         {open && (
@@ -54,11 +87,8 @@ function Bar() {
             <div className="flex items-center">
               <p className="pr-1">Currently working on: </p>
               <span className="font-bold">Read Chapter 4</span>
-              <TickBox />
             </div>
             <div className="flex items-center">
-              <p className="px-1">Time Left:</p>
-              <span className="font-bold">2 hours</span>
             </div>
           </motion.div>
         )}
@@ -70,7 +100,7 @@ function Bar() {
 function StudyStreakBar() {
   return (
     <div className="flex justify-center">
-      <Bar></Bar>
+      <Bar/>
     </div>
   );
 }
