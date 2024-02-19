@@ -1,17 +1,18 @@
-import React from "react";
-import TopBar from "../components/mainPage/TopBar.tsx";
+import React, { useState } from "react";
+import TopBar from "../components/Utils/TopBar.tsx";
 import ControlsMenu from "../components/mainPage/ControlsMenu.tsx";
 import StudyStreakBar from "../components/mainPage/StudyStreakBar.tsx";
+import Authenticated from "./Authenticated.tsx";
+import Authenticator from "./Authenticator.tsx";
 
 function MainPage() {
+
+  const [authenticated, setAuthenticated] = useState(true); // sample code, will be removed with GlobalState
+
   return (
-    <div className="overflow-hidden">
-      <TopBar />
-      <div className="flex justify-center">
-        <ControlsMenu />
-      </div>
-      <StudyStreakBar />
-    </div>
+    <>
+      { authenticated ? <Authenticated/> : <Authenticator/> }
+    </>
   );
 }
 

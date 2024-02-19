@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import ControlMenuButton from "./ControlMenuButton";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { RiAlarmFill, RiBarChartBoxFill, RiBallPenFill } from "react-icons/ri";
 import ToDoControlComponent from "./ControlComponents/ToDoControlComponent";
 import ProgressControlComponent from "./ControlComponents/ProgressControlComponent";
@@ -39,23 +39,19 @@ function controlsMenu() {
 
   return (
     <div>
-      <div className="items-center flex">
+      <div className="justify-center items-center pl-8 flex">
         <div className="justify-center flex flex-col w-[320px] h-[300px] mx-12">
           <div
             ref={menuRef}
-            className={`grid ${
-              menuState === 0 ? "grid-rows-2" : "grid-rows-1"
-            } ${menuState === 0 ? "grid-cols-" : "grid-cols-2"}`}
+            className={`grid`}
           >
             <div
-              className={`flex flex-col justify-evenly items-center ${
-                menuState === 1 ? "col-span-full" : ""
-              }`}
-              style={{ order: menuState === 1 ? -1 : 1 }}
+              className={`flex flex-col justify-evenly items-center`}
               onClick={() => handleClick(1)}
             >
               {/* Component 1 */}
               <div onClick={() => handleClick(1)} className="rounded-xl" ref={menuRef}>
+                <AnimatePresence>
                 <ControlMenuButton
                   focused={menuState === 1}
                   defaultState={menuState === 0}
@@ -64,13 +60,11 @@ function controlsMenu() {
                   {[<RiBallPenFill/>, <ToDoControlComponent/>]}
 
                 </ControlMenuButton>
+                </AnimatePresence>
               </div>
             </div>
             <div
-              className={`flex flex-col justify-evenly items-center ${
-                menuState === 2 ? "col-span-full" : ""
-              }`}
-              style={{ order: menuState === 2 ? -1 : 1 }}
+              className={`flex flex-col justify-evenly items-center`}
               onClick={() => handleClick(2)}
             >
               {/* Component 2 */}
@@ -86,10 +80,7 @@ function controlsMenu() {
               </div>
             </div>
             <div
-              className={` flex flex-col justify-evenly items-center ${
-                menuState === 3 ? "col-span-full" : ""
-              }`}
-              style={{ order: menuState === 3 ? -1 : 1 }}
+              className={` flex flex-col justify-evenly items-center`}
               onClick={() => handleClick(3)}
             >
               {/* Component 3 */}

@@ -9,9 +9,10 @@ function ToDoControlComponent() {
           <p className="mr-2">previewTask</p>
         </div>
         <div className="flex items-center">
-          <button type="button" className="mr-2 underline">
+          
+          <a href="/todo" className="mr-2 underline">
             Edit
-          </button>
+          </a>
         </div>
       </div>
     </div>
