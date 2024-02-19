@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 export interface ControlMenuButtonProps {
   focused: boolean;
@@ -17,7 +17,7 @@ function ControlMenuButton({
   return (
     <motion.div
       animate={{
-        width: focused || defaultState ? 300 : 150,
+        width: focused || defaultState ? 300 : 300,
         height: focused ? 200 : 100,
       }}
       transition={{ duration: 0.3 }}
@@ -27,7 +27,6 @@ function ControlMenuButton({
     >
       <motion.div
         layout
-        initial={{ borderRadius: 10 }}
         className={`flex my-7 text-center justify-center transition-colors rounded-xl items-center
         `}
       >
@@ -36,8 +35,7 @@ function ControlMenuButton({
             <div className={`${"flex items-center justify-center"}`}>
               <div className="mr-2 text-3xl">{children && children[0]}</div>
             </div>
-            {(focused || defaultState) && (
-              <AnimatePresence>
+            {(
                 <div className="flex justify-center">
                   <motion.h1
                     initial={{ x: "-100%", opacity: 0 }}
@@ -48,7 +46,6 @@ function ControlMenuButton({
                     {buttonName}
                   </motion.h1>
                 </div>
-              </AnimatePresence>
             )}
           </div>
           {focused && (
