@@ -8,8 +8,13 @@ function topBar() {
         <UserMenu />
       </div>
       <div className="flex items-center px-8 py-10">
-        <div className="px-2 text-xl font-bold">TickBox</div>
-        <div className="bg-black rounded-full p-5"></div>
+        <a href="/">
+        <img
+          src="src/assets/Tickbox Logo White Full.svg"
+          alt="Logo"
+          className="w-auto h-[60px]"
+        />
+        </a>
       </div>
     </div>
   );

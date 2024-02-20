@@ -1,9 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TodoForm } from "./TodoForm";
 import { Todo } from "./Todo";
+import { useAtom } from "jotai";
+import { topTodoItem } from "../../App";
 
 export const TodoWrapper = () => {
   const [tasks, setTasks] = useState<{ id: number; text: string; completed: boolean; }[]>([]);
+  const [topTask, setTopTask] = useAtom(topTodoItem);
+
+  useEffect(() => {
+    if (tasks.length > 0) {
+      const newTopTask = tasks[0].text
+      setTopTask(newTopTask)
+    }
+    
+    
+  }, [tasks])
 
   const addTask = (text: string) => {
     const newTask = {

@@ -75,7 +75,8 @@ function UserMenu() {
               <div className="grid divide-y-2 rounded-t-xl rounded-b-xl">
                 <MenuItem itemName="Add Friends" top={true} />
                 <MenuItem itemName="Add Modules" />
-                <MenuItem itemName="Settings" bottom={true} />
+                <MenuItem itemName="Settings"/>
+                <MenuItem itemName="Logout" bottom={true}/>
               </div>
             </motion.div>
           )}

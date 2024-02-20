@@ -50,8 +50,8 @@ function controlsMenu() {
               onClick={() => handleClick(1)}
             >
               {/* Component 1 */}
-              <div onClick={() => handleClick(1)} className="rounded-xl" ref={menuRef}>
-                <AnimatePresence>
+              <div onClick={() => handleClick(1)} className="rounded-xl" ref={menuRef} >
+                
                 <ControlMenuButton
                   focused={menuState === 1}
                   defaultState={menuState === 0}
@@ -60,7 +60,7 @@ function controlsMenu() {
                   {[<RiBallPenFill/>, <ToDoControlComponent/>]}
 
                 </ControlMenuButton>
-                </AnimatePresence>
+                
               </div>
             </div>
             <div
