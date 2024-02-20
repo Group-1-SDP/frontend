@@ -31,7 +31,7 @@ function ControlMenuButton({
         `}
       >
         <div className="items-center">
-          <div className="flex items-center">
+          <motion.div className="flex items-center" layout="position">
             <div className={`${"flex items-center justify-center"}`}>
               <div className="mr-2 text-3xl">{children && children[0]}</div>
             </div>
@@ -47,7 +47,7 @@ function ControlMenuButton({
                   </motion.h1>
                 </div>
             )}
-          </div>
+          </motion.div>
           {focused && (
             <div className="py-10">
               <motion.h1
