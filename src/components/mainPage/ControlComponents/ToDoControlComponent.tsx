@@ -1,12 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useAtom } from "jotai";
+import { topTodoItem } from "../../../App";
 
 function ToDoControlComponent() {
+
+  const [topTodo, setTopTodo] = useAtom(topTodoItem);
+  const [ticked, setTicked] = useState(false)
+
+  const handleTick = () => {
+    const newTickedState = ticked ? false : true;
+    setTicked(newTickedState);
+    if (ticked) {
+      setTopTodo("")
+      setTicked(false)
+    }
+  }
+
+  useEffect(() => {
+    if (ticked) {
+      setTopTodo("")
+      console.log(topTodo)
+    }
+  }, [])
+  
   return (
     <div className="">
-      <div className="p-4 m-4 rounded-md flex items-center justify-between hover:bg-gray-300 transition duration-300">
+      <div className="px-4 py-2 mx-4 rounded-md flex items-center justify-between hover:bg-gray-300 transition duration-300">
         <div className="flex items-center">
-          <input type="checkbox" className="mr-2" />
-          <p className="mr-2">previewTask</p>
+          <input type="checkbox" className="mr-2" checked={ticked} onClick={handleTick}/>
+          <button onClick={handleTick} className={`mr-2 ${ticked && "line-through"}`}>{topTodo === "" ? "No Tasks." : topTodo}</button>
         </div>
         <div className="flex items-center">
           
