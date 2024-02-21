@@ -4,14 +4,19 @@ import ControlsMenu from "../components/mainPage/ControlsMenu.tsx";
 import StudyStreakBar from "../components/mainPage/StudyStreakBar.tsx";
 import Authenticated from "./Authenticated.tsx";
 import Authenticator from "./Authenticator.tsx";
+import { useAtom } from "jotai";
+import { authenticated } from "../App.tsx";
+import { atom } from 'jotai';
+
+export const topTodoItem = atom("");
 
 function MainPage() {
 
-  const [authenticated, setAuthenticated] = useState(true); // sample code, will be removed with GlobalState
+  const [userAuthenticated] = useAtom(authenticated)
 
   return (
     <>
-      { authenticated ? <Authenticated/> : <Authenticator/> }
+      { userAuthenticated ? <Authenticated/> : <Authenticator/> }
     </>
   );
 }

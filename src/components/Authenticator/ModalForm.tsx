@@ -1,7 +1,15 @@
+import { useAtom } from 'jotai';
 import { FaRegUser } from 'react-icons/fa';
 import { RiLockPasswordLine } from 'react-icons/ri';
+import { authenticated } from '../../App';
 
 function Form(){
+    const [userAuthenticated, setUserAuthenticated] = useAtom(authenticated)
+    const handleConnect = () => {
+        const newAuthState = userAuthenticated === false ? true : false
+        setUserAuthenticated(newAuthState)
+    }
+
     return(
         <form>
             <div className="mb-6">
@@ -23,7 +31,7 @@ function Form(){
                 </div>
             </div>
             <div className='flex justify-center'>
-                <button type="submit" className="text-white text-ml font-medium rounded-md px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700">
+                <button onClick={handleConnect} className="text-white text-ml font-medium rounded-md px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700">
                     Connect
                 </button>
             </div>

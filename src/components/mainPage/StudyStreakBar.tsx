@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useAtom } from "jotai";
+import { topTodoItem } from "../../App";
 
 interface TimeState {
   time: number,
@@ -8,6 +10,7 @@ interface TimeState {
 }
 
 function Bar() {
+  const [topTodo] = useAtom(topTodoItem);
   const [open, setOpen] = useState(false);
   const [hovering, setHovering] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
@@ -19,14 +22,7 @@ function Bar() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      if (timeRemaining.time <= 0) {
-        setTimeRemaining(prevTime => ({
-          time: 60,
-          minutes: 0,
-          seconds: 1
-        }));
-      }
-
+      
       setTimeRemaining(prevTime => ({
         time: prevTime.time - 1,
         minutes: Math.floor((prevTime.time - 1) / 60),
@@ -69,7 +65,7 @@ function Bar() {
           <motion.div 
             className="w-[400px] bg-green-600 rounded-xl"
             initial={{ width: 0 }} 
-            animate={{ width: `${(timeRemaining.time / 60) * 100}%` }} 
+            animate={{ width: `${(60 - timeRemaining.time / 60) * 100}%` }} 
             transition={{ duration: 1, type: "tween", ease: "linear" }} 
           />
           <div className="z-[-1] text-white">{timeRemaining.minutes}:{timeRemaining.seconds}</div>
@@ -85,8 +81,8 @@ function Bar() {
             transition={{ duration: 0.5 }}
           >
             <div className="flex items-center">
-              <p className="pr-1">Currently working on: </p>
-              <span className="font-bold">Read Chapter 4</span>
+              <p className="pr-1">Current Task: </p>
+              <span className="font-bold">{topTodo}</span>
             </div>
             <div className="flex items-center">
             </div>
