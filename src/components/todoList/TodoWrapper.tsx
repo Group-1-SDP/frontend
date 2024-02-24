@@ -9,9 +9,7 @@ export const TodoWrapper = () => {
   const [topTask, setTopTask] = useAtom(topTodoItem);
   const rootAPIEndpoint = 'https://fantastic-broccoli-p6jp6jjvpvwhrj5x-5000.app.github.dev/api/';
 
-  //Debug
-  console.log('TodoWrapper Initialized.')
-
+  // Debug
   useEffect(() => {
     fetch(rootAPIEndpoint + 'isAlive', {
       method: 'GET',
@@ -37,6 +35,8 @@ export const TodoWrapper = () => {
     })
       .then(response => response.json())
       .then(data => {
+        // Debug
+        console.log("Data from getUserTasks: ", data);
         const formattedTasks = data.map((task: any) => ({
           id: task.task_id,
           text: task.contents,
