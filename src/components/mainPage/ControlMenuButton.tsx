@@ -1,5 +1,7 @@
 import React, { ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { phoneConnectedState } from "../../App";
+import { useAtom } from "jotai";
 
 export interface ControlMenuButtonProps {
   focused: boolean;
@@ -14,16 +16,20 @@ function ControlMenuButton({
   buttonName,
   children,
 }: ControlMenuButtonProps) {
+
+  const [phoneConnected] = useAtom(phoneConnectedState);
+
   return (
     <motion.div
       layout="position"
       animate={{
         width: 300,
         height: focused ? 200 : 100,
+        backgroundColor: phoneConnected ? '#8bae9d' : '#d0ded7'
       }}
       transition={{ duration: 0.3 }}
       className={`bg-gray-200 rounded-xl py-[10px] my-2 flex flex-col items-center ${
-        focused ? "border border-solid border-black text " : "bg-gray-300"
+        focused && "border border-solid border-black text "
       }`}
     >
       <motion.div
