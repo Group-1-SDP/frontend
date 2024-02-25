@@ -74,8 +74,9 @@ function UserMenu() {
               transition={{ duration: 0.5 }}
             >
               <div className="grid divide-y-2 rounded-t-xl rounded-b-xl">
-                <MenuItem itemName="Add Friends" path="/friends" top={true} />
-                <MenuItem itemName="Add Modules" path="/modules" />
+                <MenuItem itemName="Profile" path="/profile" top={true} />
+                <MenuItem itemName="Friends" path="/friends"/>
+                <MenuItem itemName="Modules" path="/modules" />
                 <MenuItem itemName="Settings" path="/settings" />
                 <MenuItem itemName="Logout" path="/logout" bottom={true}/>
               </div>

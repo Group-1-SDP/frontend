@@ -1,21 +1,28 @@
-import React from 'react'
+import React from "react";
+import { motion } from "framer-motion";
 
 interface StatBoxProps {
-    statName: string;
-    stat: number;
+  statName: string;
+  stat: number;
 }
 
 function StatBox({ statName, stat }: StatBoxProps) {
   return (
-    <div
-      className={`p-4 m-4 rounded-md flex items-center justify-between hover:bg-gray-100 transition duration-300`}
+    <motion.div
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{
+        duration: 0.2,
+        ease: [0, 0.71, 0.2, 1.01],
+      }}
+      className={`p-4 m-4 rounded-md flex-grow flex items-center justify-between bg-gray-100 hover:bg-gray-200 transition duration-300`}
     >
-      <div className="flex items-center">
-        <p className={`mr-2`}>{statName}</p>
-        <p className={`mr-2`}>{stat}</p>
+      <div className="">
+        <p className={``}>{statName}</p>
+        <p className={`font-semibold text-2xl`}>{stat}</p>
       </div>
-    </div>
-  )
+    </motion.div>
+  );
 }
 
-export default StatBox
+export default StatBox;

@@ -12,7 +12,7 @@ const profile = {
 
 function ProfileWrapper() {
   return (
-    <div>
+    <div className='mx-20 flex justify-between'>
         <ProfileBox name={profile.name} username={profile.username} />
         <StatBox statName="Tasks Set" stat={profile.tasksSet} />
         <StatBox statName="Tasks Completed" stat={profile.tasksCompleted} />
