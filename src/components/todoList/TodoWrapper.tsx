@@ -7,7 +7,45 @@ import { topTodoItem } from "../../App";
 export const TodoWrapper = () => {
   const [tasks, setTasks] = useState<{ id: number; text: string; completed: boolean; }[]>([]);
   const [topTask, setTopTask] = useAtom(topTodoItem);
+  const rootAPIEndpoint = 'https://fantastic-broccoli-p6jp6jjvpvwhrj5x-5000.app.github.dev/api/';
 
+  // Debug
+  useEffect(() => {
+    fetch(rootAPIEndpoint + 'isAlive', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+      });
+  })
+
+  useEffect(() => {
+    fetch(rootAPIEndpoint + 'getUserTasks', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: 'test_username'
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Debug
+        console.log("Data from getUserTasks: ", data);
+        const formattedTasks = data.map((task: any) => ({
+          id: task.task_id,
+          text: task.contents,
+          completed: task.completed
+        }));
+        setTasks(formattedTasks);
+      });
+  })
+  
   useEffect(() => {
     if (tasks.length > 0) {
       const newTopTask = tasks[0].text
