@@ -6,14 +6,18 @@ import { TodoList } from "./views/TodoList";
 import { atom, useAtom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 import { io } from "socket.io-client";
-import { Socket } from 'socket.io-client';
+import { Socket } from "socket.io-client";
+import FriendsPage from "./views/FriendsPage";
+import ProfilePage from "./views/ProfilePage";
 
 export const topTodoItem = atomWithStorage("topTodo", "");
 export const authenticated = atomWithStorage("userAuth", false);
-export const phoneConnectedState = atomWithStorage("phoneConnectedState", false);
+export const phoneConnectedState = atomWithStorage(
+  "phoneConnectedState",
+  false
+);
 
 function App() {
-
   const [socket, setSocket] = useState<Socket | null>(null);
   const [socketConnected, setSocketConnected] = useState(false);
   const [phoneConnected, setPhoneConnected] = useAtom(phoneConnectedState);
@@ -24,7 +28,7 @@ function App() {
 
     return () => {
       newSocket.disconnect();
-    }
+    };
   }, []);
 
   useEffect(() => {
@@ -32,20 +36,20 @@ function App() {
       socket.on("connect", () => {
         console.log("connected");
         setSocketConnected(true);
-      })
+      });
 
       socket.on("disconnect", () => {
         console.log("disconnected!");
         setSocketConnected(false);
-      })
+      });
 
       socket.on("phoneConnected", () => {
         setPhoneConnected(true);
-      })
+      });
 
       socket.on("phoneDisconnected", () => {
         setPhoneConnected(false);
-      })
+      });
     }
 
     return () => {
@@ -54,16 +58,17 @@ function App() {
         socket.off("disconnect");
         socket.off("phoneConnected");
       }
-    }
-  }, [socket])
- 
+    };
+  }, [socket]);
+
   return (
     <>
-    
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="todo" element={<TodoList />} />
+          <Route path="friends" element={<FriendsPage />} />
+          <Route path="profile" element={<ProfilePage />} />
         </Routes>
       </BrowserRouter>
     </>
