@@ -9,6 +9,7 @@ import { io } from "socket.io-client";
 import { Socket } from "socket.io-client";
 import FriendsPage from "./views/FriendsPage";
 import ProfilePage from "./views/ProfilePage";
+import ModulesPage from './components/Modules/ModulesPage';
 
 export const topTodoItem = atomWithStorage("topTodo", "");
 export const authenticated = atomWithStorage("userAuth", false);
@@ -69,6 +70,7 @@ function App() {
           <Route path="todo" element={<TodoList />} />
           <Route path="friends" element={<FriendsPage />} />
           <Route path="profile" element={<ProfilePage />} />
+          <Route path="modules" element={<ModulesPage/>}/>
         </Routes>
       </BrowserRouter>
     </>
