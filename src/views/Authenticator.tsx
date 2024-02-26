@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import Icon from '../components/Authenticator/Icon';
-import Image from '../components/Authenticator/Image';
+import Model from '../components/Authenticator/Model';
 import Modal from '../components/Authenticator/Modal';
 import ConnectButton from '../components/Authenticator/OpenModal';
 
 const Authenticator = () => {
+  const canvasRef = useRef(null);
+
   const [modalVisible, setModalVisible] = useState(false);
 
   const openModal = () => {
@@ -16,21 +18,18 @@ const Authenticator = () => {
   };
 
   return (
-  <>
-    <div className='space-y-20'>
+    <>
+    <div style={{ position: 'relative', zIndex: '1' }}>
       <Icon/>
-
-      <div className='space-y-5'>
-        <Image/>
-
-        <div className='flex justify-center'>
+      <div className="fixed inset-x-0 bottom-20 pb-20">
           <ConnectButton onClick={openModal}/>
-        </div>
       </div>
-    </div>
-
-    <Modal modalVisible={modalVisible} closeModal={closeModal} />
-  </>
+      <Modal modalVisible={modalVisible} closeModal={closeModal} /> 
+    </div>  
+      <canvas ref={canvasRef} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0">
+      </canvas>
+      <Model canvasRef={canvasRef} width={1920} height={1080} />
+    </>
   )
 }
 
