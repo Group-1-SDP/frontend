@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import ControlMenuButton from "./ControlMenuButton";
+import Model from "../Authenticator/Model";
 import { AnimatePresence, motion } from "framer-motion";
 import { RiAlarmFill, RiBarChartBoxFill, RiBallPenFill } from "react-icons/ri";
 import ToDoControlComponent from "./ControlComponents/ToDoControlComponent";
@@ -7,6 +8,8 @@ import ProgressControlComponent from "./ControlComponents/ProgressControlCompone
 import SetTimerControlComponent from "./ControlComponents/SetTimerControlComponent";
 
 function controlsMenu() {
+  const canvasRef = useRef(null);
+
   const menuRef = useRef<HTMLDivElement | null>(null);
   const [menuState, setMenuState] = useState<number>(0);
 
@@ -97,9 +100,9 @@ function controlsMenu() {
           </div>
         </div>
 
-        <div className="flex-shrink-0 ">
-          <img src="https://placehold.co/600x400"></img>
-        </div>
+        <canvas ref={canvasRef} className="flex-shrink-0  z-0">
+        </canvas>
+        <Model canvasRef={canvasRef} width={600} height={400} />
       </div>
     </div>
   );

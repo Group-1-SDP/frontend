@@ -15,6 +15,7 @@ function App() {
     <>
     <BrowserRouter>
       <Routes>
+        <Route path="login" element={<Authenticator/>}/>
         <Route path="/" element={<MainPage/>}/>
         <Route path="todo" element={<TodoList/>}/>
       </Routes>
