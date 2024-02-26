@@ -10,11 +10,11 @@ function controlsMenu() {
   const menuRef = useRef<HTMLDivElement | null>(null);
   const [menuState, setMenuState] = useState<number>(0);
 
+
   // handler to close menu when clicked outside the component
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        console.log("click");
         setMenuState(0);
       }
     };
