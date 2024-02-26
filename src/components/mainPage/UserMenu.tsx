@@ -3,13 +3,14 @@ import { AnimatePresence, motion } from "framer-motion";
 
 export interface MenuItemProps {
   itemName: string;
+  path: string;
   top?: boolean;
   bottom?: boolean;
 }
 
-function MenuItem({ itemName, top, bottom }: MenuItemProps) {
+function MenuItem({ itemName, path, top, bottom }: MenuItemProps) {
   return (
-    <div
+    <a href={path}
       className={
         "pl-3 py-2 border-white hover:bg-gray-300 transition-colors w-full " +
         (top ? "rounded-t-xl " : "") +
@@ -17,7 +18,7 @@ function MenuItem({ itemName, top, bottom }: MenuItemProps) {
       }
     >
       {itemName}
-    </div>
+    </a>
   );
 }
 
@@ -73,10 +74,11 @@ function UserMenu() {
               transition={{ duration: 0.5 }}
             >
               <div className="grid divide-y-2 rounded-t-xl rounded-b-xl">
-                <MenuItem itemName="Add Friends" top={true} />
-                <MenuItem itemName="Add Modules" />
-                <MenuItem itemName="Settings"/>
-                <MenuItem itemName="Logout" bottom={true}/>
+                <MenuItem itemName="Profile" path="/profile" top={true} />
+                <MenuItem itemName="Friends" path="/friends"/>
+                <MenuItem itemName="Modules" path="/modules" />
+                <MenuItem itemName="Settings" path="/settings" />
+                <MenuItem itemName="Logout" path="/logout" bottom={true}/>
               </div>
             </motion.div>
           )}
