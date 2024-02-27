@@ -18,42 +18,12 @@ export const TodoWrapper = () => {
     { id: string; text: string; completed: boolean }[]
   >([]);
   const [topTask, setTopTask] = useAtom(topTodoItem);
-  const APIroot = "http://172.21.12.173:5000/api/";
+  const APIroot = "http://localhost:5000/api/";
 
   useEffect(() => {
-    const fetchUserTasks = async () => {
-      try {
-        const response = await fetch(APIroot + "getIncompleteUserTasks", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: "testusername",
-          }),
-        });
-        if (!response.ok) {
-          throw new Error("Failed to fetch user tasks");
-        }
-        const apiResponse = await response.json();
-        const data = apiResponse.tasks;
 
-        if (Array.isArray(data)) {
-          const formattedTasks = data.map((task: any) => ({
-            id: task.task_id,
-            text: task.contents,
-            completed: task.completed,
-          }));
-          setTasks(formattedTasks);
-        } else {
-          console.error("Data received from server is not an array:", data);
-        }
-      } catch (error) {
-        console.error("Error fetching user tasks:", error);
-      }
-    };
 
-    fetchUserTasks();
+    
   }, []);
 
   useEffect(() => {

@@ -24,7 +24,7 @@ function App() {
   const [phoneConnected, setPhoneConnected] = useAtom(phoneConnectedState);
 
   useEffect(() => {
-    const newSocket = io("http://localhost:5000");
+    const newSocket = io("https://studious-lamp-p45x777q9rp27gx5-5000.app.github.dev");
     setSocket(newSocket);
 
     return () => {

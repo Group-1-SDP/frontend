@@ -1,7 +1,9 @@
+import { useAtom } from 'jotai';
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/Addons.js';
+import { phoneConnectedState } from '../../App';
 
 interface ModelProps {
     canvasRef: React.RefObject<HTMLCanvasElement>; 
@@ -10,6 +12,8 @@ interface ModelProps {
 }
 
 function Model({ canvasRef, width, height }: ModelProps) {
+
+    const [phoneConnected, setPhoneConnected] = useAtom(phoneConnectedState);
 
     useEffect(() => {
         if(!canvasRef.current){
@@ -20,7 +24,8 @@ function Model({ canvasRef, width, height }: ModelProps) {
 
         // Camera
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.z = 5;
+        camera.position.z = 3;
+        camera.position.y = 1.2;
 
         // Renderer
         const renderer = new THREE.WebGLRenderer({
@@ -40,6 +45,7 @@ function Model({ canvasRef, width, height }: ModelProps) {
         const loader = new GLTFLoader();
         loader.load('src/assets/tickbox1.glb', function (gltf) {
             const model = gltf.scene;
+            model.rotateY(-Math.PI / 1.6);
             scene.add(model);
             mixer = new THREE.AnimationMixer(model);
             const clips = gltf.animations;
@@ -48,15 +54,11 @@ function Model({ canvasRef, width, height }: ModelProps) {
             tickboxAction.setLoop( THREE.LoopOnce, 1 );
             phoneAction.setLoop( THREE.LoopOnce, 1 );
 
-            window.addEventListener('click', () => {
-                if(tickboxAction.isRunning() || phoneAction.isRunning()){
-                    return;
-                }
-                tickboxAction.reset().play();
-                tickboxAction.clampWhenFinished = true;
+            if (phoneConnected) {
                 phoneAction.reset().play();
                 phoneAction.clampWhenFinished = true;
-            });
+            }
+        
         });
 
         // Animation Loop
@@ -68,7 +70,7 @@ function Model({ canvasRef, width, height }: ModelProps) {
             renderer.render(scene, camera);
         };
         animate();
-    }, [width, height, canvasRef]);
+    }, [width, height, canvasRef, phoneConnected]);
 
     return (
         null
