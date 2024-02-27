@@ -20,7 +20,8 @@ function Model({ canvasRef, width, height }: ModelProps) {
 
         // Camera
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.z = 5;
+        camera.position.z = 3;
+        camera.position.y = 1.2;
 
         // Renderer
         const renderer = new THREE.WebGLRenderer({
@@ -40,6 +41,7 @@ function Model({ canvasRef, width, height }: ModelProps) {
         const loader = new GLTFLoader();
         loader.load('src/assets/tickbox1.glb', function (gltf) {
             const model = gltf.scene;
+            model.rotateY(-Math.PI / 1.6);
             scene.add(model);
             mixer = new THREE.AnimationMixer(model);
             const clips = gltf.animations;

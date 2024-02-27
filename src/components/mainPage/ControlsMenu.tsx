@@ -100,9 +100,9 @@ function controlsMenu() {
           </div>
         </div>
 
-        <canvas ref={canvasRef} className="flex-shrink-0  z-0">
+        <canvas ref={canvasRef} className="flex-shrink-0">
         </canvas>
-        <Model canvasRef={canvasRef} width={600} height={400} />
+        <Model canvasRef={canvasRef} width={640} height={480} />
       </div>
     </div>
   );

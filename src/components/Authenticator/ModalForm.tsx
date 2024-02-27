@@ -41,7 +41,7 @@ function Form(){
                 </label>
                 <div className="relative">
                     <FaRegUser size={20} color='lightgray' className="absolute top-1/2 -translate-y-1/2 left-3"/>
-                    <input value = {username} onChange ={(e) => setUsername(e.target.value)} name='username' type="text" id="large-input" className="pl-10 block w-full p-4 rounded-lg dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder='Enter your Username'/>
+                    <input value = {username} onChange ={(e) => setUsername(e.target.value)} name='username' type="text" className="pl-10 block w-full p-4 rounded-lg dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder='Enter your Username'/>
                 </div>
             </div>
             <div className="mb-6 relative">
@@ -50,7 +50,7 @@ function Form(){
                 </label>
                 <div className="relative">
                     <RiLockPasswordLine size={20} color='lightgray' className="absolute top-1/2 -translate-y-1/2 left-3"/>
-                    <input value = {password} onChange ={(e) => setPassword(e.target.value)} name='password' type="password" id="large-input" className="pl-10 block w-full p-4 rounded-lg dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder='Enter your password'/>
+                    <input value = {password} onChange ={(e) => setPassword(e.target.value)} name='password' type="password" className="pl-10 block w-full p-4 rounded-lg dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder='Enter your password'/>
                 </div>
             </div>
             <div className='flex justify-center'>
