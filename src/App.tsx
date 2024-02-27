@@ -24,7 +24,7 @@ function App() {
   const [phoneConnected, setPhoneConnected] = useAtom(phoneConnectedState);
 
   useEffect(() => {
-    const newSocket = io("ws://localhost:5000");
+    const newSocket = io("http://localhost:5000");
     setSocket(newSocket);
 
     return () => {

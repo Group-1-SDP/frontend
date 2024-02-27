@@ -1,15 +1,15 @@
 import React from "react";
 
 export interface Task {
-  id: number;
+  id: string;
   text: string;
   completed: boolean;
 }
 
 interface TodoProps {
   task: Task;
-  deleteTask: (id: number) => void;
-  toggleCompleted: (id: number) => void;
+  deleteTask: (id: string) => void;
+  toggleCompleted: (id: string) => void;
 }
 
 export const Todo = ({ task, deleteTask, toggleCompleted }: TodoProps) => {
