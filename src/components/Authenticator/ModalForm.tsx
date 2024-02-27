@@ -10,8 +10,6 @@ function Form(){
     const [password, setPassword] = useState('');
 
     const handleConnect = async (event: { preventDefault: () => void; }) => {
-        //const newAuthState = userAuthenticated === false ? true : false
-        //setUserAuthenticated(newAuthState)
         
         event.preventDefault();
 
@@ -25,10 +23,11 @@ function Form(){
                 username: username,
                 password: password
             }),
-        }).then(() => {
-            const newAuthState = userAuthenticated === false ? true : false
-            setUserAuthenticated(newAuthState)
         });
+        if (response.status === 200) {
+            const newAuthState = !userAuthenticated;
+            setUserAuthenticated(newAuthState);
+        }
         } catch (error) {
         console.error('Error:', error);
         }
