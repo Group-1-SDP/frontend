@@ -2,13 +2,37 @@ import { useAtom } from 'jotai';
 import { FaRegUser } from 'react-icons/fa';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { authenticated } from '../../App';
+import { useState } from 'react';
 
 function Form(){
     const [userAuthenticated, setUserAuthenticated] = useAtom(authenticated)
-    const handleConnect = () => {
-        const newAuthState = userAuthenticated === false ? true : false
-        setUserAuthenticated(newAuthState)
-    }
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleConnect = async (event: { preventDefault: () => void; }) => {
+        //const newAuthState = userAuthenticated === false ? true : false
+        //setUserAuthenticated(newAuthState)
+        
+        event.preventDefault();
+
+        try {
+            const response = await fetch('http://127.0.0.1:5000/api/login', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password
+            }),
+        }).then(() => {
+            const newAuthState = userAuthenticated === false ? true : false
+            setUserAuthenticated(newAuthState)
+        });
+        } catch (error) {
+        console.error('Error:', error);
+        }
+    };
 
     return(
         <form>
@@ -18,7 +42,7 @@ function Form(){
                 </label>
                 <div className="relative">
                     <FaRegUser size={20} color='lightgray' className="absolute top-1/2 -translate-y-1/2 left-3"/>
-                    <input type="text" id="large-input" className="pl-10 block w-full p-4 rounded-lg dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder='Enter your TickBox ID'/>
+                    <input value = {username} onChange ={(e) => setUsername(e.target.value)} name='username' type="text" id="large-input" className="pl-10 block w-full p-4 rounded-lg dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder='Enter your Username'/>
                 </div>
             </div>
             <div className="mb-6 relative">
@@ -27,11 +51,11 @@ function Form(){
                 </label>
                 <div className="relative">
                     <RiLockPasswordLine size={20} color='lightgray' className="absolute top-1/2 -translate-y-1/2 left-3"/>
-                    <input type="password" id="large-input" className="pl-10 block w-full p-4 rounded-lg dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder='Enter your password'/>
+                    <input value = {password} onChange ={(e) => setPassword(e.target.value)} name='password' type="password" id="large-input" className="pl-10 block w-full p-4 rounded-lg dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder='Enter your password'/>
                 </div>
             </div>
             <div className='flex justify-center'>
-                <button onClick={handleConnect} className="text-white text-ml font-medium rounded-md px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700">
+                <button type='submit' onClick={handleConnect} className="text-white text-ml font-medium rounded-md px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700">
                     Connect
                 </button>
             </div>

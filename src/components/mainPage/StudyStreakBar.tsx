@@ -15,23 +15,27 @@ function Bar() {
   const [hovering, setHovering] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const [timeRemaining, setTimeRemaining] = useState<TimeState>({
-    time: 60, 
+    time: 5, 
     seconds: 0,
-    minutes: 1,
+    minutes: 0,
   });
 
   useEffect(() => {
     const timer = setInterval(() => {
       
-      setTimeRemaining(prevTime => ({
-        time: prevTime.time - 1,
-        minutes: Math.floor((prevTime.time - 1) / 60),
-        seconds: (prevTime.time - 1) % 60
-      }));
+      if (timeRemaining.time === 0) {
+        clearInterval(timer);
+      } else {
+        setTimeRemaining(prevTime => ({
+          time: prevTime.time - 1,
+          minutes: Math.floor((prevTime.time - 1) / 60),
+          seconds: (prevTime.time - 1) % 60
+        }));
+      }
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  });
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
