@@ -12,7 +12,7 @@ function MainPage() {
 
   return (
     <>
-      { userAuthenticated ? <Authenticator/> : <Authenticator/> }
+      { userAuthenticated ? <Authenticated/> : <Authenticator/> }
     </>
   );
 }

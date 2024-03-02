@@ -30,6 +30,7 @@ function RegisterForm(){
             const newAuthState = !userAuthenticated;
             setUserAuthenticated(newAuthState);
         }
+        console.log(response.status);
         } catch (error) {
         console.error('Error:', error);
         }
