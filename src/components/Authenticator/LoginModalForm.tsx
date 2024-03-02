@@ -37,7 +37,7 @@ function LoginForm(){
     return(
         <form>
             <div className="mb-6">
-                <label className="block mb-2 text-xl font-medium">
+                <label className="block mb-1 text-xl font-medium">
                     Username
                 </label>
                 <div className="relative">
@@ -46,7 +46,7 @@ function LoginForm(){
                 </div>
             </div>
             <div className="mb-6 relative">
-                <label className="block mb-2 text-xl font-medium">
+                <label className="block mb-1 text-xl font-medium">
                     Password
                 </label>
                 <div className="relative">

@@ -37,8 +37,8 @@ function RegisterForm(){
 
     return(
         <form>
-            <div className="mb-4">
-                <label className="block mb-2 text-xl font-medium">
+            <div>
+                <label className="block text-xl font-medium mb-1">
                     Username
                 </label>
                 <div className="relative">
@@ -47,8 +47,8 @@ function RegisterForm(){
                 </div>
             </div>
 
-            <div className="mb-4">
-                <label className="block mb-2 text-xl font-medium">
+            <div>
+                <label className="block text-xl font-medium mt-6 mb-1">
                     Email
                 </label>
                 <div className="relative">
@@ -57,8 +57,8 @@ function RegisterForm(){
                 </div>
             </div>
 
-            <div className="mb-4 relative">
-                <label className="block mb-2 text-xl font-medium">
+            <div>
+                <label className="block mt-6 mb-1 text-xl font-medium ">
                     Password
                 </label>
                 <div className="relative">
@@ -69,7 +69,7 @@ function RegisterForm(){
                 </div>
             </div>
 
-            <div className='flex justify-center'>
+            <div className='flex justify-center mt-6'>
                 <button type='submit' onClick={handleConnect} className="text-white text-xl font-medium block w-full p-3 rounded-lg text-center dark:bg-green-800 dark:hover:bg-green-900">
                     Register
                 </button>

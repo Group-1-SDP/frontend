@@ -28,7 +28,7 @@ function Model({ canvasRef, width, height }: ModelProps) {
       0.1,
       1000
     );
-    camera.position.z = 3;
+    camera.position.z = 2.7;
     camera.position.y = 1.2;
 
     // Renderer
@@ -85,6 +85,10 @@ function Model({ canvasRef, width, height }: ModelProps) {
         phoneAction.time = phoneAction.getClip().duration;
       }
     });
+
+    const axesHelper = new THREE.AxesHelper( 5 );
+    axesHelper.setColors(0x00ff00,0xff0000,0x0000ff)
+    scene.add( axesHelper );
 
     // Animation Loop
     const clock = new THREE.Clock();

@@ -23,8 +23,10 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ registerModalVisible, clo
                 <div className='text-4xl font-bold'>Registration</div>
                 <RegisterForm/>
             </div>
-            <div className='flex justify-end text-sm text-blue-700 mt-2'>
-                <button onClick={openLoginModal}>Already have an account?</button>
+            <div className='flex justify-center text-base mt-2'>
+                Already have an account?
+                &nbsp;
+                <button className="text-blue-700" onClick={openLoginModal}>Sign in</button>
             </div>
             <button onClick={closeRegisterModal} className="text-gray-600 hover:text-gray-800 absolute top-3 right-3" type="button">
                 <ImCross size={20}/>

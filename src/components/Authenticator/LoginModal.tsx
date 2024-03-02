@@ -23,8 +23,10 @@ const LoginModal: React.FC<LoginModalProps> = ({ loginModalVisible, closeLoginMo
             </div>
             <div className='text-4xl font-bold'>Login</div>
             <LoginForm/>
-            <div className='flex justify-center text-sm text-blue-700 mt-2'>
-                <button onClick={openRegisterModal}>Create an account</button>
+            <div className='flex justify-center text-base mt-2'>
+              Dont have an account?
+              &nbsp;
+              <button className='text-blue-700' onClick={openRegisterModal}>Sign Up</button>
             </div>
           </div>
           <button onClick={closeLoginModal} className="text-gray-600 hover:text-gray-800 absolute top-3 right-3" type="button">
