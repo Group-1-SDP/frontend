@@ -4,7 +4,7 @@ import { RiLockPasswordLine } from 'react-icons/ri';
 import { authenticated } from '../../App';
 import { useState } from 'react';
 
-function Form(){
+function LoginForm(){
     const [userAuthenticated, setUserAuthenticated] = useAtom(authenticated)
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -27,6 +27,7 @@ function Form(){
         if (response.status === 200) {
             const newAuthState = !userAuthenticated;
             setUserAuthenticated(newAuthState);
+            console.log(response.status);
         }
         } catch (error) {
         console.error('Error:', error);
@@ -37,7 +38,7 @@ function Form(){
         <form>
             <div className="mb-6">
                 <label className="block mb-2 text-xl font-medium">
-                    TickBox ID
+                    Username
                 </label>
                 <div className="relative">
                     <FaRegUser size={20} color='lightgray' className="absolute top-1/2 -translate-y-1/2 left-3"/>
@@ -49,17 +50,20 @@ function Form(){
                     Password
                 </label>
                 <div className="relative">
-                    <RiLockPasswordLine size={20} color='lightgray' className="absolute top-1/2 -translate-y-1/2 left-3"/>
-                    <input value = {password} onChange ={(e) => setPassword(e.target.value)} name='password' type="password" className="pl-10 block w-full p-4 rounded-lg dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder='Enter your password'/>
+                    <div className="relative flex items-center">
+                        <RiLockPasswordLine size={20} color='lightgray' className="absolute left-3"/>
+                        <input value={password} onChange={(e) => setPassword(e.target.value)} name='password' type="password" className="pl-10 block w-full p-4 rounded-lg dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder='Enter your password'/>
+                    </div>
+                    <div className='flex justify-end text-sm text-blue-700 mt-2'>Forgot Password?</div>
                 </div>
             </div>
             <div className='flex justify-center'>
-                <button type='submit' onClick={handleConnect} className="text-white text-ml font-medium rounded-md px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700">
-                    Connect
+                <button type='submit' onClick={handleConnect} className="text-white text-xl font-medium block w-full p-3 rounded-lg text-center dark:bg-green-800 dark:hover:bg-green-900">
+                    Login
                 </button>
             </div>
         </form>
     )    
 }
 
-export default Form
+export default LoginForm

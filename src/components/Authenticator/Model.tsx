@@ -66,8 +66,6 @@ function Model({ canvasRef, width, height }: ModelProps) {
       phoneAction.setLoop(THREE.LoopOnce, 1);
 
       //Play Animation
-      let playedAnimation = false;
-
       if (phoneConnected === true) {
         tickboxAction.timeScale = 1;
         tickboxAction.reset().play();
@@ -76,10 +74,8 @@ function Model({ canvasRef, width, height }: ModelProps) {
         phoneAction.timeScale = 1;
         phoneAction.reset().play();
         phoneAction.clampWhenFinished = true;
-
-        playedAnimation = true;
-        console.log(1);
-      } else {
+      } 
+      else {
         tickboxAction.timeScale = -1;
         tickboxAction.reset().play();
         tickboxAction.time = tickboxAction.getClip().duration;
@@ -87,9 +83,6 @@ function Model({ canvasRef, width, height }: ModelProps) {
         phoneAction.timeScale = -1;
         phoneAction.reset().play();
         phoneAction.time = phoneAction.getClip().duration;
-
-        playedAnimation = false;
-        console.log(2);
       }
     });
 
