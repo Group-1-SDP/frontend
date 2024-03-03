@@ -1,7 +1,7 @@
 import { useAtom } from 'jotai';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { useEffect, useState } from 'react';
-import { usernameAtom } from '../../Utils/GlobalState';
+import { APILink, usernameAtom } from '../../Utils/GlobalState';
 import { authenticated } from '../../../App';
 
 function DeleteUserForm(){
@@ -20,7 +20,7 @@ function DeleteUserForm(){
         setError('');
 
         try {
-            const response = await fetch('http://127.0.0.1:5000/api/deleteUser', {
+            const response = await fetch(APILink + '/api/deleteUser', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',

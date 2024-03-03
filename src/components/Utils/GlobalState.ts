@@ -1,5 +1,8 @@
 import { atom } from 'jotai';
 
+//API link
+export const APILink = 'http://127.0.0.1:5000';
+
 //Username Global storage
 const storedUsername = localStorage.getItem('username') || '';
 export const usernameAtom = atom(storedUsername);

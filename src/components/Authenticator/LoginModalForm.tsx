@@ -4,6 +4,7 @@ import { RiLockPasswordLine } from 'react-icons/ri';
 import { authenticated } from '../../App';
 import { useEffect, useState } from 'react';
 import { usernameAtom } from '../Utils/GlobalState';
+import { APILink } from '../Utils/GlobalState';
 
 function LoginForm(){
     const [userAuthenticated, setUserAuthenticated] = useAtom(authenticated)
@@ -21,7 +22,7 @@ function LoginForm(){
         setError('');
 
         try {
-            const response = await fetch('http://127.0.0.1:5000/api/login', {
+            const response = await fetch(APILink + '/api/login', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
