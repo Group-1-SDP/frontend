@@ -46,6 +46,16 @@ function Model({ canvasRef, width, height, zCamPosition, yCamPosition }: ModelPr
     controls.enableDamping = true;
     controls.enableZoom = false;
 
+    // Store the original position and rotation
+    const originalPosition = camera.position.clone();
+    let shouldAutoRotateBack = false;
+    controls.addEventListener('start', function () {
+        shouldAutoRotateBack = false;
+    });
+    controls.addEventListener('end', function () {
+        shouldAutoRotateBack = true;
+    });
+
     //Mixer
     let mixer: THREE.AnimationMixer;
 
@@ -102,6 +112,10 @@ function Model({ canvasRef, width, height, zCamPosition, yCamPosition }: ModelPr
       requestAnimationFrame(animate);
       controls.update();
       renderer.render(scene, camera);
+
+      if (shouldAutoRotateBack) {
+        camera.position.lerp(originalPosition, 0.02);
+      }
     };
     animate();
   }, [width, height, canvasRef, zCamPosition, yCamPosition, phoneConnected]);
