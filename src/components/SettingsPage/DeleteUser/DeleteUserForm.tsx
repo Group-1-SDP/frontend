@@ -1,5 +1,4 @@
 import { useAtom } from 'jotai';
-import { FaRegUser } from 'react-icons/fa';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { useEffect, useState } from 'react';
 import { usernameAtom } from '../../Utils/GlobalState';
