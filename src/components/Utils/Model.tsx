@@ -9,9 +9,11 @@ interface ModelProps {
   canvasRef: React.RefObject<HTMLCanvasElement>;
   width: number;
   height: number;
+  zCamPosition: number;
+  yCamPosition: number;
 }
 
-function Model({ canvasRef, width, height }: ModelProps) {
+function Model({ canvasRef, width, height, zCamPosition, yCamPosition }: ModelProps) {
   const [phoneConnected] = useAtom(phoneConnectedState);
 
   useEffect(() => {
@@ -28,8 +30,8 @@ function Model({ canvasRef, width, height }: ModelProps) {
       0.1,
       1000
     );
-    camera.position.z = 2.7;
-    camera.position.y = 1;
+    camera.position.z = zCamPosition;
+    camera.position.y = yCamPosition;
 
     // Renderer
     const renderer = new THREE.WebGLRenderer({
@@ -41,6 +43,8 @@ function Model({ canvasRef, width, height }: ModelProps) {
 
     // OrbitControls
     const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.enableZoom = false;
 
     //Mixer
     let mixer: THREE.AnimationMixer;
@@ -100,7 +104,7 @@ function Model({ canvasRef, width, height }: ModelProps) {
       renderer.render(scene, camera);
     };
     animate();
-  }, [width, height, canvasRef, phoneConnected]);
+  }, [width, height, canvasRef, zCamPosition, yCamPosition, phoneConnected]);
 
   return null;
 }

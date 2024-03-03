@@ -10,6 +10,7 @@ function RegisterForm(){
     const [username, setUsername] = useAtom(usernameAtom);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
     useEffect(() => {
         localStorage.setItem('username', username);
@@ -18,6 +19,7 @@ function RegisterForm(){
     const handleConnect = async (event: { preventDefault: () => void; }) => {
         
         event.preventDefault();
+        setError('');
 
         try {
             const response = await fetch('http://127.0.0.1:5000/api/register', {
@@ -36,6 +38,13 @@ function RegisterForm(){
             const newAuthState = !userAuthenticated;
             setUserAuthenticated(newAuthState);
         }
+        else if(response.status === 409){
+            setError('User already exists');
+        }
+        else if(response.status === 400){
+            setError('Email is invalid');
+        }
+
         console.log(response.status);
         } catch (error) {
         console.error('Error:', error);
@@ -43,7 +52,7 @@ function RegisterForm(){
     };
 
     return(
-        <form>
+        <form className='mt-4'>
             <div>
                 <label className="block text-xl font-medium mb-1">
                     Username
@@ -81,6 +90,11 @@ function RegisterForm(){
                     Register
                 </button>
             </div>
+
+            <div className="text-red-500 text-center mt-2">
+                {error}
+            </div>
+
         </form>
     )    
 }

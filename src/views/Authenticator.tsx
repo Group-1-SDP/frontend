@@ -40,7 +40,7 @@ const Authenticator = () => {
     </div>  
       <canvas ref={canvasRef} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 w-64 h-64">
       </canvas>
-      <Model canvasRef={canvasRef} width={1920} height={1080} />
+      <Model canvasRef={canvasRef} width={window.innerWidth} height={window.innerHeight} zCamPosition={4} yCamPosition={1.5} />
     </>
   )
 }

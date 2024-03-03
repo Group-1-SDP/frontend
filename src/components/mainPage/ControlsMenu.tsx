@@ -102,7 +102,7 @@ function controlsMenu() {
 
         <canvas ref={canvasRef} className="flex-shrink-0">
         </canvas>
-        <Model canvasRef={canvasRef} width={640} height={480} />
+        <Model canvasRef={canvasRef} width={960} height={540} zCamPosition={2.7} yCamPosition={1.5}/>
       </div>
     </div>
   );

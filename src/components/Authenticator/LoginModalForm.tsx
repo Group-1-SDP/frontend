@@ -9,6 +9,7 @@ function LoginForm(){
     const [userAuthenticated, setUserAuthenticated] = useAtom(authenticated)
     const [username, setUsername] = useAtom(usernameAtom);
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
     useEffect(() => {
         localStorage.setItem('username', username);
@@ -17,6 +18,7 @@ function LoginForm(){
     const handleConnect = async (event: { preventDefault: () => void; }) => {
         
         event.preventDefault();
+        setError('');
 
         try {
             const response = await fetch('http://127.0.0.1:5000/api/login', {
@@ -35,13 +37,20 @@ function LoginForm(){
             setUserAuthenticated(newAuthState);
             console.log(response.status);
         }
+        else if (response.status === 404) {
+            setError('User does not exist');
+        }
+        else if (response.status === 401) {
+            setError('Password is Invalid');
+        }
+
         } catch (error) {
         console.error('Error:', error);
         }
     };
 
     return(
-        <form>
+        <form className='mt-4'>
             <div className="mb-6">
                 <label className="block mb-1 text-xl font-medium">
                     Username
@@ -68,6 +77,11 @@ function LoginForm(){
                     Login
                 </button>
             </div>
+            
+            <div className="text-red-500 text-center mt-2">
+                {error}
+            </div>
+            
         </form>
     )    
 }
