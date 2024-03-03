@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { phoneConnectedState } from "../../App";
 import { useAtom } from "jotai";
@@ -18,6 +18,7 @@ function ControlMenuButton({
 }: ControlMenuButtonProps) {
 
   const [phoneConnected] = useAtom(phoneConnectedState);
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <motion.div
@@ -31,6 +32,10 @@ function ControlMenuButton({
       className={`bg-gray-200 rounded-xl py-[10px] my-2 flex flex-col items-center ${
         focused && "border border-solid border-black text "
       }`}
+
+      style={{cursor: "pointer", scale: isHovered ? 1.1 : 1}}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
     >
       <motion.div
         className={`flex my-7 text-center justify-center transition-colors rounded-xl items-center`}

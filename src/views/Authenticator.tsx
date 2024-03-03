@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import Icon from '../components/Authenticator/Icon';
-import Model from '../components/Authenticator/Model';
+import Model from '../components/Utils/Model';
 import LoginModal from '../components/Authenticator/LoginModal';
 import ConnectButton from '../components/Authenticator/OpenModal';
 import RegisterModal from '../components/Authenticator/RegisterModal';
@@ -40,7 +40,7 @@ const Authenticator = () => {
     </div>  
       <canvas ref={canvasRef} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 w-64 h-64">
       </canvas>
-      <Model canvasRef={canvasRef} width={1366} height={768} />
+      <Model canvasRef={canvasRef} width={1920} height={1080} />
     </>
   )
 }

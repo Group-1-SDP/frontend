@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import ControlMenuButton from "./ControlMenuButton";
-import Model from "../Authenticator/Model";
+import Model from "../Utils/Model";
 import { AnimatePresence, motion } from "framer-motion";
 import { RiAlarmFill, RiBarChartBoxFill, RiBallPenFill } from "react-icons/ri";
 import ToDoControlComponent from "./ControlComponents/ToDoControlComponent";

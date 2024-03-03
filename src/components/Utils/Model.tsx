@@ -12,7 +12,7 @@ interface ModelProps {
 }
 
 function Model({ canvasRef, width, height }: ModelProps) {
-  const [phoneConnected, setPhoneConnected] = useAtom(phoneConnectedState);
+  const [phoneConnected] = useAtom(phoneConnectedState);
 
   useEffect(() => {
     if (!canvasRef.current) {
@@ -29,7 +29,7 @@ function Model({ canvasRef, width, height }: ModelProps) {
       1000
     );
     camera.position.z = 2.7;
-    camera.position.y = 1.2;
+    camera.position.y = 1;
 
     // Renderer
     const renderer = new THREE.WebGLRenderer({

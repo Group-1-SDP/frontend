@@ -5,7 +5,7 @@ function Icon(){
                 <img
                 src="src/assets/Tickbox Logo White Full.svg"
                 alt="Logo"
-                className="w-auto h-[60px]"
+                className="w-auto h-[90px]"
                 />
             </a>
         </div>

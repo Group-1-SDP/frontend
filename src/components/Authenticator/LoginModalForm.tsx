@@ -2,12 +2,17 @@ import { useAtom } from 'jotai';
 import { FaRegUser } from 'react-icons/fa';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { authenticated } from '../../App';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { usernameAtom } from '../Utils/GlobalState';
 
 function LoginForm(){
     const [userAuthenticated, setUserAuthenticated] = useAtom(authenticated)
-    const [username, setUsername] = useState('');
+    const [username, setUsername] = useAtom(usernameAtom);
     const [password, setPassword] = useState('');
+
+    useEffect(() => {
+        localStorage.setItem('username', username);
+    }, [username]);
 
     const handleConnect = async (event: { preventDefault: () => void; }) => {
         
@@ -26,6 +31,7 @@ function LoginForm(){
         });
         if (response.status === 200) {
             const newAuthState = !userAuthenticated;
+            setUsername(username);
             setUserAuthenticated(newAuthState);
             console.log(response.status);
         }

@@ -1,19 +1,21 @@
 import React from 'react'
 import ProfileBox from './ProfileBox'
 import StatBox from './StatBox'
+import { usernameAtom } from '../Utils/GlobalState';
+import { useAtom } from 'jotai';
 
-const profile = {
-    name: 'Jonathan',
-    username: 'jsteel56',
+function ProfileWrapper() {
+  const [username] = useAtom(usernameAtom);
+
+  const profile = {
+    username: username,
     tasksSet: 50,
     tasksCompleted: 100,
     total: 1000
-}
-
-function ProfileWrapper() {
+  }
   return (
     <div className='mx-20 flex justify-between'>
-        <ProfileBox name={profile.name} username={profile.username} />
+        <ProfileBox username={profile.username}/>
         <StatBox statName="Tasks Set" stat={profile.tasksSet} />
         <StatBox statName="Tasks Completed" stat={profile.tasksCompleted} />
         <StatBox statName="Total Points" stat={profile.total} />
