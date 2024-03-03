@@ -3,13 +3,13 @@ import { ImCross } from 'react-icons/im';
 import LoginForm from './LoginModalForm';
 import Logo from '../Utils/Logo';
 
-interface LoginModalProps {
+interface LoginModalInterface {
   loginModalVisible: boolean;
   closeLoginModal: () => void;
   openRegisterModal: () =>void;
 }
 
-const LoginModal: React.FC<LoginModalProps> = ({ loginModalVisible, closeLoginModal, openRegisterModal }) => {
+const LoginModal: React.FC<LoginModalInterface> = ({ loginModalVisible, closeLoginModal, openRegisterModal }) => {
   return (
     <div className={`fixed left-0 top-0 ${(loginModalVisible) ? 'opacity-100' : 'opacity-0 invisible'}`}>
       <div className='bg-black bg-opacity-50 w-screen h-screen flex items-center justify-center '>

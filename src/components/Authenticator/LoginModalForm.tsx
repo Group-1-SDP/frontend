@@ -67,7 +67,7 @@ function LoginForm(){
                 <div className="relative">
                     <div className="relative flex items-center">
                         <RiLockPasswordLine size={20} color='lightgray' className="absolute left-3"/>
-                        <input value={password} onChange={(e) => setPassword(e.target.value)} name='password' type="password" className="pl-10 block w-full p-4 rounded-lg dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder='Enter your password'/>
+                        <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" className="pl-10 block w-full p-4 rounded-lg dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder='Enter your password'/>
                     </div>
                     <div className='flex justify-end text-sm text-blue-700 mt-2'>Forgot Password?</div>
                 </div>

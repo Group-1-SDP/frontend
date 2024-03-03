@@ -2,13 +2,13 @@ import { ImCross } from "react-icons/im";
 import RegisterForm from "./RegisterModalForm";
 import Logo from "../Utils/Logo";
 
-interface RegisterModalProps {
+interface RegisterModalInterface {
     registerModalVisible: boolean;
     closeRegisterModal: () => void;
     openLoginModal: () => void;
 }
 
-const RegisterModal: React.FC<RegisterModalProps> = ({ registerModalVisible, closeRegisterModal, openLoginModal}) => {
+const RegisterModal: React.FC<RegisterModalInterface> = ({ registerModalVisible, closeRegisterModal, openLoginModal}) => {
     return (
         <div className={`fixed left-0 top-0 ${(registerModalVisible) ? 'opacity-100' : 'opacity-0 invisible'}`}>
         <div className='bg-black bg-opacity-50 w-screen h-screen flex items-center justify-center'>
