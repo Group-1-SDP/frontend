@@ -44,7 +44,7 @@ const Authenticator = () => {
       canvasRef={canvasRef} 
       width={window.innerWidth} 
       height={window.innerHeight} 
-      zCamPosition={4} 
+      zCamPosition={5.5} 
       yCamPosition={1.5}
       FOV={50} />
     </>

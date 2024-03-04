@@ -12,6 +12,7 @@ import ProfilePage from "./views/ProfilePage";
 import ModulesPage from './components/Modules/ModulesPage';
 import SettingsPage from "./views/SettingsPage";
 import { useAtom } from "jotai";
+import { APILink } from "./components/Utils/GlobalState";
 
 export const topTodoItem = atomWithStorage("topTodo", "");
 export const authenticated = atomWithStorage("userAuth", false);
@@ -25,7 +26,7 @@ function App() {
   const [, setBoxTime] = useAtom(phoneConnectedTime); 
 
   useEffect(() => {
-    const newSocket = io("https://studious-lamp-p45x777q9rp27gx5-5000.app.github.dev");
+    const newSocket = io(APILink);
     setSocket(newSocket);
 
     return () => {
