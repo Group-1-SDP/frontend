@@ -27,7 +27,7 @@ function ToDoControlComponent() {
     <div className="">
       <div className="px-4 py-2 mx-4 rounded-md flex items-center justify-between hover:bg-gray-300 transition duration-300">
         <div className="flex items-center">
-          <input type="checkbox" className="mr-2" checked={ticked} onClick={handleTick}/>
+          {topTodo != "" && <input type="checkbox" className="mr-2" checked={ticked} onClick={handleTick}/>}
           <button onClick={handleTick} className={`mr-2 ${ticked && "line-through"}`}>{topTodo === "" ? "No Tasks." : topTodo}</button>
         </div>
         <div className="flex items-center">

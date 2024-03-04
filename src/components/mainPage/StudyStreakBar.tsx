@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useAtom } from "jotai";
-import { topTodoItem } from "../../App";
+import { phoneConnectedState, topTodoItem } from "../../App";
 
 interface TimeState {
-  time: number,
-  seconds: number,
-  minutes: number
+  time: number;
+  seconds: string;
+  minutes: string;
 }
 
 function Bar() {
@@ -15,27 +15,36 @@ function Bar() {
   const [hovering, setHovering] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const [timeRemaining, setTimeRemaining] = useState<TimeState>({
-    time: 5, 
-    seconds: 0,
-    minutes: 0,
+    time: 0,
+    seconds: "00",
+    minutes: "00",
   });
+  const [phoneConnected] = useAtom(phoneConnectedState);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      
-      if (timeRemaining.time === 0) {
-        clearInterval(timer);
-      } else {
-        setTimeRemaining(prevTime => ({
-          time: prevTime.time - 1,
-          minutes: Math.floor((prevTime.time - 1) / 60),
-          seconds: (prevTime.time - 1) % 60
-        }));
-      }
-    }, 1000);
+    const placedTime = localStorage.getItem("phonePlacedTime");
+    if (phoneConnected) {
+      const timer = setInterval(() => {
+        setTimeRemaining((prevTime) => {
+          const newSeconds = String(
+            (parseInt(prevTime.seconds, 10) + 1) % 60
+          ).padStart(2, "0");
+          const newMinutes = String(
+            parseInt(prevTime.minutes, 10) +
+              Math.floor((parseInt(prevTime.seconds, 10) + 1) / 60)
+          ).padStart(2, "0");
+          return {
+            time: prevTime.time + 1,
+            minutes: newMinutes,
+            seconds: newSeconds,
+          };
+        });
+      }, 1000);
+      return () => clearInterval(timer);
+    }
 
-    return () => clearInterval(timer);
-  });
+
+  }, [phoneConnected]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -66,13 +75,7 @@ function Bar() {
           className="h-6 w-[600px] rounded-xl m-5 flex z-[-1] justify-between"
           animate={{ backgroundColor: hovering || open ? "#333" : "#999" }}
         >
-          <motion.div 
-            className="w-[400px] bg-green-600 rounded-xl"
-            initial={{ width: 0 }} 
-            animate={{ width: `${(60 - timeRemaining.time / 60) * 100}%` }} 
-            transition={{ duration: 1, type: "tween", ease: "linear" }} 
-          />
-          <div className="z-[-1] text-white">{timeRemaining.minutes}:{timeRemaining.seconds}</div>
+          <motion.div className="w-[600px] bg-green-600 rounded-xl" />
         </motion.div>
       </motion.header>
       <AnimatePresence>
@@ -85,11 +88,10 @@ function Bar() {
             transition={{ duration: 0.5 }}
           >
             <div className="flex items-center">
-              <p className="pr-1">Current Task: </p>
-              <span className="font-bold">{topTodo}</span>
+              <p className="pr-1">Current time working: </p>
+              <span className="font-bold">{`${timeRemaining.minutes}:${timeRemaining.seconds}`}</span>
             </div>
-            <div className="flex items-center">
-            </div>
+            <div className="flex items-center"></div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -100,7 +102,7 @@ function Bar() {
 function StudyStreakBar() {
   return (
     <div className="flex justify-center">
-      <Bar/>
+      <Bar />
     </div>
   );
 }
