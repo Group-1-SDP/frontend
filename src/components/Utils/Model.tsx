@@ -11,9 +11,10 @@ interface ModelProps {
   height: number;
   zCamPosition: number;
   yCamPosition: number;
+  FOV: number;
 }
 
-function Model({ canvasRef, width, height, zCamPosition, yCamPosition }: ModelProps) {
+function Model({ canvasRef, width, height, zCamPosition, yCamPosition, FOV }: ModelProps) {
   const [phoneConnected] = useAtom(phoneConnectedState);
 
   useEffect(() => {
@@ -25,13 +26,11 @@ function Model({ canvasRef, width, height, zCamPosition, yCamPosition }: ModelPr
 
     // Camera
     const camera = new THREE.PerspectiveCamera(
-      75,
-      window.innerWidth / window.innerHeight,
+      FOV,
+      width / height,
       0.1,
       1000
     );
-    camera.position.z = zCamPosition;
-    camera.position.y = yCamPosition;
 
     // Renderer
     const renderer = new THREE.WebGLRenderer({
@@ -46,15 +45,21 @@ function Model({ canvasRef, width, height, zCamPosition, yCamPosition }: ModelPr
     controls.enableDamping = true;
     controls.enableZoom = false;
 
-    // Store the original position and rotation
-    const originalPosition = camera.position.clone();
+    // Save the default position
+    const defaultPosition = new THREE.Vector3(0, yCamPosition, zCamPosition);
     let shouldAutoRotateBack = false;
+    let movedOnce = false;
     controls.addEventListener('start', function () {
         shouldAutoRotateBack = false;
+        movedOnce = true;
     });
     controls.addEventListener('end', function () {
         shouldAutoRotateBack = true;
     });
+
+    //Start animation
+    camera.position.set(0, -5, 0.5);
+    let playStart = true;
 
     //Mixer
     let mixer: THREE.AnimationMixer;
@@ -107,6 +112,7 @@ function Model({ canvasRef, width, height, zCamPosition, yCamPosition }: ModelPr
 
     // Animation Loop
     const clock = new THREE.Clock();
+    let frameCounter = 0;
     const animate = () => {
       if (mixer) mixer.update(clock.getDelta());
       requestAnimationFrame(animate);
@@ -114,11 +120,20 @@ function Model({ canvasRef, width, height, zCamPosition, yCamPosition }: ModelPr
       renderer.render(scene, camera);
 
       if (shouldAutoRotateBack) {
-        camera.position.lerp(originalPosition, 0.02);
+        camera.position.lerp(defaultPosition, 0.03);
+      }
+      if(playStart){
+        frameCounter++;
+        if (frameCounter > 200 || movedOnce) {
+          playStart = false;
+        } 
+        else {
+          camera.position.lerp(defaultPosition, 0.02);
+        }
       }
     };
     animate();
-  }, [width, height, canvasRef, zCamPosition, yCamPosition, phoneConnected]);
+  }, [width, height, canvasRef, zCamPosition, yCamPosition, FOV, phoneConnected]);
 
   return null;
 }
