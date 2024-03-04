@@ -1,6 +1,7 @@
 import React from "react";
 import { easeInOut, motion } from "framer-motion";
 import UserMenu from "../mainPage/UserMenu";
+import Logo from "./Logo";
 
 function topBar() {
   return (
@@ -17,11 +18,7 @@ function topBar() {
         }}
         className="flex items-center px-8 py-10">
         <a href="/">
-        <img
-          src="src/assets/Tickbox Logo White Full.svg"
-          alt="Logo"
-          className="w-auto h-[60px]"
-        />
+        <Logo height="60px"/>
         </a>
       </motion.div>
     </div>

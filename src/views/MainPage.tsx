@@ -1,7 +1,3 @@
-import React, { useState } from "react";
-import TopBar from "../components/Utils/TopBar.tsx";
-import ControlsMenu from "../components/mainPage/ControlsMenu.tsx";
-import StudyStreakBar from "../components/mainPage/StudyStreakBar.tsx";
 import Authenticated from "./Authenticated.tsx";
 import Authenticator from "./Authenticator.tsx";
 import { useAtom } from "jotai";

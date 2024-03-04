@@ -10,6 +10,7 @@ import { TodoList } from "./views/TodoList";
 import FriendsPage from "./views/FriendsPage";
 import ProfilePage from "./views/ProfilePage";
 import ModulesPage from './components/Modules/ModulesPage';
+import SettingsPage from "./views/SettingsPage";
 import { useAtom } from "jotai";
 
 export const topTodoItem = atomWithStorage("topTodo", "");
@@ -72,6 +73,7 @@ function App() {
           <Route path="friends" element={<FriendsPage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="modules" element={<ModulesPage/>}/>
+          <Route path="settings" element={<SettingsPage/>}/>
         </Routes>
       </BrowserRouter>
     </>

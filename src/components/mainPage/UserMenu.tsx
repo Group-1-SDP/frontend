@@ -1,14 +1,31 @@
 import React, { useEffect, useState, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-
+import { usernameAtom } from "../Utils/GlobalState";
+import { useAtom } from "jotai";
+import { authenticated } from "../../App";
 export interface MenuItemProps {
   itemName: string;
-  path: string;
+  path?: string;
   top?: boolean;
   bottom?: boolean;
+  onClick?: () => void;
 }
 
-function MenuItem({ itemName, path, top, bottom }: MenuItemProps) {
+function MenuItem({ itemName, path, top, bottom, onClick }: MenuItemProps) {
+  if (onClick) {
+    return (
+      <button
+        onClick={onClick}
+        className={
+          "pl-3 py-2 flex justify-start border-white hover:bg-gray-300 transition-colors w-full " +
+          (top ? "rounded-t-xl " : "") +
+          (bottom ? "rounded-b-xl " : "")
+        }
+      >
+        {itemName}
+      </button>
+    );
+  }
   return (
     <a href={path}
       className={
@@ -26,6 +43,16 @@ function UserMenu() {
   const [open, setOpen] = useState(false);
   const [hovering, setHovering] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  const [username, setUsername] = useAtom(usernameAtom);
+  const [, setUserAuthenticated] = useAtom(authenticated)
+
+  const handleLogout = () => {
+    setUsername('');
+    localStorage.removeItem('username');
+    setUserAuthenticated(false);
+    location.href='/'
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -47,6 +74,7 @@ function UserMenu() {
     <div className="relative">
       <div ref={dropdownRef}>
         <motion.div
+          style={{cursor: "pointer"}}
           className={
             "flex items-center transition-colors font-semibold text-xl px-4 py-2 mx-3 rounded-xl" +
             (open ? " bg-gray-300" : "")
@@ -61,7 +89,7 @@ function UserMenu() {
           }}
         >
           <div className="p-5 mr-2 rounded-full bg-black"></div>
-          <h1>Hello, user!</h1>
+          <h1>Hello, {username}!</h1>
         </motion.div>
         <div></div>
         <AnimatePresence>
@@ -78,7 +106,7 @@ function UserMenu() {
                 <MenuItem itemName="Friends" path="/friends"/>
                 <MenuItem itemName="Modules" path="/modules" />
                 <MenuItem itemName="Settings" path="/settings" />
-                <MenuItem itemName="Logout" path="/logout" bottom={true}/>
+                <MenuItem itemName="Logout" onClick={handleLogout} bottom={true}/>
               </div>
             </motion.div>
           )}

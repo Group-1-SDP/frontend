@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import ControlMenuButton from "./ControlMenuButton";
-import Model from "../Authenticator/Model";
+import Model from "../Utils/Model";
 import { AnimatePresence, motion } from "framer-motion";
 import { RiAlarmFill, RiBarChartBoxFill, RiBallPenFill } from "react-icons/ri";
 import ToDoControlComponent from "./ControlComponents/ToDoControlComponent";
@@ -102,7 +102,7 @@ function controlsMenu() {
 
         <canvas ref={canvasRef} className="flex-shrink-0">
         </canvas>
-        <Model canvasRef={canvasRef} width={640} height={480} />
+        <Model canvasRef={canvasRef} width={960} height={540} zCamPosition={2.7} yCamPosition={1.5} FOV={75}/>
       </div>
     </div>
   );
