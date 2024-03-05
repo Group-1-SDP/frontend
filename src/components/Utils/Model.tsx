@@ -14,7 +14,14 @@ interface ModelProps {
   FOV: number;
 }
 
-function Model({ canvasRef, width, height, zCamPosition, yCamPosition, FOV }: ModelProps) {
+function Model({
+  canvasRef,
+  width,
+  height,
+  zCamPosition,
+  yCamPosition,
+  FOV,
+}: ModelProps) {
   const [phoneConnected] = useAtom(phoneConnectedState);
 
   useEffect(() => {
@@ -25,12 +32,7 @@ function Model({ canvasRef, width, height, zCamPosition, yCamPosition, FOV }: Mo
     const scene = new THREE.Scene();
 
     // Camera
-    const camera = new THREE.PerspectiveCamera(
-      FOV,
-      width / height,
-      0.1,
-      1000
-    );
+    const camera = new THREE.PerspectiveCamera(FOV, width / height, 0.1, 1000);
 
     // Renderer
     const renderer = new THREE.WebGLRenderer({
@@ -49,12 +51,12 @@ function Model({ canvasRef, width, height, zCamPosition, yCamPosition, FOV }: Mo
     const defaultPosition = new THREE.Vector3(0, yCamPosition, zCamPosition);
     let shouldAutoRotateBack = false;
     let movedOnce = false;
-    controls.addEventListener('start', function () {
-        shouldAutoRotateBack = false;
-        movedOnce = true;
+    controls.addEventListener("start", function () {
+      shouldAutoRotateBack = false;
+      movedOnce = true;
     });
-    controls.addEventListener('end', function () {
-        shouldAutoRotateBack = true;
+    controls.addEventListener("end", function () {
+      shouldAutoRotateBack = true;
     });
 
     //Start animation
@@ -93,8 +95,7 @@ function Model({ canvasRef, width, height, zCamPosition, yCamPosition, FOV }: Mo
         phoneAction.timeScale = 1;
         phoneAction.reset().play();
         phoneAction.clampWhenFinished = true;
-      } 
-      else {
+      } else {
         tickboxAction.timeScale = -1;
         tickboxAction.reset().play();
         tickboxAction.time = tickboxAction.getClip().duration;
@@ -106,9 +107,9 @@ function Model({ canvasRef, width, height, zCamPosition, yCamPosition, FOV }: Mo
     });
 
     //Help visualize axis
-    const axesHelper = new THREE.AxesHelper( 5 );
-    axesHelper.setColors(0x00ff00,0xff0000,0x0000ff)
-    scene.add( axesHelper );
+    const axesHelper = new THREE.AxesHelper(5);
+    axesHelper.setColors(0x00ff00, 0xff0000, 0x0000ff);
+    scene.add(axesHelper);
 
     // Animation Loop
     const clock = new THREE.Clock();
@@ -122,18 +123,25 @@ function Model({ canvasRef, width, height, zCamPosition, yCamPosition, FOV }: Mo
       if (shouldAutoRotateBack) {
         camera.position.lerp(defaultPosition, 0.03);
       }
-      if(playStart){
+      if (playStart) {
         frameCounter++;
         if (frameCounter > 200 || movedOnce) {
           playStart = false;
-        } 
-        else {
+        } else {
           camera.position.lerp(defaultPosition, 0.02);
         }
       }
     };
     animate();
-  }, [width, height, canvasRef, zCamPosition, yCamPosition, FOV, phoneConnected]);
+  }, [
+    width,
+    height,
+    canvasRef,
+    zCamPosition,
+    yCamPosition,
+    FOV,
+    phoneConnected,
+  ]);
 
   return null;
 }
