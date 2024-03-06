@@ -1,6 +1,5 @@
 import { useAtom } from "jotai";
-import { currentSectionAtom } from "./Settings";
-
+import { currentSectionAtom } from "./SettingsStates";
 interface NavInterface {
   name: string;
   setActive: (name: string) => void;

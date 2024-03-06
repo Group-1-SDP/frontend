@@ -1,5 +1,4 @@
 import { useAtom } from "jotai";
-import { RiLockPasswordLine } from "react-icons/ri";
 import { useEffect, useState } from "react";
 import { APILink, usernameAtom } from "../Utils/GlobalState";
 import { authenticated } from "../../App";
