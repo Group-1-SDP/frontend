@@ -1,31 +1,32 @@
+// Existing imports...
 import { useState, useEffect } from "react";
-import Authenticator from "./views/Authenticator";
-import MainPage from "./views/MainPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { TodoList } from "./views/TodoList";
-import { atom, useAtom } from "jotai";
-import { atomWithStorage } from "jotai/utils";
 import { io } from "socket.io-client";
 import { Socket } from "socket.io-client";
+
+import { atomWithStorage } from "jotai/utils";
+import MainPage from "./views/MainPage";
+import { TodoList } from "./views/TodoList";
 import FriendsPage from "./views/FriendsPage";
 import ProfilePage from "./views/ProfilePage";
 import ModulesPage from "./components/Modules/ModulesPage";
 import SettingsPage from "./views/SettingsPage";
+import { useAtom } from "jotai";
+import { APILink } from "./components/Utils/GlobalState";
 
 export const topTodoItem = atomWithStorage("topTodo", "");
 export const authenticated = atomWithStorage("userAuth", false);
-export const phoneConnectedState = atomWithStorage(
-  "phoneConnectedState",
-  false
-);
+export const phoneConnectedState = atomWithStorage("phoneConnectedState", false);
+export const phoneConnectedTime = atomWithStorage("phoneConnectedTime", ""); // Changed atom name
 
 function App() {
   const [socket, setSocket] = useState<Socket | null>(null);
-  const [socketConnected, setSocketConnected] = useState(false);
-  const [phoneConnected, setPhoneConnected] = useAtom(phoneConnectedState);
+  const [, setSocketConnected] = useState(false);
+  const [, setPhoneConnected] = useAtom(phoneConnectedState);
+  const [, setBoxTime] = useAtom(phoneConnectedTime); 
 
   useEffect(() => {
-    const newSocket = io("ws://localhost:5000");
+    const newSocket = io(APILink);
     setSocket(newSocket);
 
     return () => {
@@ -47,6 +48,7 @@ function App() {
 
       socket.on("phoneConnected", () => {
         setPhoneConnected(true);
+        setBoxTime(new Date().toLocaleString()); 
       });
 
       socket.on("phoneDisconnected", () => {
@@ -61,7 +63,7 @@ function App() {
         socket.off("phoneConnected");
       }
     };
-  }, [socket]);
+  }, [socket, setPhoneConnected, setBoxTime]); // Added setBoxTime to dependency array
 
   return (
     <>
