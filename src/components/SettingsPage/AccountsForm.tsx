@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 import { useState } from "react";
-import { APILink, usernameAtom, emailAtom } from "../../Utils/GlobalState";
+import { APILink, usernameAtom, emailAtom } from "../Utils/GlobalState";
 
 function AccountsForm() {
   const [error, setError] = useState("");
@@ -50,39 +50,41 @@ function AccountsForm() {
   };
 
   return (
-    <div className="w-3/4 pl-6">
-      <form>
-        <div className="mb-4">
-          <label className="block text-xl font-semibold mb-2">Username</label>
-          <input
-            value={newUserName}
-            onChange={(e) => setNewUserName(e.target.value)}
-            className="block w-full p-4 rounded-lg dark:bg-gray-300"
-            placeholder="Change Username"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-xl font-semibold mb-2">Email</label>
-          <input
-            value={newEmail}
-            onChange={(e) => setNewEmail(e.target.value)}
-            className="block w-full p-4 rounded-lg dark:bg-gray-300"
-            placeholder="Change Email"
-          />
-        </div>
-        <div className="text-red-500 text-center mt-2">{error}</div>
-        <div className="text-green-500 text-center mt-2">{success}</div>
-        <div className="flex justify-end">
-          <button
-            type="submit"
-            onClick={handleConnect}
-            className="text-white text-lg font-medium p-2 rounded-lg text-center dark:bg-green-800 dark:hover:bg-green-900"
-          >
-            Update
-          </button>
-        </div>
-      </form>
-    </div>
+    <form>
+      <div className="mb-4">
+        <label className="block text-xl font-semibold mb-2">
+          Current Username: {username}
+        </label>
+        <input
+          value={newUserName}
+          onChange={(e) => setNewUserName(e.target.value)}
+          className="block w-full p-4 rounded-lg dark:bg-gray-300"
+          placeholder="Change Username"
+        />
+      </div>
+      <div className="mb-4">
+        <label className="block text-xl font-semibold mb-2">
+          Current Email: {email}
+        </label>
+        <input
+          value={newEmail}
+          onChange={(e) => setNewEmail(e.target.value)}
+          className="block w-full p-4 rounded-lg dark:bg-gray-300"
+          placeholder="Change Email"
+        />
+      </div>
+      <div className="text-red-500 text-center mt-2">{error}</div>
+      <div className="text-green-500 text-center mt-2">{success}</div>
+      <div className="flex justify-end">
+        <button
+          type="submit"
+          onClick={handleConnect}
+          className="text-white text-lg font-medium p-2 rounded-lg text-center dark:bg-green-800 dark:hover:bg-green-900"
+        >
+          Update
+        </button>
+      </div>
+    </form>
   );
 }
 

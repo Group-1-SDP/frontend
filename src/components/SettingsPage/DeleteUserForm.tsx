@@ -1,8 +1,8 @@
 import { useAtom } from "jotai";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { useEffect, useState } from "react";
-import { APILink, usernameAtom } from "../../Utils/GlobalState";
-import { authenticated } from "../../../App";
+import { APILink, usernameAtom } from "../Utils/GlobalState";
+import { authenticated } from "../../App";
 
 function DeleteUserForm() {
   const [username, setUsername] = useAtom(usernameAtom);
@@ -14,7 +14,7 @@ function DeleteUserForm() {
     localStorage.setItem("username", username);
   }, [username]);
 
-  const handleDelete = async (event: { preventDefault: () => void }) => {
+  const handleConnect = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     setError("");
 
@@ -46,39 +46,25 @@ function DeleteUserForm() {
   };
 
   return (
-    <form className="mt-4">
-      <div className="mb-6 relative">
-        <label className="block mb-4 text-xl font-medium">
-          Enter your password to delete
-        </label>
-        <div className="relative">
-          <div className="relative flex items-center">
-            <RiLockPasswordLine
-              size={20}
-              color="lightgray"
-              className="absolute left-3"
-            />
-            <input
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              type="password"
-              className="pl-10 block w-full p-4 rounded-lg dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white"
-              placeholder="Password"
-            />
-          </div>
-        </div>
+    <form>
+      <div className="mb-4">
+        <label className="block text-xl font-semibold mb-2">Enter your password</label>
+        <input
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="block w-full p-4 rounded-lg dark:bg-gray-300"
+        />
       </div>
-      <div className="flex justify-center">
+      <div className="text-red-500 text-center mt-2">{error}</div>
+      <div className="flex justify-end">
         <button
           type="submit"
-          onClick={handleDelete}
-          className="text-white text-2xl font-medium px-5 py-2.5 rounded-md text-center dark:bg-red-600 dark:hover:bg-red-700"
+          onClick={handleConnect}
+          className="text-white text-lg font-medium p-2 rounded-lg text-center dark:bg-red-600 dark:hover:bg-red-700"
         >
-          Delete User
+          Delete Account
         </button>
       </div>
-
-      <div className="text-red-500 text-center mt-2">{error}</div>
     </form>
   );
 }

@@ -45,7 +45,7 @@ function UserMenu() {
   const [hovering, setHovering] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
-  const [email, setEmail] = useAtom(emailAtom);
+  const [, setEmail] = useAtom(emailAtom);
   const [username, setUsername] = useAtom(usernameAtom);
   const [, setUserAuthenticated] = useAtom(authenticated);
 
@@ -94,7 +94,7 @@ function UserMenu() {
         >
           <div className="p-5 mr-2 rounded-full bg-black"></div>
           <h1>
-            Hello, {username}, {email}!
+            Hello, {username}!
           </h1>
         </motion.div>
         <div></div>
