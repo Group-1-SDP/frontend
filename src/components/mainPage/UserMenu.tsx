@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { usernameAtom } from "../Utils/GlobalState";
+import { emailAtom, usernameAtom } from "../Utils/GlobalState";
 import { useAtom } from "jotai";
 import { authenticated } from "../../App";
 export interface MenuItemProps {
@@ -27,7 +27,8 @@ function MenuItem({ itemName, path, top, bottom, onClick }: MenuItemProps) {
     );
   }
   return (
-    <a href={path}
+    <a
+      href={path}
       className={
         "pl-3 py-2 border-white hover:bg-gray-300 transition-colors w-full " +
         (top ? "rounded-t-xl " : "") +
@@ -44,14 +45,17 @@ function UserMenu() {
   const [hovering, setHovering] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
+  const [, setEmail] = useAtom(emailAtom);
   const [username, setUsername] = useAtom(usernameAtom);
-  const [, setUserAuthenticated] = useAtom(authenticated)
+  const [, setUserAuthenticated] = useAtom(authenticated);
 
   const handleLogout = () => {
-    setUsername('');
-    localStorage.removeItem('username');
+    setUsername("");
+    setEmail("");
+    localStorage.removeItem("username");
+    localStorage.removeItem("email");
     setUserAuthenticated(false);
-    location.href='/'
+    location.href = "/";
   };
 
   useEffect(() => {
@@ -74,7 +78,7 @@ function UserMenu() {
     <div className="relative">
       <div ref={dropdownRef}>
         <motion.div
-          style={{cursor: "pointer"}}
+          style={{ cursor: "pointer" }}
           className={
             "flex items-center transition-colors font-semibold text-xl px-4 py-2 mx-3 rounded-xl" +
             (open ? " bg-gray-300" : "")
@@ -89,7 +93,9 @@ function UserMenu() {
           }}
         >
           <div className="p-5 mr-2 rounded-full bg-black"></div>
-          <h1>Hello, {username}!</h1>
+          <h1>
+            Hello, {username}!
+          </h1>
         </motion.div>
         <div></div>
         <AnimatePresence>
@@ -103,10 +109,14 @@ function UserMenu() {
             >
               <div className="grid divide-y-2 rounded-t-xl rounded-b-xl">
                 <MenuItem itemName="Profile" path="/profile" top={true} />
-                <MenuItem itemName="Friends" path="/friends"/>
+                <MenuItem itemName="Friends" path="/friends" />
                 <MenuItem itemName="Modules" path="/modules" />
                 <MenuItem itemName="Settings" path="/settings" />
-                <MenuItem itemName="Logout" onClick={handleLogout} bottom={true}/>
+                <MenuItem
+                  itemName="Logout"
+                  onClick={handleLogout}
+                  bottom={true}
+                />
               </div>
             </motion.div>
           )}

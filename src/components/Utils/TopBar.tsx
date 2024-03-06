@@ -16,9 +16,10 @@ function topBar() {
           // ease: [0, 0.71, 0.2, 1.01],
           ease: "easeInOut",
         }}
-        className="flex items-center px-8 py-10">
+        className="flex items-center px-8 py-10"
+      >
         <a href="/">
-        <Logo height="60px"/>
+          <Logo height="60px" />
         </a>
       </motion.div>
     </div>

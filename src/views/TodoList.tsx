@@ -1,4 +1,3 @@
-import React from "react";
 import { TodoWrapper } from "../components/todoList/TodoWrapper";
 import TopBar from "../components/Utils/TopBar";
 
