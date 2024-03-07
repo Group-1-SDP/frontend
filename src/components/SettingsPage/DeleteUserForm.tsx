@@ -9,10 +9,6 @@ function DeleteUserForm() {
   const [error, setError] = useState("");
   const [, setUserAuthenticated] = useAtom(authenticated);
 
-  useEffect(() => {
-    localStorage.setItem("username", username);
-  }, [username]);
-
   const handleConnect = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     setError("");

@@ -12,11 +12,6 @@ function RegisterForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    localStorage.setItem("username", username);
-    localStorage.setItem("email", email);
-  }, [username, email]);
-
   const handleConnect = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     setError("");
@@ -38,6 +33,8 @@ function RegisterForm() {
 
       if (response.status === 200) {
         setUsername(username);
+        localStorage.setItem("username", username);
+        localStorage.setItem("email", email);
         const newAuthState = !userAuthenticated;
         setUserAuthenticated(newAuthState);
       } else {
