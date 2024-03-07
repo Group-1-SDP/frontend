@@ -32,7 +32,6 @@ function LoginForm() {
       const data = await response.json();
 
       if (response.status === 200) {
-        setEmail(data.email);
         localStorage.setItem("email", data.email);
         localStorage.setItem("username", username);
 

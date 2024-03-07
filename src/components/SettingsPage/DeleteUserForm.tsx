@@ -28,8 +28,8 @@ function DeleteUserForm() {
       const data = await response.json();
 
       if (response.status === 200) {
-        setUsername("");
         localStorage.removeItem("username");
+        localStorage.removeItem("email");
         setUserAuthenticated(false);
         location.href = "/";
       } else {
