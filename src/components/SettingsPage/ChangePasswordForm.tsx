@@ -5,7 +5,7 @@ import { APILink, usernameAtom, emailAtom } from "../Utils/GlobalState";
 function ChangePasswordForm() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [username, setUsername] = useAtom(usernameAtom);
+  const [username] = useAtom(usernameAtom);
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
