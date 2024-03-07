@@ -34,8 +34,7 @@ function RegisterForm() {
       if (response.status === 200) {
         localStorage.setItem("username", username);
         localStorage.setItem("email", email);
-        const newAuthState = !userAuthenticated;
-        setUserAuthenticated(newAuthState);
+        setUserAuthenticated(true);
       } else {
         setError(data.message);
       }
