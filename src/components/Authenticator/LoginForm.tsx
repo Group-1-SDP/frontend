@@ -65,7 +65,7 @@ function LoginForm() {
             onChange={(e) => setUsername(e.target.value)}
             name="username"
             type="text"
-            className="pl-10 block w-full p-4 rounded-lg dark:bg-gray-300"
+            className="pl-10 block w-full p-4 rounded-lg"
             placeholder="Enter your Username or Email"
           />
         </div>
@@ -83,7 +83,7 @@ function LoginForm() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               type="password"
-              className="pl-10 block w-full p-4 rounded-lg dark:bg-gray-300 "
+              className="pl-10 block w-full p-4 rounded-lg "
               placeholder="Enter your password"
             />
           </div>

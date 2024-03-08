@@ -9,8 +9,8 @@ function Authenticator() {
 
   return (
     <div className="flex justify-center">
-      <div className="relative dark:bg-colorE8E8E8 rounded-3xl shadow-2xl h-640px w-520px overflow-hidden">
-        <div className="px-20 py-20 pointer-events-auto">
+      <div className="relative dark:bg-colorE8E8E8 rounded-3xl shadow-2xl h-640px w-520px overflow-hidden pointer-events-auto">
+        <div className="px-20 py-20">
           <AuthenticatorNavigation />
           {section === "Log in" && <LoginForm />}
           {section === "Sign Up" && <RegisterForm />}

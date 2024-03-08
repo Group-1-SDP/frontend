@@ -50,7 +50,7 @@ function RegisterForm() {
   return (
     <form>
       <div className="mb-6">
-        <label className="block text-xl font-semibold">Username</label>
+        <label className="block text-xl font-semibold">Create Username</label>
         <div className="relative">
           <FaUser
             size={20}
@@ -61,14 +61,14 @@ function RegisterForm() {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             type="text"
-            className="pl-10 block w-full p-4 rounded-lg dark:bg-gray-300"
+            className="pl-10 block w-full p-4 rounded-lg "
             placeholder="Username"
           />
         </div>
       </div>
 
       <div className="mb-6">
-        <label className="block text-xl font-semibold">Email</label>
+        <label className="block text-xl font-semibold">Your Email</label>
         <div className="relative">
           <MdEmail
             size={20}
@@ -79,14 +79,14 @@ function RegisterForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             type="text"
-            className="pl-10 block w-full p-4 rounded-lg dark:bg-gray-300"
+            className="pl-10 block w-full p-4 rounded-lg "
             placeholder="Email"
           />
         </div>
       </div>
 
       <div className="mb-6">
-        <label className="block text-xl font-semibold">Password</label>
+        <label className="block text-xl font-semibold">Create Password</label>
         <div className="relative">
           <div className="relative flex items-center">
             <RiLockPasswordFill
@@ -98,7 +98,7 @@ function RegisterForm() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               type="password"
-              className="pl-10 block w-full p-4 rounded-lg dark:bg-gray-300"
+              className="pl-10 block w-full p-4 rounded-lg "
               placeholder="Password"
             />
           </div>
