@@ -11,9 +11,7 @@ function NavItem({ name, setActive, isActive }: NavInterface) {
   return (
     <li
       className={`mb-6 cursor-pointer ${
-        isActive
-          ? " font-bold underline"
-          : " font-medium"
+        isActive ? " font-bold underline" : " font-medium"
       }`}
       onClick={() => setActive(name)}
     >
@@ -51,7 +49,7 @@ function AuthenticatorNavigation() {
   ];
 
   return (
-    <nav className="text-3xl flex justify-center">
+    <nav className="text-4xl flex justify-center">
       <ul className="flex space-x-20">
         {generateNavItems(navItems, setCurrentSection)}
       </ul>
