@@ -89,7 +89,7 @@ const SettingsNavigation: React.FC = () => {
           {/* List of NavItems */}
           <NavItem
             name="Home"
-            isActive={currentSection === "Home"}
+            isActive={currentSection === "/"}
             path="/"
             isLogOut={false}
             icon={IoHome}
