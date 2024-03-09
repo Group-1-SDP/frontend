@@ -41,7 +41,7 @@ function generateNavItems(navItems: any, setCurrentSection: (name: string) => vo
 }
 
 
-function Navigation() {
+function SettingsNavigation() {
   const [currentSection, setCurrentSection] = useAtom(currentSectionAtom);
 
   const navItems = [
@@ -60,4 +60,4 @@ function Navigation() {
   );
 }
 
-export default Navigation;
+export default SettingsNavigation;

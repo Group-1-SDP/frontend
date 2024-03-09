@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
-import { FaRegUser } from "react-icons/fa";
-import { RiLockPasswordLine } from "react-icons/ri";
+import { FaUser } from "react-icons/fa";
+import { RiLockPasswordFill } from "react-icons/ri";
 import { authenticated } from "../../App";
 import { useEffect, useState } from "react";
 import { emailAtom, usernameAtom } from "../Utils/GlobalState";
@@ -9,7 +9,7 @@ import { APILink } from "../Utils/GlobalState";
 function LoginForm() {
   const [userAuthenticated, setUserAuthenticated] = useAtom(authenticated);
   const [username, setUsername] = useAtom(usernameAtom);
-  const [email, setEmail] = useAtom(emailAtom);
+  const [, setEmail] = useAtom(emailAtom);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
@@ -32,8 +32,10 @@ function LoginForm() {
       const data = await response.json();
 
       if (response.status === 200) {
+        setUsername(data.username);
+        localStorage.setItem("username", data.username);
+        setEmail(data.email);
         localStorage.setItem("email", data.email);
-        localStorage.setItem("username", username);
 
         const newAuthState = !userAuthenticated;
         setUserAuthenticated(newAuthState);
@@ -47,13 +49,15 @@ function LoginForm() {
   };
 
   return (
-    <form className="mt-4">
+    <form>
       <div className="mb-6">
-        <label className="block mb-1 text-xl font-medium">Username</label>
+        <label className="block mb-1 text-xl font-semibold">
+          Username/Email
+        </label>
         <div className="relative">
-          <FaRegUser
+          <FaUser
             size={20}
-            color="lightgray"
+            color="black"
             className="absolute top-1/2 -translate-y-1/2 left-3"
           />
           <input
@@ -61,25 +65,25 @@ function LoginForm() {
             onChange={(e) => setUsername(e.target.value)}
             name="username"
             type="text"
-            className="pl-10 block w-full p-4 rounded-lg dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white"
-            placeholder="Enter your Username"
+            className="pl-10 block w-full p-4 rounded-lg"
+            placeholder="Enter your Username or Email"
           />
         </div>
       </div>
-      <div className="mb-6 relative">
-        <label className="block mb-1 text-xl font-medium">Password</label>
+      <div className="mb-6">
+        <label className="block mb-1 text-xl font-semibold">Password</label>
         <div className="relative">
           <div className="relative flex items-center">
-            <RiLockPasswordLine
+            <RiLockPasswordFill
               size={20}
-              color="lightgray"
+              color="black"
               className="absolute left-3"
             />
             <input
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               type="password"
-              className="pl-10 block w-full p-4 rounded-lg dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white"
+              className="pl-10 block w-full p-4 rounded-lg "
               placeholder="Enter your password"
             />
           </div>

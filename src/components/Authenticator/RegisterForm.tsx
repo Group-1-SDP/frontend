@@ -1,6 +1,7 @@
 import { useAtom } from "jotai";
-import { FaRegUser } from "react-icons/fa";
-import { RiLockPasswordLine } from "react-icons/ri";
+import { FaUser } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import { RiLockPasswordFill } from "react-icons/ri";
 import { authenticated } from "../../App";
 import { useEffect, useState } from "react";
 import { APILink, usernameAtom, emailAtom } from "../Utils/GlobalState";
@@ -32,7 +33,9 @@ function RegisterForm() {
       const data = await response.json();
 
       if (response.status === 200) {
+        setUsername(data.username);
         localStorage.setItem("username", username);
+        setEmail(data.email);
         localStorage.setItem("email", email);
         setUserAuthenticated(true);
       } else {
@@ -45,64 +48,64 @@ function RegisterForm() {
   };
 
   return (
-    <form className="mt-4">
-      <div>
-        <label className="block text-xl font-medium mb-1">Username</label>
+    <form>
+      <div className="mb-6">
+        <label className="block text-xl font-semibold">Create Username</label>
         <div className="relative">
-          <FaRegUser
+          <FaUser
             size={20}
-            color="lightgray"
+            color="black"
             className="absolute top-1/2 -translate-y-1/2 left-3"
           />
           <input
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             type="text"
-            className="pl-10 block w-full p-4 rounded-lg dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white"
+            className="pl-10 block w-full p-4 rounded-lg "
             placeholder="Username"
           />
         </div>
       </div>
 
-      <div>
-        <label className="block text-xl font-medium mt-6 mb-1">Email</label>
+      <div className="mb-6">
+        <label className="block text-xl font-semibold">Your Email</label>
         <div className="relative">
-          <FaRegUser
+          <MdEmail
             size={20}
-            color="lightgray"
+            color="black"
             className="absolute top-1/2 -translate-y-1/2 left-3"
           />
           <input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             type="text"
-            className="pl-10 block w-full p-4 rounded-lg dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white"
+            className="pl-10 block w-full p-4 rounded-lg "
             placeholder="Email"
           />
         </div>
       </div>
 
-      <div>
-        <label className="block mt-6 mb-1 text-xl font-medium ">Password</label>
+      <div className="mb-6">
+        <label className="block text-xl font-semibold">Create Password</label>
         <div className="relative">
           <div className="relative flex items-center">
-            <RiLockPasswordLine
+            <RiLockPasswordFill
               size={20}
-              color="lightgray"
+              color="black"
               className="absolute left-3"
             />
             <input
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               type="password"
-              className="pl-10 block w-full p-4 rounded-lg dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white"
+              className="pl-10 block w-full p-4 rounded-lg "
               placeholder="Password"
             />
           </div>
         </div>
       </div>
 
-      <div className="flex justify-center mt-6">
+      <div className="flex justify-center mt-8">
         <button
           type="submit"
           onClick={handleConnect}

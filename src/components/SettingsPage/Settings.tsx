@@ -1,5 +1,5 @@
 import AccountsForm from "./AccountsForm";
-import Navigation from "./Navigation";
+import Navigation from "./SettingsNavigation";
 import ChangePasswordForm from "./ChangePasswordForm";
 import DeleteUserForm from "./DeleteUserForm";
 import { useAtom } from "jotai";
