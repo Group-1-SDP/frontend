@@ -102,6 +102,7 @@ function controlsMenu() {
           zCamPosition={2.7}
           yCamPosition={1.5}
           FOV={75}
+          rotateY={1.6}
         />
       </div>
     </div>
