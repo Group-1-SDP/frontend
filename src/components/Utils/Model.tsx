@@ -50,6 +50,7 @@ function Model({
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.enableZoom = false;
+    controls.enablePan = false;
 
     // Save the default position
     const defaultPosition = new THREE.Vector3(0, yCamPosition, zCamPosition);
@@ -76,7 +77,7 @@ function Model({
       //Load Model
       const model = gltf.scene;
 
-      if(mirror){
+      if (mirror) {
         model.scale.x = -1;
       }
       model.rotateY(-Math.PI / rotateY);
