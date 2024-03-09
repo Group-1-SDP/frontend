@@ -10,3 +10,7 @@ export const usernameAtom = atom(storedUsername);
 //Username Email storage
 const storedEmail = localStorage.getItem("email") || "";
 export const emailAtom = atom(storedEmail);
+
+//Navigation State
+const storedNavState = localStorage.getItem("navState") || "Home";
+export const navigationSectionAtom = atom(storedNavState);

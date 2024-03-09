@@ -1,14 +1,14 @@
-import React from 'react'
-import TopBar from "../components/Utils/TopBar";
-import ProfileWrapper from '../components/profilePage/ProfileWrapper'
+import React from "react";
+import Navigation from "../components/Utils/Navigation/Navigation";
+import ProfileWrapper from "../components/profilePage/ProfileWrapper";
 
 function ProfilePage() {
   return (
     <div>
-      <TopBar />
+      <Navigation />
       <ProfileWrapper />
     </div>
-  )
+  );
 }
 
-export default ProfilePage
+export default ProfilePage;

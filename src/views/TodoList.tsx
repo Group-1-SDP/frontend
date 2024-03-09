@@ -1,10 +1,10 @@
 import { TodoWrapper } from "../components/todoList/TodoWrapper";
-import TopBar from "../components/Utils/TopBar";
+import Navigation from "../components/Utils/Navigation/Navigation";
 
 export const TodoList = () => {
   return (
     <div>
-      <TopBar />
+      <Navigation />
       <TodoWrapper />
     </div>
   );

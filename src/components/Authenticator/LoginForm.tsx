@@ -5,11 +5,13 @@ import { authenticated } from "../../App";
 import { useEffect, useState } from "react";
 import { emailAtom, usernameAtom } from "../Utils/GlobalState";
 import { APILink } from "../Utils/GlobalState";
+import { navigationSectionAtom } from "../Utils/GlobalState";
 
 function LoginForm() {
   const [userAuthenticated, setUserAuthenticated] = useAtom(authenticated);
   const [username, setUsername] = useAtom(usernameAtom);
   const [, setEmail] = useAtom(emailAtom);
+  const [, setNavState] = useAtom(navigationSectionAtom);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
@@ -36,6 +38,8 @@ function LoginForm() {
         localStorage.setItem("username", data.username);
         setEmail(data.email);
         localStorage.setItem("email", data.email);
+        setNavState("Home");
+        localStorage.setItem("navState", "Home");
 
         const newAuthState = !userAuthenticated;
         setUserAuthenticated(newAuthState);

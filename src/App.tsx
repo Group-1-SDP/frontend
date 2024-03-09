@@ -69,8 +69,8 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="todo" element={<TodoList />} />
+          <Route path="home" element={<MainPage />} />
+          <Route path="to-do list" element={<TodoList />} />
           <Route path="friends" element={<FriendsPage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="modules" element={<ModulesPage />} />
