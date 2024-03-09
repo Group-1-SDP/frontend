@@ -22,7 +22,8 @@ const AuthenticatorPage = () => {
         height={window.innerHeight}
         zCamPosition={4}
         yCamPosition={1.5}
-        FOV={50}
+        FOV={75}
+        rotateY={2.3}
       />
     </>
   );

@@ -8,7 +8,7 @@ function Authenticator() {
   const [section] = useAtom(SectionAtom);
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-end pr-28">
       <div className="relative dark:bg-colorE8E8E8 rounded-3xl shadow-2xl h-640px w-520px overflow-hidden pointer-events-auto">
         <div className="px-20 py-20">
           <AuthenticatorNavigation />
