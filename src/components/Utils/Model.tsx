@@ -13,6 +13,7 @@ interface ModelProps {
   yCamPosition: number;
   FOV: number;
   rotateY: number;
+  mirror: boolean;
 }
 
 function Model({
@@ -22,7 +23,8 @@ function Model({
   zCamPosition,
   yCamPosition,
   FOV,
-  rotateY
+  rotateY,
+  mirror,
 }: ModelProps) {
   const [phoneConnected] = useAtom(phoneConnectedState);
 
@@ -73,6 +75,10 @@ function Model({
     loader.load("src/assets/tickbox1.glb", function (gltf) {
       //Load Model
       const model = gltf.scene;
+
+      if(mirror){
+        model.scale.x = -1;
+      }
       model.rotateY(-Math.PI / rotateY);
       scene.add(model);
       mixer = new THREE.AnimationMixer(model);
@@ -143,6 +149,7 @@ function Model({
     yCamPosition,
     FOV,
     rotateY,
+    mirror,
     phoneConnected,
   ]);
 
