@@ -4,7 +4,12 @@ import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { authenticated } from "../../App";
 import { useEffect, useState } from "react";
-import { APILink, usernameAtom, emailAtom, navigationSectionAtom } from "../Utils/GlobalState";
+import {
+  APILink,
+  usernameAtom,
+  emailAtom,
+  navigationSectionAtom,
+} from "../Utils/GlobalState";
 
 function RegisterForm() {
   const [userAuthenticated, setUserAuthenticated] = useAtom(authenticated);
@@ -39,8 +44,8 @@ function RegisterForm() {
         setEmail(data.email);
         localStorage.setItem("email", email);
         setUserAuthenticated(true);
-        setNavState("Home");
-        localStorage.setItem("navState", "Home");
+        setNavState("/");
+        localStorage.setItem("navState", "/");
       } else {
         setError(data.message);
       }

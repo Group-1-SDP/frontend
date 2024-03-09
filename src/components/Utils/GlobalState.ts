@@ -12,5 +12,5 @@ const storedEmail = localStorage.getItem("email") || "";
 export const emailAtom = atom(storedEmail);
 
 //Navigation State
-const storedNavState = localStorage.getItem("navState") || "Home";
+const storedNavState = localStorage.getItem("navState") || "/";
 export const navigationSectionAtom = atom(storedNavState);

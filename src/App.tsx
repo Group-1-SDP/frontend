@@ -69,7 +69,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="home" element={<MainPage />} />
+          <Route path="/" element={<MainPage />} />
           <Route path="to-do list" element={<TodoList />} />
           <Route path="friends" element={<FriendsPage />} />
           <Route path="profile" element={<ProfilePage />} />

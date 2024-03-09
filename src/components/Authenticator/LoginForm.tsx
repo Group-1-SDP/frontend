@@ -38,8 +38,8 @@ function LoginForm() {
         localStorage.setItem("username", data.username);
         setEmail(data.email);
         localStorage.setItem("email", data.email);
-        setNavState("Home");
-        localStorage.setItem("navState", "Home");
+        setNavState("/");
+        localStorage.setItem("navState", "/");
 
         const newAuthState = !userAuthenticated;
         setUserAuthenticated(newAuthState);

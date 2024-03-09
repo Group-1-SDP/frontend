@@ -35,7 +35,7 @@ const NavItem: React.FC<NavInterface> = ({
     localStorage.removeItem("username");
     localStorage.removeItem("email");
     setUserAuthenticated(false);
-    location.href = "/Home";
+    location.href = "/";
   };
 
   const handleOnClick = () => {
@@ -90,7 +90,7 @@ const SettingsNavigation: React.FC = () => {
           <NavItem
             name="Home"
             isActive={currentSection === "Home"}
-            path="/Home"
+            path="/"
             isLogOut={false}
             icon={IoHome}
           />
