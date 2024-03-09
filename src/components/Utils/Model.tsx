@@ -79,6 +79,7 @@ function Model({
 
       if (mirror) {
         model.scale.x = -1;
+        model.position.x = phoneConnected ? 1 : 0;
       }
       model.rotateY(-Math.PI / rotateY);
       scene.add(model);
@@ -96,7 +97,7 @@ function Model({
       phoneAction.setLoop(THREE.LoopOnce, 1);
 
       //Play Animation
-      if (phoneConnected === true) {
+      if (phoneConnected) {
         tickboxAction.timeScale = 1;
         tickboxAction.reset().play();
         tickboxAction.clampWhenFinished = true;
