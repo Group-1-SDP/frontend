@@ -4,6 +4,8 @@ import { Task, Todo } from "./Todo";
 import { useAtom } from "jotai";
 import { topTodoItem } from "../../App";
 import { APILink } from "../Utils/GlobalState";
+import DropdownSwitcher from "../Utils/DropdownSwitcher";
+import TodoFilter, { Filter } from "./TodoFilter";
 
 function generateRandomString(): string {
   const characters =
@@ -16,10 +18,17 @@ function generateRandomString(): string {
 }
 export const TodoWrapper = () => {
   const [tasks, setTasks] = useState<
-    { id: string; text: string; completed: boolean }[]
+    { id: string; text: string; completed: boolean; date?: string }[]
   >([]);
   const [topTask, setTopTask] = useAtom(topTodoItem);
-  const APIroot = APILink+ "/api/";
+  const APIroot = APILink + "/api/";
+  const [activeFilter, setActiveFilter] = useState<string>("To-Do");
+  const [activeTimeFrame, setActiveTimeFrame] = useState<string>("Today");
+  const [inactiveTimeFrames, setInactiveTimeFrames] = useState<string[]>([
+    "Upcoming",
+    "Anytime",
+    "All",
+  ]);
 
   useEffect(() => {
     const fetchUserTasks = async () => {
@@ -64,16 +73,16 @@ export const TodoWrapper = () => {
     }
   }, [tasks]);
 
-  const addTask = (text: string) => {
+  const addTask = (text: string, date?: Date) => {
     const task_id = generateRandomString();
     const newTask = {
       id: task_id,
       text,
       completed: false,
+      date: date ? date.toISOString().split("T")[0] : undefined,
     };
-    sendToAPI(task_id, text)
+    sendToAPI(task_id, text);
     setTasks([...tasks, newTask]);
-   
   };
 
   const sendToAPI = async (task_id: string, contents: string) => {
@@ -98,7 +107,7 @@ export const TodoWrapper = () => {
   };
 
   const updateAPI = async (task_id: string) => {
-    console.log("updating api")
+    console.log("updating api");
     try {
       const response = await fetch(APIroot + "updateTask", {
         method: "PATCH",
@@ -108,7 +117,7 @@ export const TodoWrapper = () => {
         body: JSON.stringify({
           username: "testusername",
           task_id: task_id,
-          completed: "true"
+          completed: "true",
         }),
       });
       if (!response.ok) {
@@ -136,23 +145,99 @@ export const TodoWrapper = () => {
     updateAPI(id);
   };
 
+  const filterTasks = (filter: string) => {
+    setActiveFilter(filter);
+  };
+
+  const changeTimeFrame = (timeFrame: string) => {
+    // Filter out the selected timeFrame
+    const updatedInactiveTimeFrames = inactiveTimeFrames.filter(
+      (frame) => frame !== timeFrame
+    );
+
+    // Update state
+    setInactiveTimeFrames(updatedInactiveTimeFrames);
+
+    // Add back the previously active timeFrame
+    setInactiveTimeFrames([...updatedInactiveTimeFrames, activeTimeFrame]);
+
+    // Update active timeFrame
+    setActiveTimeFrame(timeFrame);
+  };
+
   const sortedTasks = tasks.sort((a, b) =>
     a.completed === b.completed ? 0 : a.completed ? 1 : -1
   );
 
+  const filteredTasks = sortedTasks.filter((task) => {
+    // Apply active filter
+    switch (activeFilter) {
+      case "All":
+        return true;
+      case "Completed":
+        return task.completed;
+      case "To-Do":
+        return !task.completed;
+      default:
+        return false; // Handle invalid filters
+    }
+  }).filter((task) => {
+    // Apply active time frame filter
+    switch (activeTimeFrame) {
+      case "Today":
+        // Assuming date is in the format YYYY-MM-DD
+        return task.date === new Date().toISOString().split("T")[0];
+      case "Upcoming":
+        // Assuming date is in the format YYYY-MM-DD
+        return task.date && new Date(task.date) > new Date();
+      case "Anytime":
+        // Assuming task has no date
+        return !task.date;
+      default:
+        return true; // Include all tasks for "All" option
+    }
+  });
+
   return (
     <div className="flex justify-center">
-    <div className="w-[600px]">
-      <TodoForm addTask={addTask} />
-      {sortedTasks.map((task) => (
-        <Todo
-          key={task.id}
-          task={task}
-          deleteTask={deleteTask}
-          toggleCompleted={toggleCompleted}
+      <div className="w-[600px]">
+        <DropdownSwitcher
+          active={activeTimeFrame}
+          others={inactiveTimeFrames}
+          switcher={changeTimeFrame}
         />
-      ))}
-    </div>
+        <TodoFilter
+          filter={{
+            name: "To-Do",
+            active: activeFilter === "To-Do",
+            onClick: () => filterTasks("To-Do"),
+          }}
+        />
+        <TodoFilter
+          filter={{
+            name: "Completed",
+            active: activeFilter === "Completed",
+            onClick: () => filterTasks("Completed"),
+          }}
+        />
+        <TodoFilter
+          filter={{
+            name: "All Tasks",
+            active: activeFilter === "All",
+            onClick: () => filterTasks("All"),
+          }}
+        />
+        <TodoForm addTask={addTask} />
+        {filteredTasks.map((task) => (
+          <Todo
+            key={task.id}
+            task={task}
+            deleteTask={deleteTask}
+            toggleCompleted={toggleCompleted}
+            timeFrame={activeTimeFrame}
+          />
+        ))}
+      </div>
     </div>
   );
 };

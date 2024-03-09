@@ -1,20 +1,27 @@
-import React from "react";
+import { FaRegTrashCan } from "react-icons/fa6";
 
 export interface Task {
   id: string;
   text: string;
   completed: boolean;
+  date?: string;
 }
 
 interface TodoProps {
   task: Task;
   deleteTask: (id: string) => void;
   toggleCompleted: (id: string) => void;
+  timeFrame: string;
 }
 
-export const Todo = ({ task, deleteTask, toggleCompleted }: TodoProps) => {
+export const Todo = ({
+  task,
+  deleteTask,
+  toggleCompleted,
+  timeFrame,
+}: TodoProps) => {
   return (
-    <div className="p-4 m-4 rounded-md flex items-center justify-between hover:bg-gray-100 transition duration-300">
+    <div className="p-2 m-2 rounded-md flex items-center justify-between hover:bg-gray-100 transition duration-300">
       <div className="flex items-center">
         <input
           type="checkbox"
@@ -22,14 +29,18 @@ export const Todo = ({ task, deleteTask, toggleCompleted }: TodoProps) => {
           onChange={() => toggleCompleted(task.id)}
           className="mr-2"
         />
-        <p className={`mr-2 ${task.completed ? 'line-through text-gray-300' : ''}`}>{task.text}</p>
+        <p
+          className={`mr-2 ${
+            task.completed ? "line-through text-gray-300" : ""
+          }`}
+        >
+          {task.text}
+        </p>
       </div>
       <div className="flex items-center ${task.completed ? 'line-through text-gray-300' : ''}">
-        {/* <button type="button" className="mr-2">
-          Edit
-        </button> */}
+        {timeFrame === "Today" ? <p></p> : <p className="mr-4">{task.date}</p>}
         <button type="button" onClick={() => deleteTask(task.id)}>
-          Delete
+          <FaRegTrashCan />
         </button>
       </div>
     </div>
