@@ -86,7 +86,6 @@ const SettingsNavigation: React.FC = () => {
       </div>
       <nav className="pt-5 flex-1">
         <ul className="space-y-1 flex flex-col items-center">
-          {/* List of NavItems */}
           <NavItem
             name="Home"
             isActive={currentSection === "/"}
