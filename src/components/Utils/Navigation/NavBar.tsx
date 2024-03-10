@@ -47,7 +47,7 @@ const NavItem: React.FC<NavInterface> = ({
         onClick={handleLogout}
         className={`w-48 text-left px-4 py-3 rounded-lg ${
           isActive ? "bg-color046244 text-white font-bold" : "text-gray-800"
-        } hover:bg-color046244 hover:text-white transition duration-300 ease-in-out`}
+        } hover:bg-color046244 hover:text-white`}
       >
         <div className="flex items-center gap-1">
           <Icon />
