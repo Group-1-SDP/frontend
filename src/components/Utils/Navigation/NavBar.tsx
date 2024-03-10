@@ -73,11 +73,19 @@ const NavItem: React.FC<NavInterface> = ({
   );
 };
 
-const SettingsNavigation: React.FC = () => {
+interface SettingsNavigationProps {
+  paddingLeft?: number;
+}
+
+const SettingsNavigation: React.FC<SettingsNavigationProps> = ({
+  paddingLeft = 0,
+}) => {
   const [navState] = useAtom(navStateAtom);
 
   return (
-    <div className="fixed top-0 left-0 w-60 bg-white h-full shadow-2xl flex flex-col">
+    <div
+      className={`fixed top-0 left-${paddingLeft} w-60 bg-white h-full shadow-2xl flex flex-col`}
+    >
       <div className="pt-6 flex justify-center">
         <Logo />
       </div>
