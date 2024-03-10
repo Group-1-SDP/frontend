@@ -32,15 +32,12 @@ const NavItem: React.FC<NavInterface> = ({
   const handleLogout = () => {
     setUsername("");
     setEmail("");
-    localStorage.removeItem("username");
-    localStorage.removeItem("email");
     setUserAuthenticated(false);
     location.href = "/";
   };
 
   const handleOnClick = () => {
     setNavigationSection(name);
-    localStorage.setItem("navState", name);
     location.href = path;
   };
 

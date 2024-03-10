@@ -1,6 +1,3 @@
-import React from "react";
-import { easeInOut, motion } from "framer-motion";
-  import Logo from "../Logo";
 import { usernameAtom } from "../GlobalState";
 import { useAtom } from "jotai";
 

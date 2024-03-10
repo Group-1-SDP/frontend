@@ -35,12 +35,10 @@ function AccountsForm() {
       if (response.status === 200) {
         if (newUserName) {
           setUsername(newUserName);
-          localStorage.setItem("username", newUserName);
 
         }
         if (newEmail) {
           setEmail(newEmail);
-          localStorage.setItem("email", newEmail);
         }
         setSuccess(data.message);
       } else {

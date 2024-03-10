@@ -3,7 +3,7 @@ import { FaUser } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { authenticated } from "../../App";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   APILink,
   usernameAtom,
@@ -12,10 +12,10 @@ import {
 } from "../Utils/GlobalState";
 
 function RegisterForm() {
-  const [userAuthenticated, setUserAuthenticated] = useAtom(authenticated);
+  const [, setUserAuthenticated] = useAtom(authenticated);
   const [username, setUsername] = useAtom(usernameAtom);
   const [email, setEmail] = useAtom(emailAtom);
-  const [navState, setNavState] = useAtom(navigationSectionAtom);
+  const [, setNavState] = useAtom(navigationSectionAtom);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
@@ -40,12 +40,9 @@ function RegisterForm() {
 
       if (response.status === 200) {
         setUsername(data.username);
-        localStorage.setItem("username", username);
         setEmail(data.email);
-        localStorage.setItem("email", email);
         setUserAuthenticated(true);
         setNavState("/");
-        localStorage.setItem("navState", "/");
       } else {
         setError(data.message);
       }

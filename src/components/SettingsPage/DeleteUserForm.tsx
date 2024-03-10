@@ -1,10 +1,11 @@
 import { useAtom } from "jotai";
-import { useEffect, useState } from "react";
-import { APILink, usernameAtom } from "../Utils/GlobalState";
+import { useState } from "react";
+import { APILink, emailAtom, usernameAtom } from "../Utils/GlobalState";
 import { authenticated } from "../../App";
 
 function DeleteUserForm() {
   const [username, setUsername] = useAtom(usernameAtom);
+  const [email, setEmail] = useAtom(emailAtom);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [, setUserAuthenticated] = useAtom(authenticated);
@@ -28,8 +29,8 @@ function DeleteUserForm() {
       const data = await response.json();
 
       if (response.status === 200) {
-        localStorage.removeItem("username");
-        localStorage.removeItem("email");
+        setUsername("");
+        setEmail("");
         setUserAuthenticated(false);
         location.href = "/";
       } else {
@@ -43,7 +44,9 @@ function DeleteUserForm() {
   return (
     <form>
       <div className="mb-4">
-        <label className="block text-xl font-semibold mb-2">Enter your password</label>
+        <label className="block text-xl font-semibold mb-2">
+          Enter your password
+        </label>
         <input
           value={password}
           onChange={(e) => setPassword(e.target.value)}

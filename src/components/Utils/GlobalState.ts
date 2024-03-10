@@ -1,16 +1,13 @@
-import { atom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
 
 //API link
 export const APILink = "http://127.0.0.1:5000";
 
-//Username Global storage
-const storedUsername = localStorage.getItem("username") || "";
-export const usernameAtom = atom(storedUsername);
+// Username storage
+export const usernameAtom = atomWithStorage("username", "");
 
-//Username Email storage
-const storedEmail = localStorage.getItem("email") || "";
-export const emailAtom = atom(storedEmail);
+// Email storage
+export const emailAtom = atomWithStorage("email", "");
 
-//Navigation State
-const storedNavState = localStorage.getItem("navState") || "/";
-export const navigationSectionAtom = atom(storedNavState);
+// Navigation State
+export const navigationSectionAtom = atomWithStorage("navState", "/");

@@ -35,14 +35,9 @@ function LoginForm() {
 
       if (response.status === 200) {
         setUsername(data.username);
-        localStorage.setItem("username", data.username);
         setEmail(data.email);
-        localStorage.setItem("email", data.email);
         setNavState("/");
-        localStorage.setItem("navState", "/");
-
-        const newAuthState = !userAuthenticated;
-        setUserAuthenticated(newAuthState);
+        setUserAuthenticated(true);
         console.log(response.status);
       } else {
         setError(data.message);
