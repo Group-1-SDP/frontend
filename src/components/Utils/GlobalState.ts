@@ -10,4 +10,4 @@ export const usernameAtom = atomWithStorage("username", "");
 export const emailAtom = atomWithStorage("email", "");
 
 // Navigation State
-export const navigationSectionAtom = atomWithStorage("navState", "/");
+export const navStateAtom = atomWithStorage("navState", window.location.pathname);

@@ -8,14 +8,14 @@ import {
   APILink,
   usernameAtom,
   emailAtom,
-  navigationSectionAtom,
+  navStateAtom,
 } from "../Utils/GlobalState";
 
 function RegisterForm() {
   const [, setUserAuthenticated] = useAtom(authenticated);
   const [username, setUsername] = useAtom(usernameAtom);
   const [email, setEmail] = useAtom(emailAtom);
-  const [, setNavState] = useAtom(navigationSectionAtom);
+  const [, setNavState] = useAtom(navStateAtom);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 

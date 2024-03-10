@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { navigationSectionAtom, emailAtom, usernameAtom } from "../GlobalState";
+import { navStateAtom, emailAtom, usernameAtom } from "../GlobalState";
 import Logo from "../Logo";
 import { authenticated } from "../../../App";
 import { IoHome, IoSettingsSharp } from "react-icons/io5";
@@ -24,7 +24,7 @@ const NavItem: React.FC<NavInterface> = ({
   isLogOut,
   icon: Icon,
 }) => {
-  const [, setNavigationSection] = useAtom(navigationSectionAtom);
+  const [, setNavState] = useAtom(navStateAtom);
   const [, setEmail] = useAtom(emailAtom);
   const [, setUsername] = useAtom(usernameAtom);
   const [, setUserAuthenticated] = useAtom(authenticated);
@@ -37,7 +37,7 @@ const NavItem: React.FC<NavInterface> = ({
   };
 
   const handleOnClick = () => {
-    setNavigationSection(name);
+    setNavState(name === "Home" ? "/" : name);
     location.href = path;
   };
 
@@ -74,7 +74,7 @@ const NavItem: React.FC<NavInterface> = ({
 };
 
 const SettingsNavigation: React.FC = () => {
-  const [currentSection] = useAtom(navigationSectionAtom);
+  const [navState] = useAtom(navStateAtom);
 
   return (
     <div className="fixed top-0 left-0 w-60 bg-white h-full shadow-2xl flex flex-col">
@@ -85,35 +85,35 @@ const SettingsNavigation: React.FC = () => {
         <ul className="space-y-1 flex flex-col items-center">
           <NavItem
             name="Home"
-            isActive={currentSection === "/"}
+            isActive={navState === "/"}
             path="/"
             isLogOut={false}
             icon={IoHome}
           />
           <NavItem
             name="To-Do List"
-            isActive={currentSection === "To-Do List"}
+            isActive={navState === "To-Do List"}
             path="/To-Do List"
             isLogOut={false}
             icon={LuListTodo}
           />
           <NavItem
             name="Friends"
-            isActive={currentSection === "Friends"}
+            isActive={navState === "Friends"}
             path="/Friends"
             isLogOut={false}
             icon={FaUserFriends}
           />
           <NavItem
             name="Leaderboard"
-            isActive={currentSection === "Leaderboard"}
+            isActive={navState === "Leaderboard"}
             path="/Leaderboard"
             isLogOut={false}
             icon={MdLeaderboard}
           />
           <NavItem
             name="Schedule"
-            isActive={currentSection === "Schedule"}
+            isActive={navState === "Schedule"}
             path="/Schedule"
             isLogOut={false}
             icon={AiOutlineSchedule}
@@ -124,14 +124,14 @@ const SettingsNavigation: React.FC = () => {
         <ul className="space-y-1 flex flex-col items-center">
           <NavItem
             name="Settings"
-            isActive={currentSection === "Settings"}
+            isActive={navState === "Settings"}
             path="/Settings"
             isLogOut={false}
             icon={IoSettingsSharp}
           />
           <NavItem
             name="Logout"
-            isActive={currentSection === "Logout"}
+            isActive={navState === "Logout"}
             path="/Logout"
             isLogOut={true}
             icon={LuLogOut}
