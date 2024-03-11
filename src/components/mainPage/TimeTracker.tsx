@@ -19,14 +19,14 @@ function TimeTracker() {
           <h1 className="text-xl font-bold">4hr 35 mins</h1>
           <div className="flex items-center space-x-3">
             <div className="bg-greenAccent w-[15px] h-[15px] rounded-full"></div>
-            <h2 className="text-[16px] font-semibold">This week</h2>
+            <h2 className="text-[16px] font-semibold">Today</h2>
           </div>
         </div>
         <div className="text-right">
           <h1 className="text-xl font-bold">1hr 20mins</h1>
           <div className="flex items-center space-x-3 justify-end">
-            <h2 className="text-[16px] font-semibold">Today</h2>
-            <div className="bg-green-500 w-[15px] h-[15px] rounded-full"></div>
+            <h2 className="text-[16px] font-semibold">This week average</h2>
+            <div className="bg-[#9BC0B4] w-[15px] h-[15px] rounded-full"></div>
           </div>
         </div>
       </div>

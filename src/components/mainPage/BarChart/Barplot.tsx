@@ -27,8 +27,7 @@ export const Barplot = ({ width, height, data }: BarplotProps) => {
   }, [data, width]);
 
   // Y axis
-  const max = d3.max(data.map((d) => d.value));
-  const yScale = d3.scaleLinear().domain([0, max]).range([boundsHeight, 0]);
+  const yScale = d3.scaleLinear().domain([0, 8]).range([boundsHeight, 0]);
 
   // Build the shapes
   const allShapes = data.map((d) => {
@@ -51,23 +50,30 @@ export const Barplot = ({ width, height, data }: BarplotProps) => {
         <g transform={`translate(${MARGIN.left},${MARGIN.top})`}>
           {allShapes}
           {/* X Axis */}
-          <g transform={`translate(0,${boundsHeight})`}>
-            {xScale.domain().map((d) => (
-              <text
-                key={d}
-                x={xScale(d) + xScale.bandwidth() / 2}
-                y={10}
-                style={{ textAnchor: "middle" }}
-              >
-              </text>
-            ))}
-          </g>
+            <g transform={`translate(0,${boundsHeight})`}>
+              {xScale.domain().map((d) => (
+                <text
+                  key={d}
+                  x={xScale(d) + xScale.bandwidth() / 2}
+                  y={10}
+                  style={{ textAnchor: "middle", marginTop: "3px" }}
+                >
+                  {d}
+                </text>
+              ))}
+            </g>
           {/* Y Axis */}
           <g>
             {yScale.ticks().map((tick) => (
               <g key={tick} transform={`translate(0,${yScale(tick)})`}>
                 <line x2={boundsWidth} stroke="rgba(0,0,0,0.1)" />
-                <text x={-5} y={5} dy="0.32em" style={{ textAnchor: "end" }}>
+                <text
+                  x={-5}
+                  y={5}
+                  dy="0.32em"
+                  style={{ textAnchor: "middle" }}
+                >
+                  {tick}
                 </text>
               </g>
             ))}

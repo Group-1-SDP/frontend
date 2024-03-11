@@ -15,9 +15,9 @@ function MainContainer() {
         <div className="flex items-center pl-[31px]">
           <StudyCircleContainer />
         </div>
-        <div className="mt-[20px]">
+        <div className="mt-[20px] ml-[-40px]">
           <canvas ref={canvasRef}></canvas>
-          <Model canvasRef={canvasRef} width={600} height={400} zCamPosition={3.1} yCamPosition={1.6} FOV={75}/>
+          <Model canvasRef={canvasRef} width={705} height={450} zCamPosition={4} yCamPosition={2.7} FOV={55}/>
         </div>
       </div>
       <div className="flex w-[1140px] h-[405px] rounded-2xl items-center justify-between">
