@@ -117,9 +117,9 @@ function Model({
     });
 
     //Help visualize axis
-    const axesHelper = new THREE.AxesHelper(5);
-    axesHelper.setColors(0x00ff00, 0xff0000, 0x0000ff);
-    scene.add(axesHelper);
+    // const axesHelper = new THREE.AxesHelper(5);
+    // axesHelper.setColors(0x00ff00, 0xff0000, 0x0000ff);
+    // scene.add(axesHelper);
 
     // Animation Loop
     const clock = new THREE.Clock();
