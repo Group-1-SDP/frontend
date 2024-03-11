@@ -17,7 +17,16 @@ function MainContainer() {
         </div>
         <div className="mt-[20px] ml-[-40px]">
           <canvas ref={canvasRef}></canvas>
-          <Model canvasRef={canvasRef} width={705} height={450} zCamPosition={4} yCamPosition={2.7} FOV={55}/>
+          <Model
+            canvasRef={canvasRef}
+            width={705}
+            height={450}
+            zCamPosition={4}
+            yCamPosition={2.7}
+            FOV={55}
+            mirror={false}
+            rotateY={-2.3}
+          />
         </div>
       </div>
       <div className="flex w-[1140px] h-[405px] rounded-2xl items-center justify-between">
