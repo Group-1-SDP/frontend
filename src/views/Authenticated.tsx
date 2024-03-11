@@ -1,12 +1,12 @@
 import React from "react";
-import TopBar from "../components/Utils/TopBar.tsx";
+import Navigation from "../components/Utils/Navigation/Navigation.tsx";
 import ControlsMenu from "../components/mainPage/ControlsMenu.tsx";
 import StudyStreakBar from "../components/mainPage/StudyStreakBar.tsx";
 
 function Authenticated() {
   return (
     <div className="overflow-hidden">
-      <TopBar />    
+      <Navigation/>
       <div className="flex justify-center">
         <ControlsMenu />
       </div>

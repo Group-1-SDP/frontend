@@ -103,6 +103,7 @@ function controlsMenu() {
           yCamPosition={1.5}
           FOV={75}
           rotateY={1.6}
+          mirror={false}
         />
       </div>
     </div>

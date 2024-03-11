@@ -23,7 +23,8 @@ const AuthenticatorPage = () => {
         zCamPosition={4}
         yCamPosition={1.5}
         FOV={75}
-        rotateY={2.3}
+        rotateY={-2.3}
+        mirror={true}
       />
     </>
   );

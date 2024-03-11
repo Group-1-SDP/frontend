@@ -1,11 +1,11 @@
 import React from "react";
-import TopBar from "../components/Utils/TopBar";
 import Leaderboard from "../components/friendsPage/Leaderboard";
+import Navigation from "../components/Utils/Navigation/Navigation";
 
 function FriendsPage() {
   return (
     <div>
-      <TopBar />
+      <Navigation />
       <Leaderboard />
     </div>
   );
