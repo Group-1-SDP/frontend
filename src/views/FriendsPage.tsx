@@ -1,5 +1,5 @@
 import React from "react";
-import Leaderboard from "../components/friendsPage/Leaderboard";
+import Leaderboard from "../components/Utils/Leaderboard/Leaderboard";
 import Navigation from "../components/Utils/Navigation/Navigation";
 
 function FriendsPage() {

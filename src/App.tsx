@@ -13,6 +13,7 @@ import ModulesPage from "./components/Modules/ModulesPage";
 import SettingsPage from "./views/SettingsPage";
 import { useAtom } from "jotai";
 import { APILink } from "./components/Utils/GlobalState";
+import LeaderboardPage from "./views/LeaderboardPage";
 
 export const topTodoItem = atomWithStorage("topTodo", "");
 export const authenticated = atomWithStorage("userAuth", false);
@@ -75,6 +76,7 @@ function App() {
           <Route path="profile" element={<ProfilePage />} />
           <Route path="modules" element={<ModulesPage />} />
           <Route path="settings" element={<SettingsPage />} />
+          <Route path="leaderboard" element={<LeaderboardPage />} />
         </Routes>
       </BrowserRouter>
     </>
