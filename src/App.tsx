@@ -13,17 +13,24 @@ import ModulesPage from "./components/Modules/ModulesPage";
 import SettingsPage from "./views/SettingsPage";
 import { useAtom } from "jotai";
 import { APILink } from "./components/Utils/GlobalState";
+import AuthenticatorPage from "./views/AuthenticatorPage";
+import Authenticated from "./views/Authenticated";
+import Navigation from "./components/Utils/Navigation/Navigation";
+import SchedulePage from "./views/SchedulePage";
 
 export const topTodoItem = atomWithStorage("topTodo", "");
 export const authenticated = atomWithStorage("userAuth", false);
-export const phoneConnectedState = atomWithStorage("phoneConnectedState", false);
+export const phoneConnectedState = atomWithStorage(
+  "phoneConnectedState",
+  false
+);
 export const phoneConnectedTime = atomWithStorage("phoneConnectedTime", ""); // Changed atom name
 
 function App() {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [, setSocketConnected] = useState(false);
   const [, setPhoneConnected] = useAtom(phoneConnectedState);
-  const [, setBoxTime] = useAtom(phoneConnectedTime); 
+  const [, setBoxTime] = useAtom(phoneConnectedTime);
 
   useEffect(() => {
     const newSocket = io(APILink);
@@ -48,7 +55,7 @@ function App() {
 
       socket.on("phoneConnected", () => {
         setPhoneConnected(true);
-        setBoxTime(new Date().toLocaleString()); 
+        setBoxTime(new Date().toLocaleString());
       });
 
       socket.on("phoneDisconnected", () => {
@@ -65,18 +72,52 @@ function App() {
     };
   }, [socket, setPhoneConnected, setBoxTime]); // Added setBoxTime to dependency array
 
+  const [userAuthenticated] = useAtom(authenticated);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Set loading to false once the authentication status has been determined
+    setLoading(false);
+  }, [userAuthenticated]);
+
+  if (loading) {
+    return null; // Render nothing while loading
+  }
+
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="to-do list" element={<TodoList />} />
-          <Route path="friends" element={<FriendsPage />} />
-          <Route path="profile" element={<ProfilePage />} />
-          <Route path="modules" element={<ModulesPage />} />
-          <Route path="settings" element={<SettingsPage />} />
-        </Routes>
-      </BrowserRouter>
+      {userAuthenticated ? (
+        <div className="flex justify-center overflow-x-hidden">
+          <div className="bg-gray-200 w-full px-[40px]">
+            <Navigation />
+            <div className="ml-[240px]">
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<Authenticated />} />
+                  <Route path="todo" element={<TodoList />} />
+                  <Route path="friends" element={<FriendsPage />} />
+                  <Route path="profile" element={<ProfilePage />} />
+                  <Route path="modules" element={<ModulesPage />} />
+                  <Route path="schedule" element={<SchedulePage />} />
+                  <Route path="settings" element={<SettingsPage />} />
+                </Routes>
+              </BrowserRouter>
+            </div>
+          </div>
+        </div>
+      ) : (
+        // <BrowserRouter>
+        //   <Routes>
+        // <Route path="/" element={<Authenticated />} />
+        // <Route path="todo" element={<TodoList />} />
+        // <Route path="friends" element={<FriendsPage />} />
+        // <Route path="profile" element={<ProfilePage />} />
+        // <Route path="modules" element={<ModulesPage />} />
+        // <Route path="settings" element={<SettingsPage />} />
+        //   </Routes>
+        // </BrowserRouter>
+        <AuthenticatorPage />
+      )}
     </>
   );
 }

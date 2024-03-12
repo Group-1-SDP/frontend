@@ -3,7 +3,7 @@ import { TodoForm } from "./TodoForm";
 import { Task, Todo } from "./Todo";
 import { useAtom } from "jotai";
 import { topTodoItem } from "../../App";
-import { APILink } from "../Utils/GlobalState";
+import { APILink, usernameAtom } from "../Utils/GlobalState";
 import DropdownSwitcher from "../Utils/DropdownSwitcher";
 import TodoFilter, { Filter } from "./TodoFilter";
 
@@ -21,6 +21,7 @@ export const TodoWrapper = () => {
     { id: string; text: string; completed: boolean; date?: string }[]
   >([]);
   const [topTask, setTopTask] = useAtom(topTodoItem);
+  const [username] = useAtom(usernameAtom);
   const APIroot = APILink + "/api/";
   const [activeFilter, setActiveFilter] = useState<string>("To-Do");
   const [activeTimeFrame, setActiveTimeFrame] = useState<string>("Today");
@@ -39,7 +40,7 @@ export const TodoWrapper = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            username: "testusername",
+            username: username,
           }),
         });
         if (!response.ok) {
@@ -107,7 +108,6 @@ export const TodoWrapper = () => {
   };
 
   const updateAPI = async (task_id: string) => {
-    console.log("updating api");
     try {
       const response = await fetch(APIroot + "updateTask", {
         method: "PATCH",

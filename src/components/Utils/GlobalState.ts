@@ -1,7 +1,7 @@
 import { atomWithStorage } from "jotai/utils";
 
 //API link
-export const APILink = "http://127.0.0.1:5000";
+export const APILink = "http://10.124.196.98:5000";
 
 // Username storage
 export const usernameAtom = atomWithStorage("username", "");

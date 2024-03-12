@@ -4,7 +4,6 @@ import Navigation from "../components/Utils/Navigation/Navigation";
 export const TodoList = () => {
   return (
     <div>
-      <Navigation />
       <TodoWrapper />
     </div>
   );

@@ -101,28 +101,28 @@ const SettingsNavigation: React.FC<SettingsNavigationProps> = ({
           <NavItem
             name="To-Do List"
             isActive={navState === "To-Do List"}
-            path="/To-Do List"
+            path="/todo"
             isLogOut={false}
             icon={LuListTodo}
           />
           <NavItem
             name="Friends"
             isActive={navState === "Friends"}
-            path="/Friends"
+            path="/friends"
             isLogOut={false}
             icon={FaUserFriends}
           />
           <NavItem
             name="Leaderboard"
             isActive={navState === "Leaderboard"}
-            path="/Leaderboard"
+            path="/leaderboard"
             isLogOut={false}
             icon={MdLeaderboard}
           />
           <NavItem
             name="Schedule"
             isActive={navState === "Schedule"}
-            path="/Schedule"
+            path="/schedule"
             isLogOut={false}
             icon={AiOutlineSchedule}
           />
@@ -133,14 +133,14 @@ const SettingsNavigation: React.FC<SettingsNavigationProps> = ({
           <NavItem
             name="Settings"
             isActive={navState === "Settings"}
-            path="/Settings"
+            path="/settings"
             isLogOut={false}
             icon={IoSettingsSharp}
           />
           <NavItem
             name="Logout"
             isActive={navState === "Logout"}
-            path="/Logout"
+            path="/logout"
             isLogOut={true}
             icon={LuLogOut}
           />

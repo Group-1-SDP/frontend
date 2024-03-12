@@ -4,7 +4,6 @@ import Settings from "../components/SettingsPage/Settings";
 function SettingsPage() {
   return (
     <div>
-      <Navigation />
       <Settings />
     </div>
   );

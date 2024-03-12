@@ -11,25 +11,25 @@ function MainContainer() {
 
   return (
     <div className="flex flex-col">
-      <div className="flex w-[1140px] h-[480px] bg-white rounded-2xl justify-between">
-        <div className="flex items-center pl-[31px]">
+      <div className="flex h-[480px] bg-white rounded-2xl justify-between px-[25px]">
+        <div className="flex items-center">
           <StudyCircleContainer />
         </div>
-        <div className="mt-[20px] ml-[-40px]">
-          <canvas ref={canvasRef}></canvas>
+        <div className="mt-[20px]">
+          <canvas ref={canvasRef} className=""></canvas>
           <Model
             canvasRef={canvasRef}
-            width={705}
+            width={830}
             height={450}
             zCamPosition={4}
-            yCamPosition={2.7}
-            FOV={55}
+            yCamPosition={3.1}
+            FOV={45}
             mirror={false}
             rotateY={-2.3}
           />
         </div>
       </div>
-      <div className="flex w-[1140px] h-[405px] rounded-2xl items-center justify-between">
+      <div className="flex w-full h-[405px] rounded-2xl items-center justify-between">
         <TimeTracker />
         <TodoTracker />
         <ProgressTracker />

@@ -13,7 +13,7 @@ function ProgressTracker() {
     
 
   return (
-    <div className="w-[360px] h-[365px] shadow-sm bg-white rounded-xl">
+    <div className="w-[380px] h-[365px] shadow-sm bg-white rounded-xl">
       <div className="flex items-center justify-between p-6">
         <h1 className="font-bold text-[22px]">Progress</h1>
         <h2 className="font-bold text-[16px] text-greenAccent hover:underline"><a href="/profile">See more</a></h2>
