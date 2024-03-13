@@ -32,40 +32,44 @@ export const TodoWrapper = () => {
   ]);
 
   useEffect(() => {
-    const fetchUserTasks = async () => {
-      try {
-        const response = await fetch(APIroot + "getIncompleteUserTasks", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: username,
-          }),
-        });
-        if (!response.ok) {
-          throw new Error("Failed to fetch user tasks");
-        }
-        const apiResponse = await response.json();
-        const data = apiResponse.tasks;
+    //If Statement here
+    if (username) {
+      const fetchUserTasks = async () => {
+        try {
+          const response = await fetch(APIroot + "getIncompleteUserTasks", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              username: username,
+            }),
+          });
+          if (!response.ok) {
+            throw new Error("Failed to fetch user tasks");
+          }
+          const apiResponse = await response.json();
+          const data = apiResponse.tasks;
 
-        if (Array.isArray(data)) {
-          const formattedTasks = data.map((task: any) => ({
-            id: task.task_id,
-            text: task.contents,
-            completed: task.completed,
-          }));
-          setTasks(formattedTasks);
-        } else {
-          console.error("Data received from server is not an array:", data);
+          if (Array.isArray(data)) {
+            const formattedTasks = data.map((task: any) => ({
+              id: task.task_id,
+              text: task.contents,
+              completed: task.completed,
+            }));
+            setTasks(formattedTasks);
+          } else {
+            console.error("Data received from server is not an array:", data);
+          }
+        } catch (error) {
+          console.error("Error fetching user tasks:", error);
         }
-      } catch (error) {
-        console.error("Error fetching user tasks:", error);
-      }
-    };
+      };
 
-    fetchUserTasks();
-  }, []);
+      fetchUserTasks();
+    }
+    //Dependency value here
+  }, [username]);
 
   useEffect(() => {
     if (tasks.length > 0) {
@@ -94,7 +98,7 @@ export const TodoWrapper = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username: "testusername",
+          username: username,
           task_id: task_id,
           contents: contents,
         }),
@@ -115,7 +119,7 @@ export const TodoWrapper = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username: "testusername",
+          username: username,
           task_id: task_id,
           completed: "true",
         }),
@@ -169,34 +173,36 @@ export const TodoWrapper = () => {
     a.completed === b.completed ? 0 : a.completed ? 1 : -1
   );
 
-  const filteredTasks = sortedTasks.filter((task) => {
-    // Apply active filter
-    switch (activeFilter) {
-      case "All":
-        return true;
-      case "Completed":
-        return task.completed;
-      case "To-Do":
-        return !task.completed;
-      default:
-        return false; // Handle invalid filters
-    }
-  }).filter((task) => {
-    // Apply active time frame filter
-    switch (activeTimeFrame) {
-      case "Today":
-        // Assuming date is in the format YYYY-MM-DD
-        return task.date === new Date().toISOString().split("T")[0];
-      case "Upcoming":
-        // Assuming date is in the format YYYY-MM-DD
-        return task.date && new Date(task.date) > new Date();
-      case "Anytime":
-        // Assuming task has no date
-        return !task.date;
-      default:
-        return true; // Include all tasks for "All" option
-    }
-  });
+  const filteredTasks = sortedTasks
+    .filter((task) => {
+      // Apply active filter
+      switch (activeFilter) {
+        case "All":
+          return true;
+        case "Completed":
+          return task.completed;
+        case "To-Do":
+          return !task.completed;
+        default:
+          return false; // Handle invalid filters
+      }
+    })
+    .filter((task) => {
+      // Apply active time frame filter
+      switch (activeTimeFrame) {
+        case "Today":
+          // Assuming date is in the format YYYY-MM-DD
+          return task.date === new Date().toISOString().split("T")[0];
+        case "Upcoming":
+          // Assuming date is in the format YYYY-MM-DD
+          return task.date && new Date(task.date) > new Date();
+        case "Anytime":
+          // Assuming task has no date
+          return !task.date;
+        default:
+          return true; // Include all tasks for "All" option
+      }
+    });
 
   return (
     <div className="flex justify-center">
