@@ -5,7 +5,6 @@ import ProfileWrapper from "../components/profilePage/ProfileWrapper";
 function ProfilePage() {
   return (
     <div>
-      <Navigation />
       <ProfileWrapper />
     </div>
   );

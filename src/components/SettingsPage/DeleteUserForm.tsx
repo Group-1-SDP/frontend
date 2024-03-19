@@ -1,11 +1,10 @@
 import { useAtom } from "jotai";
 import { useState } from "react";
-import { APILink, emailAtom, usernameAtom } from "../Utils/GlobalState";
+import { APILink, usernameAtom } from "../Utils/GlobalState";
 import { authenticated } from "../../App";
 
 function DeleteUserForm() {
   const [username, setUsername] = useAtom(usernameAtom);
-  const [email, setEmail] = useAtom(emailAtom);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [, setUserAuthenticated] = useAtom(authenticated);
@@ -30,7 +29,6 @@ function DeleteUserForm() {
 
       if (response.status === 200) {
         setUsername("");
-        setEmail("");
         setUserAuthenticated(false);
         location.href = "/";
       } else {

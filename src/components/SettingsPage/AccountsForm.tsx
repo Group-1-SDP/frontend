@@ -1,12 +1,11 @@
 import { useAtom } from "jotai";
 import { useState } from "react";
-import { APILink, usernameAtom, emailAtom } from "../Utils/GlobalState";
+import { APILink, usernameAtom } from "../Utils/GlobalState";
 
 function AccountsForm() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [username, setUsername] = useAtom(usernameAtom);
-  const [email, setEmail] = useAtom(emailAtom);
   const [newUserName, setNewUserName] = useState("");
   const [newEmail, setNewEmail] = useState("");
 
@@ -38,7 +37,7 @@ function AccountsForm() {
 
         }
         if (newEmail) {
-          setEmail(newEmail);
+          console.log("todo")
         }
         setSuccess(data.message);
       } else {
@@ -65,7 +64,7 @@ function AccountsForm() {
       </div>
       <div className="mb-4">
         <label className="block text-xl font-semibold mb-2">
-          Current Email: {email}
+          Current Email: {}
         </label>
         <input
           value={newEmail}

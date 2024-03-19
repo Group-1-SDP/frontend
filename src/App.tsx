@@ -90,7 +90,7 @@ function App() {
         <div className="flex justify-center overflow-x-hidden">
           <div className="bg-gray-200 w-full px-[40px]">
             <Navigation />
-            <div className="ml-[240px]">
+            <div className="ml-[240px] pt-[30px]">
               <BrowserRouter>
                 <Routes>
                   <Route path="/" element={<Authenticated />} />
@@ -106,16 +106,6 @@ function App() {
           </div>
         </div>
       ) : (
-        // <BrowserRouter>
-        //   <Routes>
-        // <Route path="/" element={<Authenticated />} />
-        // <Route path="todo" element={<TodoList />} />
-        // <Route path="friends" element={<FriendsPage />} />
-        // <Route path="profile" element={<ProfilePage />} />
-        // <Route path="modules" element={<ModulesPage />} />
-        // <Route path="settings" element={<SettingsPage />} />
-        //   </Routes>
-        // </BrowserRouter>
         <AuthenticatorPage />
       )}
     </>

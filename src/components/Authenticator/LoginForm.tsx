@@ -3,7 +3,7 @@ import { FaUser } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { authenticated } from "../../App";
 import { useEffect, useState } from "react";
-import { emailAtom, usernameAtom } from "../Utils/GlobalState";
+import { userIDAtom, usernameAtom } from "../Utils/GlobalState";
 import { APILink } from "../Utils/GlobalState";
 import { navStateAtom } from "../Utils/GlobalState";
 import { AnimatePresence, motion } from "framer-motion";
@@ -11,7 +11,7 @@ import { AnimatePresence, motion } from "framer-motion";
 function LoginForm() {
   const [, setUserAuthenticated] = useAtom(authenticated);
   const [username, setUsername] = useAtom(usernameAtom);
-  const [, setEmail] = useAtom(emailAtom);
+  const [, setUserID] = useAtom(userIDAtom);
   const [, setNavState] = useAtom(navStateAtom);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -33,10 +33,12 @@ function LoginForm() {
       });
 
       const data = await response.json();
+      console.log(response);
 
       if (response.status === 200) {
+        setUserID(data.id);
+        console.log(data.id);        
         setUsername(data.username);
-        setEmail(data.email);
         setNavState("/");
         setUserAuthenticated(true);
         console.log(response.status);
@@ -51,13 +53,7 @@ function LoginForm() {
   return (
     <form>
       <AnimatePresence>
-        <motion.div
-          className="mt-12 mb-12"
-          initial={{ x: 600 }}
-          animate={{ x: 0 }}
-          exit = {{ x: 600 }}
-          transition={{ duration: 0.5 }}
-        >
+        <motion.div className="mt-12 mb-12">
           <div className="relative">
             <div className="relative flex items-center">
               <div className="relative w-full min-w-[200px] h-12">
@@ -75,13 +71,7 @@ function LoginForm() {
             </div>
           </div>
         </motion.div>
-        <motion.div
-          className="mb-12"
-          initial={{ x: 600 }}
-          animate={{ x: 0 }}
-          exit={{ x: 600 }}
-          transition={{ duration: 0.5 }}
-        >
+        <motion.div className="mb-12">
           <div className="relative">
             <div className="relative flex items-center">
               <div className="relative w-full min-w-[200px] h-12">
@@ -102,13 +92,7 @@ function LoginForm() {
             </div>
           </div>
         </motion.div>
-        <motion.div
-          className="flex justify-center"
-          initial={{ x: 600 }}
-          animate={{ x: 0 }}
-          exit={{ x: 600 }}
-          transition={{ duration: 0.5 }}
-        >
+        <motion.div className="flex justify-center">
           <button
             type="submit"
             onClick={handleConnect}
@@ -118,11 +102,7 @@ function LoginForm() {
           </button>
         </motion.div>
 
-        <motion.div
-          initial={{ x: -100 }}
-          animate={{ x: 0 }}
-          className="text-red-500 text-center mt-2"
-        >
+        <motion.div className="text-red-500 text-center mt-2">
           {error}
         </motion.div>
       </AnimatePresence>

@@ -1,78 +1,89 @@
 import React, { useEffect, useState } from "react";
 import FriendCard from "./FriendCard";
 import { useAtom } from "jotai";
-import { APILink } from "../Utils/GlobalState";
-
-const friends = [
-  { username: "Jonathan", level: 1, progress: 0.6, profilePic: "" },
-  { username: "Matthieu", level: 1, progress: 0.4, profilePic: "" },
-  { username: "Linus", level: 1, progress: 0.9, profilePic: "" },
-  { username: "Dylan", level: 1, progress: 0.3, profilePic: "" },
-  { username: "Lewis", level: 1, progress: 0.7, profilePic: "" },
-  { username: "Cem", level: 1, progress: 0.2, profilePic: "" },
-  { username: "Ross", level: 1, progress: 0.5, profilePic: "" },
-  { username: "Lyle", level: 1, progress: 0.8, profilePic: "" },
-  { username: "Pavel", level: 1, progress: 0.1, profilePic: "" },
-];
+import { APILink, friendAddedAtom } from "../Utils/GlobalState";
+import { userIDAtom } from "../Utils/GlobalState";
+import { motion } from "framer-motion";
 
 function FriendsContainer() {
-  const APIroot = APILink + "/api/";
-  const [friends, setFriends] = useState([]);
+  const [friends, setFriends] = useState(
+    [] as { username: any; level: any; progress: any; profilePic: any }[]
+  );
+  const [userID] = useAtom(userIDAtom);
+  const [friendAdded] = useAtom(friendAddedAtom);
 
   useEffect(() => {
     const fetchUserFriends = async () => {
-      try {
-        console.log(APIroot + "getFriends")
-        const response = await fetch(APIroot + "getFriends", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: "username",
-          }),
-        });
+      if (userID) {
+        console.log(userID);
+        const response = await fetch(
+          APILink + "/api/" + userID + "/get-friends",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         if (!response.ok) {
-          return; 
+          return;
         }
         const apiResponse = await response.json();
+        if (response.status !== 200) {
+          console.log("Error fetching user friends:");
+          return;
+        }
+
+        console.log(apiResponse.friends);
         const data = apiResponse.friends;
 
         if (Array.isArray(data)) {
           const formattedFriends = data.map((friend: any) => ({
-            username: friend.username,
-            level: friend.level,
-            progress: friend.progress,
-            profilePic: friend.profilePic,
+            username: friend.friend_username,
+            level: friend.friend_level,
+            progress: friend.friend_progress,
+            profilePic: friend.friend_profile_picture,
           }));
-          console.log(formattedFriends)
-          setFriends(formattedFriends);
+          if (formattedFriends.length === 0) {
+            return;
+          }
+          setFriends(
+            formattedFriends as {
+              username: any;
+              level: any;
+              progress: any;
+              profilePic: any;
+            }[]
+          );
         } else {
           console.error("Data received from server is not an array:", data);
         }
-      } catch (error) {
-        console.error("Error fetching user tasks:", error);
       }
     };
 
     fetchUserFriends();
-  }, []);
+  }, [userID, friendAdded]);
 
   return (
-    <div className="flex flex-col">
-      <div className="grid grid-cols-3 w-full rounded-2xl justify-between">
-        {friends.map((friend, index) => (
-          <FriendCard
-            key={index}
-            username={friend.username}
-            level={friend.level}
-            progress={friend.progress}
-            profilePic={friend.profilePic}
-          />
-        ))}
-        <div className="flex items-center"></div>
-      </div>
-    </div>
+    <motion.div layout="position" >
+      {friends.length === 0 ? (
+        <div className="flex items-center justify-center h-[635px]">
+          <h1>No friends yet. Try adding some!</h1>
+        </div>
+      ) : (
+        <div className="min-h-[635px] grid grid-cols-3 gap-8 py-4">
+          {friends.map((friend, index) => (
+            <FriendCard
+              key={index}
+              username={friend.username}
+              level={friend.level}
+              progress={friend.progress}
+              profilePic={friend.profilePic}
+            />
+          ))}
+        </div>
+      )}
+    </motion.div>
   );
 }
 

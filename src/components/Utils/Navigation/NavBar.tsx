@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { navStateAtom, emailAtom, usernameAtom } from "../GlobalState";
+import { navStateAtom, usernameAtom } from "../GlobalState";
 import Logo from "../Logo";
 import { authenticated } from "../../../App";
 import { IoHome, IoSettingsSharp } from "react-icons/io5";
@@ -25,13 +25,11 @@ const NavItem: React.FC<NavInterface> = ({
   icon: Icon,
 }) => {
   const [, setNavState] = useAtom(navStateAtom);
-  const [, setEmail] = useAtom(emailAtom);
   const [, setUsername] = useAtom(usernameAtom);
   const [, setUserAuthenticated] = useAtom(authenticated);
 
   const handleLogout = () => {
     setUsername("");
-    setEmail("");
     setUserAuthenticated(false);
     location.href = "/";
   };

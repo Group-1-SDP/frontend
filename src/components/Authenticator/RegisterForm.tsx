@@ -7,7 +7,7 @@ import { useState } from "react";
 import {
   APILink,
   usernameAtom,
-  emailAtom,
+  userIDAtom,
   navStateAtom,
 } from "../Utils/GlobalState";
 import { motion } from "framer-motion";
@@ -15,8 +15,9 @@ import { motion } from "framer-motion";
 function RegisterForm() {
   const [, setUserAuthenticated] = useAtom(authenticated);
   const [username, setUsername] = useAtom(usernameAtom);
-  const [email, setEmail] = useAtom(emailAtom);
+  const [userID, setUserID] = useAtom(userIDAtom);
   const [, setNavState] = useAtom(navStateAtom);
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
@@ -39,9 +40,10 @@ function RegisterForm() {
 
       const data = await response.json();
 
-      if (response.status === 200) {
+      if (response.status === 201) {
+        console.log(data);
         setUsername(data.username);
-        setEmail(data.email);
+        setUserID(data.id);
         setUserAuthenticated(true);
         setNavState("/");
       } else {
@@ -57,10 +59,6 @@ function RegisterForm() {
     <form>
       <motion.div
         className="mt-12 mb-12"
-        initial={{ x: -600 }}
-        animate={{ x: 0 }}
-        exit={{ x: -600 }}
-        transition={{ duration: 0.5 }}
       >
         <div className="relative">
           <div className="relative flex items-center">
@@ -81,10 +79,6 @@ function RegisterForm() {
       </motion.div>
       <motion.div
         className="mb-12"
-        initial={{ x: -600 }}
-        animate={{ x: 0 }}
-        exit={{ x: -600 }}
-        transition={{ duration: 0.5 }}
       >
         <div className="relative">
           <div className="relative flex items-center">
@@ -105,10 +99,6 @@ function RegisterForm() {
       </motion.div>
       <motion.div
         className="mb-12"
-        initial={{ x: -600 }}
-        animate={{ x: 0 }}
-        exit={{ x: -600 }}
-        transition={{ duration: 0.5 }}
       >
         <div className="relative">
           <div className="relative flex items-center">
@@ -129,10 +119,6 @@ function RegisterForm() {
       </motion.div>
       <motion.div
         className="flex justify-center mt-8"
-        initial={{ x: -600 }}
-        animate={{ x: 0 }}
-        exit={{ x: -600 }}
-        transition={{ duration: 0.5 }}
       >
         <button
           type="submit"
