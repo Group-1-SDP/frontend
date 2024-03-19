@@ -23,7 +23,7 @@ function FriendsPage() {
           <div className="flex rounded-xl justify-between space-x-3 transition-all duration-150 relative">
             <div className="inline-block">
               <button
-                className="rounded-xl font-light transition-all duration-75 mx-[-16px] px-[16px] text-4xl relative z-10"
+                className={`rounded-xl font-light transition-all duration-75 mx-[-16px] px-[16px] text-4xl relative z-10 ${showFriendAdd && "underline"}`}
                 onClick={handleFriendAdd}
               >
                 Friends
@@ -45,7 +45,7 @@ function FriendsPage() {
               key="friendAdd"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.3 }}
               exit={{ opacity: 0, y: -20 }}
             >
               <FriendAdd />
@@ -53,7 +53,7 @@ function FriendsPage() {
           )}
         </AnimatePresence>
         <motion.div
-          className="pt-4 flex justify-center"
+          className="pt-4 "
         >
           <motion.div
           >

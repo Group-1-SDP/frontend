@@ -29,11 +29,11 @@ function FriendAdd() {
   };
 
   return (
-    <div className="h-[240px] w-[400px] mt-4">
-      <motion.div className="mt-12 mb-12 pt-3">
+    <div className="flex h-[120px] w-[400px] bg-white rounded-xl mt-4 py-4 justify-center">
+      <motion.div className="rounded-xl">
         <div className="relative">
           <div className="relative flex items-center">
-            <div className="relative w-full min-w-[200px] h-12">
+            <div className="relative w-full min-w-[300px] h-12">
               <input
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -48,13 +48,13 @@ function FriendAdd() {
           </div>
         </div>
       </motion.div>
-      <motion.div className="flex justify-center">
+      <motion.div className="flex justify-center h-12 text-sm">
         <button
           type="submit"
           onClick={handleConnect}
           className="text-white text-xl font-medium block w-full p-3 rounded-lg text-center dark:bg-greenAccent dark:hover:bg-greenAccent"
         >
-          Add Friend
+          Add
         </button>
       </motion.div>
     </div>
