@@ -85,7 +85,7 @@ function App() {
   }
 
   return (
-    <>
+    <div className="overflow-hidden">
       {userAuthenticated ? (
         <div className="flex justify-center overflow-x-hidden">
           <div className="bg-gray-200 w-full px-[40px]">
@@ -106,9 +106,11 @@ function App() {
           </div>
         </div>
       ) : (
-        <AuthenticatorPage />
+        <div className="w-screen h-screen flex justify-center items-center ">
+          <AuthenticatorPage />
+        </div>
       )}
-    </>
+    </div>
   );
 }
 

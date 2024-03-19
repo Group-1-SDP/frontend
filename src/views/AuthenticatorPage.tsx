@@ -8,11 +8,11 @@ const AuthenticatorPage = () => {
 
   return (
     <>
-      <div className="relative z-10 pointer-events-none">
-        <Icon />
+      <div className="">
+        
         <Authenticator />
       </div>
-      <canvas
+      {/* <canvas
         ref={canvasRef}
         className="absolute top-1/2 -translate-y-1/2 z-0"
       ></canvas>
@@ -25,7 +25,7 @@ const AuthenticatorPage = () => {
         FOV={75}
         rotateY={-2.3}
         mirror={true}
-      />
+      /> */}
     </>
   );
 };

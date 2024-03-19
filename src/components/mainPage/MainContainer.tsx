@@ -5,6 +5,7 @@ import Model from "../Utils/Model";
 import TimeTracker from "./TimeTracker";
 import TodoTracker from "./TodoTracker";
 import ProgressTracker from "./ProgressTracker";
+import { motion } from "framer-motion";
 
 function MainContainer() {
   const canvasRef = useRef(null);
@@ -19,7 +20,7 @@ function MainContainer() {
           <canvas ref={canvasRef} className=""></canvas>
           <Model
             canvasRef={canvasRef}
-            width={830}
+            width={1230}
             height={450}
             zCamPosition={4}
             yCamPosition={3.1}
@@ -29,11 +30,20 @@ function MainContainer() {
           />
         </div>
       </div>
-      <div className="flex w-full h-[405px] rounded-2xl items-center justify-between">
+      <motion.div
+        className="flex w-full h-[405px] rounded-2xl items-center justify-between"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          visible: { opacity: 1, transition: { staggerChildren: 0.4 } },
+          hidden: { opacity: 0 },
+        }}
+      >
+        <TimeTracker />
         <TimeTracker />
         <TodoTracker />
         <ProgressTracker />
-      </div>
+      </motion.div>
     </div>
   );
 }
