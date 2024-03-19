@@ -5,13 +5,18 @@ import StudyStreakBar from "../components/mainPage/StudyStreakBar.tsx";
 import MainContainer from "../components/mainPage/MainContainer.tsx";
 import { usernameAtom } from "../components/Utils/GlobalState.ts";
 import { useAtom } from "jotai";
+import { motion } from "framer-motion";
 
 function Authenticated() {
 
   const [username] = useAtom(usernameAtom);
 
   return (
-    <div className="flex justify-center overflow-x-hidden">
+    <motion.div 
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 0.3 }}
+    className="flex justify-center overflow-x-hidden">
       <div className=" bg-gray-200 w-full">
         <h1 className="font-light text-4xl">
           Let's get to work, <span>{username}</span>.
@@ -20,7 +25,7 @@ function Authenticated() {
           <MainContainer />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
