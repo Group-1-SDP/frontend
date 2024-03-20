@@ -28,8 +28,6 @@ function Model({
 }: ModelProps) {
   const [phoneConnected] = useAtom(phoneConnectedState);
   const [playStart, setPlayStart] = useState(true);
-  const [modelPosition, setModelPosition] = useState(true);
-
 
   useEffect(() => {
     if (!canvasRef.current) {
@@ -83,9 +81,7 @@ function Model({
         model.scale.x = -1;
       }
 
-      if(phoneConnected){
-        model.position.setX(-0.5)
-      }
+      model.position.setX(-1)
 
       model.rotateY(-Math.PI / rotateY);
       scene.add(model);
@@ -129,7 +125,7 @@ function Model({
         requestAnimationFrame(animate);
         controls.update();
         renderer.render(scene, camera);
-
+        
         if (shouldAutoRotateBack) {
           camera.position.lerp(defaultCamPos, 0.03);
         }
