@@ -89,7 +89,7 @@ function App() {
     <div className="overflow-hidden">
       {userAuthenticated ? (
         <div className="flex justify-center overflow-x-hidden">
-          <div className="bg-gray-200 w-full px-[40px]">
+          <div className="bg-gray-200 w-full min-h-screen px-[40px]">
             <Navigation />
             <div className="ml-[240px] pt-[30px]">
               <BrowserRouter>

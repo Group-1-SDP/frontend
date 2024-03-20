@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { useState } from "react";
-import { APILink, usernameAtom } from "../Utils/GlobalState";
-import { authenticated } from "../../App";
+import { APILink, usernameAtom } from "../../Utils/GlobalState";
+import { authenticated } from "../../../App";
 
 function DeleteUserForm() {
   const [username, setUsername] = useAtom(usernameAtom);

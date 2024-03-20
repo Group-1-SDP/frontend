@@ -9,7 +9,6 @@ const AuthenticatorPage = () => {
   return (
     <>
       <div className="">
-        
         <Authenticator />
       </div>
       {/* <canvas

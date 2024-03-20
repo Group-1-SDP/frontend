@@ -1,35 +1,44 @@
 import { useAtom } from "jotai";
 import { useState } from "react";
-import { APILink, usernameAtom, emailAtom } from "../Utils/GlobalState";
+import { APILink, usernameAtom } from "../../Utils/GlobalState";
 
-function ChangePasswordForm() {
+function AccountsForm() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [username] = useAtom(usernameAtom);
-  const [oldPassword, setOldPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
+  const [username, setUsername] = useAtom(usernameAtom);
+  const [newUserName, setNewUserName] = useState("");
+  const [newEmail, setNewEmail] = useState("");
 
   const handleConnect = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     setError("");
     setSuccess("");
 
+    const payload = {
+      username: username,
+      ...(newUserName && { newUsername: newUserName }),
+      ...(newEmail && { newEmail: newEmail }),
+    };
+
     try {
-      const response = await fetch(APILink + "/api/changePassword", {
+      const response = await fetch(APILink + "/api/updateAccountSettings", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          username: username,
-          oldPassword: oldPassword,
-          ...(newPassword && { newPassword: newPassword }),
-        }),
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json();
 
       if (response.status === 200) {
+        if (newUserName) {
+          setUsername(newUserName);
+
+        }
+        if (newEmail) {
+          console.log("todo")
+        }
         setSuccess(data.message);
       } else {
         setError(data.message);
@@ -43,21 +52,25 @@ function ChangePasswordForm() {
   return (
     <form>
       <div className="mb-4">
-        <label className="block text-xl font-semibold mb-2">Old Password</label>
+        <label className="block text-xl font-semibold mb-2">
+          Current Username: {username}
+        </label>
         <input
-          value={oldPassword}
-          onChange={(e) => setOldPassword(e.target.value)}
+          value={newUserName}
+          onChange={(e) => setNewUserName(e.target.value)}
           className="block w-full p-4 rounded-lg dark:bg-gray-300"
-          placeholder="Type your old password"
+          placeholder="Change Username"
         />
       </div>
       <div className="mb-4">
-        <label className="block text-xl font-semibold mb-2">New Password</label>
+        <label className="block text-xl font-semibold mb-2">
+          Current Email: {}
+        </label>
         <input
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
+          value={newEmail}
+          onChange={(e) => setNewEmail(e.target.value)}
           className="block w-full p-4 rounded-lg dark:bg-gray-300"
-          placeholder="Type your new password"
+          placeholder="Change Email"
         />
       </div>
       <div className="text-red-500 text-center mt-2">{error}</div>
@@ -68,11 +81,11 @@ function ChangePasswordForm() {
           onClick={handleConnect}
           className="text-white text-lg font-medium p-2 rounded-lg text-center dark:bg-green-800 dark:hover:bg-green-900"
         >
-          Change Password
+          Update
         </button>
       </div>
     </form>
   );
 }
 
-export default ChangePasswordForm;
+export default AccountsForm;
