@@ -9,7 +9,6 @@ import SelectionSlider from "../Utils/ReusableComponents/SelectionSlider";
 
 const settingsTabs = [
   { name: "Account Settings", page: <AccountSettings /> },
-  { name: "Login & Security", page: <LoginSecurity /> },
   { name: "Modules", page: <Modules /> },
   { name: "Study Plan", page: <StudyPlan /> },
 ];

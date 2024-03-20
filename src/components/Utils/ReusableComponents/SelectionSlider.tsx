@@ -28,7 +28,7 @@ function SelectionSlider(props: { tabs: Tab[] }) {
               {`${item.name}`}
               {item.name === selectedTabName && (
                 <motion.div
-                  className="underline bg-black w-full"
+                  className="underline  w-full"
                   layoutId="underline"
                 />
               )}
