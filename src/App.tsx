@@ -17,6 +17,7 @@ import AuthenticatorPage from "./views/AuthenticatorPage";
 import Authenticated from "./views/Authenticated";
 import Navigation from "./components/Utils/Navigation/Navigation";
 import SchedulePage from "./views/SchedulePage";
+import LeaderboardPage from "./views/LeaderboardPage";
 
 export const topTodoItem = atomWithStorage("topTodo", "");
 export const authenticated = atomWithStorage("userAuth", false);
@@ -100,6 +101,7 @@ function App() {
                   <Route path="modules" element={<ModulesPage />} />
                   <Route path="schedule" element={<SchedulePage />} />
                   <Route path="settings" element={<SettingsPage />} />
+                  <Route path="leaderboard" element={<LeaderboardPage />} />
                 </Routes>
               </BrowserRouter>
             </div>

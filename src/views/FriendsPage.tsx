@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Leaderboard from "../components/friendsPage/Leaderboard";
+import Leaderboard from "../components/leaderboardPage/Leaderboard";
 import Navigation from "../components/Utils/Navigation/Navigation";
-import FriendsContainer from "../components/friendsPage/FriendsContainer";
-import FriendAdd from "../components/friendsPage/FriendAdd";
+import FriendsContainer from "../components/Friends/FriendsContainer";
+import FriendAdd from "../components/Friends/FriendAdd";
 import { CgAdd } from "react-icons/cg";
 import { atom, useAtom } from "jotai";
 import { friendAddedAtom } from "../components/Utils/GlobalState";
