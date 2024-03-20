@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/Addons.js";
@@ -27,6 +27,7 @@ function Model({
   mirror,
 }: ModelProps) {
   const [phoneConnected] = useAtom(phoneConnectedState);
+  const [playStart, setPlayStart] = useState(true);
 
   useEffect(() => {
     if (!canvasRef.current) {
@@ -37,6 +38,7 @@ function Model({
 
     // Camera
     const camera = new THREE.PerspectiveCamera(FOV, width / height, 0.1, 1000);
+    camera.position.set(0, yCamPosition, zCamPosition);
 
     // Renderer
     const renderer = new THREE.WebGLRenderer({
@@ -53,7 +55,7 @@ function Model({
     controls.enablePan = false;
 
     // Save the default position
-    const defaultPosition = new THREE.Vector3(0, yCamPosition, zCamPosition);
+    const defaultCamPos = new THREE.Vector3(0, yCamPosition, zCamPosition);
     let shouldAutoRotateBack = false;
     let movedOnce = false;
     controls.addEventListener("start", function () {
@@ -65,13 +67,15 @@ function Model({
     });
 
     //Start animation
-    camera.position.set(0, -5, 0.5);
-    let playStart = true;
+    if (playStart) {
+      camera.position.set(0, -5, 0.5);
+    }
 
     //Mixer
     let mixer: THREE.AnimationMixer;
 
     // GLTFLoader
+    let globalModel: THREE.Group<THREE.Object3DEventMap>;
     const loader = new GLTFLoader();
     loader.load("src/assets/tickbox1.glb", function (gltf) {
       //Load Model
@@ -79,9 +83,21 @@ function Model({
 
       if (mirror) {
         model.scale.x = -1;
-        model.position.x = phoneConnected ? 1 : 0;
       }
+
+      const targetPositionConnected = new THREE.Vector3(
+        -1,
+        model.position.y,
+        model.position.z
+      );
+      const targetPositionDisconnected = new THREE.Vector3(
+        -1.5,
+        model.position.y,
+        model.position.z
+      );
+
       model.rotateY(-Math.PI / rotateY);
+      globalModel = model;
       scene.add(model);
       mixer = new THREE.AnimationMixer(model);
 
@@ -114,35 +130,40 @@ function Model({
         phoneAction.reset().play();
         phoneAction.time = phoneAction.getClip().duration;
       }
+
+      // Animation Loop
+      const clock = new THREE.Clock();
+      let frameCounter = 0;
+      const animate = () => {
+        if (mixer) mixer.update(clock.getDelta());
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+
+        const targetPosition = phoneConnected
+          ? targetPositionConnected
+          : targetPositionDisconnected;
+        globalModel.position.lerp(targetPosition, 0.03);
+
+        if (shouldAutoRotateBack) {
+          camera.position.lerp(defaultCamPos, 0.03);
+        }
+        if (playStart) {
+          frameCounter++;
+          if (frameCounter > 200 || movedOnce) {
+            setPlayStart(false);
+          } else {
+            camera.position.lerp(defaultCamPos, 0.02);
+          }
+        }
+      };
+      animate();
     });
 
-    //Help visualize axis
+    // //Help visualize axis
     // const axesHelper = new THREE.AxesHelper(5);
     // axesHelper.setColors(0x00ff00, 0xff0000, 0x0000ff);
     // scene.add(axesHelper);
-
-    // Animation Loop
-    const clock = new THREE.Clock();
-    let frameCounter = 0;
-    const animate = () => {
-      if (mixer) mixer.update(clock.getDelta());
-      requestAnimationFrame(animate);
-      controls.update();
-      renderer.render(scene, camera);
-
-      if (shouldAutoRotateBack) {
-        camera.position.lerp(defaultPosition, 0.03);
-      }
-      if (playStart) {
-        frameCounter++;
-        if (frameCounter > 200 || movedOnce) {
-          playStart = false;
-        } else {
-          camera.position.lerp(defaultPosition, 0.02);
-        }
-      }
-    };
-    animate();
   }, [
     width,
     height,
