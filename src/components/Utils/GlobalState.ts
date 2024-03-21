@@ -7,7 +7,7 @@ export const APILink = "http://127.0.0.1:5000";
 // Username storage
 export const usernameAtom = atomWithStorage("username", "");
 
-// Email storage
+// ID storage
 export const userIDAtom = atomWithStorage("id", "");
 
 // Navigation State
