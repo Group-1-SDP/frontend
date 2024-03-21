@@ -10,7 +10,6 @@ import { friendAddedAtom } from "../components/Utils/GlobalState";
 
 function FriendsPage() {
   const [showFriendAdd, setShowFriendAdd] = useState(false);
-  
 
   const handleFriendAdd = () => {
     setShowFriendAdd(!showFriendAdd);
@@ -23,7 +22,7 @@ function FriendsPage() {
           <div className="flex rounded-xl justify-between space-x-3 transition-all duration-150 relative">
             <div className="inline-block">
               <button
-                className={`rounded-xl font-light transition-all duration-75 mx-[-16px] px-[16px] text-4xl relative z-10 ${showFriendAdd && "underline"}`}
+                className={`rounded-xl font-light transition-all duration-75 mx-[-16px] px-[16px] text-4xl relative z-10`}
                 onClick={handleFriendAdd}
               >
                 Friends
@@ -39,24 +38,19 @@ function FriendsPage() {
             </div>
           </div>
         </div>
-        <AnimatePresence>
-          {showFriendAdd && (
-            <motion.div
-              key="friendAdd"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-              exit={{ opacity: 0, y: -20 }}
-            >
-              <FriendAdd />
-            </motion.div>
-          )}
-        </AnimatePresence>
-        <motion.div
-          className="pt-4 "
-        >
+        {showFriendAdd && (
           <motion.div
+            key="friendAdd"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            exit={{ opacity: 0, y: -20 }}
           >
+            <FriendAdd />
+          </motion.div>
+        )}
+        <motion.div className="pt-4 ">
+          <motion.div>
             <FriendsContainer />
           </motion.div>
         </motion.div>

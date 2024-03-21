@@ -64,17 +64,20 @@ function RegisterForm() {
           placeholder="Email"
           onChange={setEmail}
           type="email"
+          background="white"
         />
         <InputBox
           value={username}
           placeholder="Username"
           onChange={setUsername}
+          background="white"
         />
         <InputBox
           value={password}
           placeholder="Password"
           onChange={setPassword}
           type="password"
+          background="white"
         />
       </div>
       <motion.div className="flex justify-center mt-8">
