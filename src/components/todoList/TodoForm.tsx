@@ -23,7 +23,7 @@ export const TodoForm = ({ addTask }: TodoFormProps) => {
   };
 
   return (
-    <div className="p-4 m-4 rounded-xl flex items-center hover:shadow-xl shadow-sm transition duration-300">
+    <div className="p-4 my-4 rounded-xl flex items-center hover:shadow-xl shadow-sm transition duration-300 bg-white">
       <form
         action=""
         className="flex flex-col"
@@ -36,7 +36,7 @@ export const TodoForm = ({ addTask }: TodoFormProps) => {
           placeholder="What is the task today?"
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          style={{ width: "calc(100% - 68px)" }} // Adjust 68px according to your button's width and margins
+          // style={{ width: "calc(100% - 68px)" }} // Adjust 68px according to your button's width and margins
         />
         <input
           type="date"
@@ -44,9 +44,6 @@ export const TodoForm = ({ addTask }: TodoFormProps) => {
           value={date?.toISOString().slice(0, 10)}
           onChange={(e) => setDate(new Date(e.target.value))}
         />
-        {/* <button className="mr-2 px-4 py-2 bg-slate-100 rounded-xl hover:bg-greenAccent hover:text-white transition-colors ">
-          Add Task
-        </button> */}
       </form>
     </div>
   );

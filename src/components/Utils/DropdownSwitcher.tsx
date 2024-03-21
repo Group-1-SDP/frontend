@@ -59,7 +59,7 @@ function DropdownSwitcher({ active, others, switcher }: DropdownSwitcherProps) {
       <div ref={dropdownRef}>
         <div
           style={{ cursor: "pointer" }}
-          className="flex items-center p-2 m-4 font-bold text-4xl rounded-md hover:bg-gray-100 transition duration-300"
+          className="flex items-center p-2 my-4 font-bold text-4xl rounded-md hover:bg-gray-100 transition duration-300"
           onClick={() => {
             setOpen(!open);
           }}
