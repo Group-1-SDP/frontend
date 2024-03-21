@@ -1,29 +1,120 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import UserDisplay from "../../Utils/ReusableComponents/UserDisplay";
+import InputBox from "../../Utils/ReusableComponents/InputBox";
+import { APILink, userIDAtom, usernameAtom } from "../../Utils/GlobalState";
+import { useAtom } from "jotai";
 
 function AccountSettings() {
   const [newUsername, setNewUsername] = useState("");
+  const [newEmail, setNewEmail] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [userID] = useAtom(userIDAtom);
+  const [, setUsername] = useAtom(usernameAtom)
+
+  const [usernameTaken, setUsernameTaken] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch(`${APILink}/api/${userID}/update`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: newUsername,
+          email: newEmail,
+          old_password: currentPassword,
+          new_password: newPassword,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.status === 200) {
+        // Handle success
+        setCurrentPassword("");
+        setNewPassword("");
+        setNewEmail("");
+        setNewUsername("");
+        setUsername(newUsername);
+        setUsernameTaken(false);
+        setEmailError("");
+        setPasswordError("");
+      } else {
+        // Handle error
+        console.error(data.message); // Log the error message
+        if (data.message === "Username already exists.") {
+          setUsernameTaken(true);
+        } else if (data.message === "Invalid email.") {
+          setEmailError("Invalid email format");
+        } else if (data.message === "Invalid password.") {
+          setPasswordError("Incorrect old password");
+        } else if (data.message === "Email already exists.") {
+          setEmailError("Email already exists.");
+        } else {
+          // Handle other errors
+          console.error("An error occurred:", data.message);
+        }
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
-    <div className="w-full h-full ">
-      <div>
-        <div className="flex items-center">
-          <div className="relative">
-            <div className="relative flex items-center">
-              <div className="relative w-full min-w-[200px] h-12">
-                <input
-                  value={newUsername}
-                  onChange={(e) => setNewUsername(e.target.value)}
-                  type="username"
-                  placeholder=""
-                  className="w-full h-full bg-white px-3 py-3 font-sans text-sm font-normal transition-all bg-transparent border rounded-md peer text-blue-gray-700 outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 border-t-transparent focus:border-t-transparent border-blue-gray-200 focus:border-gray-900"
-                />
-                <label className="flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate peer-placeholder-shown:text-blue-gray-500 leading-tight peer-focus:leading-tight peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500 transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px] peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-md before:border-t peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5 after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-md after:border-t peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all peer-disabled:after:border-transparent peer-placeholder-shown:leading-[4.1] text-gray-500 peer-focus:text-gray-900 before:border-blue-gray-200 peer-focus:before:!border-gray-900 after:border-blue-gray-200 peer-focus:after:!border-gray-900">
-                  New Username
-                </label>
-              </div>
-            </div>
-          </div>
+    <div className="w-full h-full flex flex-col justify-center items-center ">
+      <div className="flex w-[640px] h-[120px] items-center justify-between bg-gray-100 px-20 py-15 rounded-xl text-2xl">
+        <UserDisplay />
+        <button className="bg-greenAccent text-sm text-white px-4 py-3 rounded-xl">
+          Change Photo
+        </button>
+      </div>
+      <div className="w-[600px] my-10">
+        <div className="pb-5 font-semibold text-xl">Change Username</div>
+        <InputBox
+          placeholder="New Username"
+          value={newUsername}
+          onChange={setNewUsername}
+        />
+        {usernameTaken && (
+          <div className="text-red-500 text-sm">Username already taken</div>
+        )}
+        <div className="my-5 font-semibold text-xl">Change Email</div>
+        <InputBox
+          placeholder="New Email"
+          value={newEmail}
+          onChange={setNewEmail}
+        />
+        {emailError && (
+          <div className="text-red-500 text-sm">{emailError}</div>
+        )}
+        <div className="py-5 font-semibold text-xl">Change Password</div>
+        <div className=" space-y-3">
+          <InputBox
+            placeholder="Current Password"
+            value={currentPassword}
+            onChange={setCurrentPassword}
+            type="password"
+          />
+          <InputBox
+            placeholder="New Password"
+            value={newPassword}
+            onChange={setNewPassword}
+            type="password"
+          />
         </div>
+        {passwordError && (
+          <div className="text-red-500 text-sm">{passwordError}</div>
+        )}
+        <button
+          className="bg-greenAccent w-full text-white px-4 py-3 rounded-xl mt-6"
+          onClick={handleSubmit}
+        >
+          Update
+        </button>
       </div>
     </div>
   );

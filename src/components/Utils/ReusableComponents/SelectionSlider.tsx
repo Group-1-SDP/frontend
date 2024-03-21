@@ -36,7 +36,7 @@ function SelectionSlider(props: { tabs: Tab[] }) {
           ))}
         </ul>
       </nav>
-      <main className="py-5">
+      <main className="h-full py-5">
         <AnimatePresence mode="wait">
           {selectedTab && (
             <motion.div
@@ -45,6 +45,7 @@ function SelectionSlider(props: { tabs: Tab[] }) {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -10, opacity: 0 }}
               transition={{ duration: 0.2 }}
+              className="h-full"
             >
               {selectedTab.page}
             </motion.div>

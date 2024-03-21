@@ -10,6 +10,9 @@ export const usernameAtom = atomWithStorage("username", "");
 // Email storage
 export const userIDAtom = atomWithStorage("id", "");
 
+// Level Storage
+export const levelAtom = atomWithStorage("level", 1);
+
 // Navigation State
 export const navStateAtom = atomWithStorage("navState", window.location.pathname);
 
