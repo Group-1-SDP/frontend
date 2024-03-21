@@ -3,29 +3,6 @@ import Podium from "./Podium";
 import Leaderboard from "./Leaderboard";
 import LeagueSwitcher from "./LeagueSwitcher";
 
-const friends = [
-  { username: "Arsenal", points: 64, currentUser: false },
-  { username: "Liverpool", points: 64, currentUser: false },
-  { username: "Man City", points: 63, currentUser: false },
-  { username: "Aston Villa", points: 55, currentUser: false },
-  { username: "Tottenham", points: 53, currentUser: false },
-  { username: "Man United", points: 47, currentUser: false },
-  { username: "West Ham", points: 43, currentUser: false },
-  { username: "Brighton", points: 42, currentUser: false },
-  { username: "Wolves", points: 41, currentUser: false },
-  { username: "Newcastle", points: 40, currentUser: false },
-  { username: "Chelsea", points: 36, currentUser: false },
-  { username: "Fulham", points: 35, currentUser: false },
-  { username: "Bournemouth", points: 32, currentUser: false },
-  { username: "Crystal Palace", points: 29, currentUser: false },
-  { username: "Brentford", points: 26, currentUser: true },
-  { username: "Everton", points: 25, currentUser: false },
-  { username: "Nottingham Forest", points: 24, currentUser: false },
-  { username: "Luton Town", points: 21, currentUser: false },
-  { username: "Burnley", points: 14, currentUser: false },
-  { username: "Sheffield United", points: 14, currentUser: false },
-];
-
 const leagues = [
   {
     name: "SDP Group 1",
@@ -104,7 +81,7 @@ function LeaderboardWrapper() {
     setActiveLeague(newIndex);
   };
 
-  friends.sort((a, b) => b.points - a.points);
+  leagues[activeLeague].users.sort((a, b) => b.points - a.points);
 
   return (
     <div className="flex justify-center">
@@ -123,7 +100,7 @@ function LeaderboardWrapper() {
 
         <Podium users={leagues[activeLeague].users.slice(0, 3)} />
 
-        {friends.length > 3 && (
+        {leagues[activeLeague].users.length > 3 && (
           <Leaderboard users={leagues[activeLeague].users.slice(3, -1)} />
         )}
       </div>
