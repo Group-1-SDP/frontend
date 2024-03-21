@@ -25,11 +25,11 @@ TodoWrapper = () => {
   const [username] = useAtom(usernameAtom);
   const APIroot = APILink + "/api/";
   const [activeFilter, setActiveFilter] = useState<string>("To-Do");
-  const [activeTimeFrame, setActiveTimeFrame] = useState<string>("Today");
+  const [activeTimeFrame, setActiveTimeFrame] = useState<string>("All");
   const [inactiveTimeFrames, setInactiveTimeFrames] = useState<string[]>([
+    "Today",
     "Upcoming",
-    "Anytime",
-    "All",
+    "Anytime"
   ]);
 
   useEffect(() => {
@@ -200,8 +200,8 @@ TodoWrapper = () => {
   });
 
   return (
-    <div className="flex justify-center">
-      <div className="">
+    <div className="mt-2 flex justify-center">
+      <div className="w-full">
         <DropdownSwitcher
           active={activeTimeFrame}
           others={inactiveTimeFrames}

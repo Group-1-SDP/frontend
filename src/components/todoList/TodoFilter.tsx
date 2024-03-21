@@ -11,7 +11,7 @@ interface TodoFilterProps {
 function TodoFilter({ filter }: TodoFilterProps) {
   return (
     <div
-      className={`inline-block p-3 ml-4 rounded-full ${
+      className={`inline-block p-3 mr-4 bg-white rounded-xl ${
         filter.active
           ? "font-semibold bg-gray-200 hover:bg-gray-300 transition duration-300"
           : "hover:bg-gray-100 transition duration-300"
