@@ -8,11 +8,11 @@ export interface Event {
 }
 
 const events = [
-    {name: "SDP", slot: "9am", color: "project-1"},
-    {name: "MLG", slot: "10am", color: "project-2"},
-    {name: "FNLP", slot: "11am", color: "project-3"},
-    {name: "Lunch", slot: "12pm", color: "break"},
-    {name: "SDP", slot: "1pm", color: "project-1"},
+    {name: "SDP", slot: "09:00", color: "project-1"},
+    {name: "MLG", slot: "10:00", color: "project-2"},
+    {name: "FNLP", slot: "11:00", color: "project-3"},
+    {name: "Lunch", slot: "12:00", color: "break"},
+    {name: "SDP", slot: "13:00", color: "project-1"},
 ]
 
 function ScheduleWrapper() {
