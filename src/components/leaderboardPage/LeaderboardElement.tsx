@@ -6,7 +6,18 @@ interface LeaderboardElementProps {
   user: User;
 }
 
+const images = [
+  "koala.jpg",
+  "lion.jpg",
+  "octopus.jpg",
+  "shark.jpg",
+  "zebra.jpg",
+];
+
 function LeaderboardElement({ user }: LeaderboardElementProps) {
+  const randomProfilePicture =
+    images[Math.floor(Math.random() * images.length)];
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.75 }}
@@ -23,6 +34,11 @@ function LeaderboardElement({ user }: LeaderboardElementProps) {
       }  transition duration-300`}
     >
       <div className="flex items-center">
+        <img
+          src={`src/assets/sampleProfiles/${randomProfilePicture}`}
+          alt="Profile"
+          className="mr-2 w-8 h-8 rounded-full"
+        />{" "}
         <p className={`mr-2`}>{user.username}</p>
       </div>
       <div className="flex items-center">
