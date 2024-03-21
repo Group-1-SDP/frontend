@@ -81,8 +81,8 @@ function Model({
         model.scale.x = -1;
       }
 
-      model.position.setX(-1)
-
+      model.position.setX(-0.75)
+      
       model.rotateY(-Math.PI / rotateY);
       scene.add(model);
       let mixer = new THREE.AnimationMixer(model);
@@ -125,7 +125,7 @@ function Model({
         requestAnimationFrame(animate);
         controls.update();
         renderer.render(scene, camera);
-        
+
         if (shouldAutoRotateBack) {
           camera.position.lerp(defaultCamPos, 0.03);
         }
