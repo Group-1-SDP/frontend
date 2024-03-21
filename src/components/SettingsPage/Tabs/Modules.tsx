@@ -2,7 +2,9 @@ import React from 'react'
 
 function Modules() {
   return (
-    <div>Modules</div>
+    <div>
+      <h1>Connect Your Box</h1>
+    </div>
   )
 }
 

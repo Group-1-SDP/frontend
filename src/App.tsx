@@ -18,6 +18,7 @@ import Authenticated from "./views/Authenticated";
 import Navigation from "./components/Utils/Navigation/Navigation";
 import SchedulePage from "./views/SchedulePage";
 import LeaderboardPage from "./views/LeaderboardPage";
+import { AnimatePresence } from "framer-motion";
 
 export const topTodoItem = atomWithStorage("topTodo", "");
 export const authenticated = atomWithStorage("userAuth", false);
@@ -92,18 +93,20 @@ function App() {
           <div className="bg-gray-200 w-full min-h-screen px-[40px]">
             <Navigation />
             <div className="ml-[240px] pt-[30px]">
-              <BrowserRouter>
-                <Routes>
-                  <Route path="/" element={<Authenticated />} />
-                  <Route path="todo" element={<TodoList />} />
-                  <Route path="friends" element={<FriendsPage />} />
-                  <Route path="profile" element={<ProfilePage />} />
-                  <Route path="modules" element={<ModulesPage />} />
-                  <Route path="schedule" element={<SchedulePage />} />
-                  <Route path="settings" element={<SettingsPage />} />
-                  <Route path="leaderboard" element={<LeaderboardPage />} />
-                </Routes>
-              </BrowserRouter>
+              <AnimatePresence>
+                <BrowserRouter>
+                  <Routes>
+                    <Route path="/" element={<Authenticated />} />
+                    <Route path="todo" element={<TodoList />} />
+                    <Route path="friends" element={<FriendsPage />} />
+                    <Route path="profile" element={<ProfilePage />} />
+                    <Route path="modules" element={<ModulesPage />} />
+                    <Route path="schedule" element={<SchedulePage />} />
+                    <Route path="settings" element={<SettingsPage />} />
+                    <Route path="leaderboard" element={<LeaderboardPage />} />
+                  </Routes>
+                </BrowserRouter>
+              </AnimatePresence>
             </div>
           </div>
         </div>
