@@ -1,23 +1,26 @@
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 
-interface DropdownSwitcherProps {
-  active: string;
-  others: string[];
-  switcher: (newValue: string) => void;
+interface LeagueSwitcherProps {
+  active: League;
+  others: League[];
+  switcher: (newIndex: number) => void;
+}
+
+export interface League {
+  index: number;
+  name: string;
 }
 
 export interface MenuItemProps {
-  itemName: string;
-  top?: boolean;
-  bottom?: boolean;
-  switchAction?: (newValue: string) => void;
+  league: League;
+  switchAction: (newValue: number) => void;
   closer: () => void;
 }
 
-function MenuItem({ itemName, switchAction, closer }: MenuItemProps) {
+function MenuItem({ league, switchAction, closer }: MenuItemProps) {
   const handleClick = () => {
     if (switchAction) {
-      switchAction(itemName);
+      switchAction(league.index);
       closer();
     }
   };
@@ -29,12 +32,12 @@ function MenuItem({ itemName, switchAction, closer }: MenuItemProps) {
       }
     >
       <div className="w-4 h-4 rounded-full mr-2 bg-yellowAccent"></div>
-      {itemName}
+      {league.name}
     </button>
   );
 }
 
-function DropdownSwitcher({ active, others, switcher }: DropdownSwitcherProps) {
+function LeagueSwitcher({ active, others, switcher }: LeagueSwitcherProps) {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
@@ -65,14 +68,14 @@ function DropdownSwitcher({ active, others, switcher }: DropdownSwitcherProps) {
           }}
         >
           <div className="w-6 h-6 rounded-full mr-2 bg-greenAccent"></div>
-          {active}
+          {active.name}
         </div>
         {open && (
           <div className="flex flex-col my-4">
-            {others.map((item, index) => (
+            {others.map((league, index) => (
               <MenuItem
                 key={index}
-                itemName={item}
+                league={league}
                 switchAction={switcher}
                 closer={() => setOpen(false)}
               />
@@ -84,4 +87,4 @@ function DropdownSwitcher({ active, others, switcher }: DropdownSwitcherProps) {
   );
 }
 
-export default DropdownSwitcher;
+export default LeagueSwitcher;
