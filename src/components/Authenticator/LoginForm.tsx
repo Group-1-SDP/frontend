@@ -35,11 +35,10 @@ function LoginForm() {
       });
 
       const data = await response.json();
-      console.log(response);
 
       if (response.status === 200) {
-        setUserID(data.user.id);
-        setUsername(data.user.username);
+        setUserID(data.id);
+        setUsername(data.username);
         setNavState("/");
         setUserAuthenticated(true);
         console.log(response.status);

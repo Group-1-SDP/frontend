@@ -65,15 +65,15 @@ function AccountSettings() {
   };
 
   return (
-    <div className="w-full h-full flex flex-col justify-center items-center ">
-      <div className="flex w-[640px] h-[120px] items-center justify-between bg-gray-100 px-20 py-15 rounded-xl text-2xl">
+    <div className="w-full h-full flex flex-col py-10 items-center">
+      <div className="flex w-[640px] h-[120px] items-center justify-between bg-gray-100 px-20 rounded-xl text-2xl">
         <UserDisplay />
         <button className="bg-greenAccent text-sm text-white px-4 py-3 rounded-xl">
           Change Photo
         </button>
       </div>
       <div className="w-[600px] my-10">
-        <div className="pb-5 font-semibold text-xl">Change Username</div>
+        <div className="font-semibold text-xl">Change Username</div>
         <InputBox
           placeholder="New Username"
           value={newUsername}
@@ -82,7 +82,7 @@ function AccountSettings() {
         {usernameTaken && (
           <div className="text-red-500 text-sm">Username already taken</div>
         )}
-        <div className="my-5 font-semibold text-xl">Change Email</div>
+        <div className="mt-5  font-semibold text-xl">Change Email</div>
         <InputBox
           placeholder="New Email"
           value={newEmail}
@@ -91,7 +91,7 @@ function AccountSettings() {
         {emailError && (
           <div className="text-red-500 text-sm">{emailError}</div>
         )}
-        <div className="py-5 font-semibold text-xl">Change Password</div>
+        <div className="mt-5 font-semibold text-xl">Change Password</div>
         <div className=" space-y-3">
           <InputBox
             placeholder="Current Password"

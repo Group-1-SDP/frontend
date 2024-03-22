@@ -46,7 +46,7 @@ function Model({
       canvas: canvasRef.current,
     });
     renderer.setSize(width, height);
-    renderer.setClearColor(0xffffff);
+    renderer.setClearColor(0x000000, 0);
 
     // OrbitControls
     const controls = new OrbitControls(camera, renderer.domElement);
