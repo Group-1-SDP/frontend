@@ -6,7 +6,7 @@ import TimeTracker from "./TimeTracker";
 import TodoTracker from "./TodoTracker";
 import ProgressTracker from "./ProgressTracker";
 import { motion } from "framer-motion";
-import GameWithFriends from "./GameWithFriends";
+import GameWithFriends from "./GameStuff/GameWithFriends";
 
 function MainContainer() {
   const canvasRef = useRef(null);
