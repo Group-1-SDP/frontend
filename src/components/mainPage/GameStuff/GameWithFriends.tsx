@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import GameModal from "./GameModal";
 
 interface GameInterface {
   name: string;
@@ -48,6 +49,16 @@ const GameItem: React.FC<GameInterface> = ({
 };
 
 function GameWithFriends() {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
   return (
     <div className="w-[600px] h-[365px] shadow-sm bg-white rounded-xl">
       <h1 className="font-bold text-[22px] pt-6 pl-6">Recent Games</h1>
@@ -89,6 +100,7 @@ function GameWithFriends() {
           isHeading={false}
         />
       </ul>
+      <GameModal modalVisible={modalVisible} closeModal={openModal}/>
     </div>
   );
 }
