@@ -8,8 +8,6 @@ import { FaUserFriends } from "react-icons/fa";
 import { MdLeaderboard } from "react-icons/md";
 import { AiOutlineSchedule } from "react-icons/ai";
 import { IconType } from "react-icons";
-import { CgNotes } from "react-icons/cg";
-
 
 interface NavInterface {
   name: string;
@@ -125,13 +123,6 @@ const SettingsNavigation: React.FC<SettingsNavigationProps> = ({
             path="/schedule"
             isLogOut={false}
             icon={AiOutlineSchedule}
-          />
-          <NavItem
-            name="Notes"
-            isActive={navState === "Notes"}
-            path="/Notes"
-            isLogOut={false}
-            icon={CgNotes}
           />
         </ul>
       </nav>
