@@ -38,9 +38,8 @@ function LoginForm() {
       console.log(response);
 
       if (response.status === 200) {
-        setUserID(data.id);
-        console.log(data.id);
-        setUsername(data.username);
+        setUserID(data.user.id);
+        setUsername(data.user.username);
         setNavState("/");
         setUserAuthenticated(true);
         console.log(response.status);

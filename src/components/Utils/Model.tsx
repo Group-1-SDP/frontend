@@ -71,11 +71,7 @@ function Model({
       camera.position.set(0, -5, 0.5);
     }
 
-    //Mixer
-    let mixer: THREE.AnimationMixer;
-
     // GLTFLoader
-    let globalModel: THREE.Group<THREE.Object3DEventMap>;
     const loader = new GLTFLoader();
     loader.load("src/assets/tickbox1.glb", function (gltf) {
       //Load Model
@@ -85,21 +81,11 @@ function Model({
         model.scale.x = -1;
       }
 
-      const targetPositionConnected = new THREE.Vector3(
-        -1,
-        model.position.y,
-        model.position.z
-      );
-      const targetPositionDisconnected = new THREE.Vector3(
-        -1.5,
-        model.position.y,
-        model.position.z
-      );
-
+      model.position.setX(-0.75)
+      
       model.rotateY(-Math.PI / rotateY);
-      globalModel = model;
       scene.add(model);
-      mixer = new THREE.AnimationMixer(model);
+      let mixer = new THREE.AnimationMixer(model);
 
       //Load Animations
       const clips = gltf.animations;
@@ -139,11 +125,6 @@ function Model({
         requestAnimationFrame(animate);
         controls.update();
         renderer.render(scene, camera);
-
-        const targetPosition = phoneConnected
-          ? targetPositionConnected
-          : targetPositionDisconnected;
-        globalModel.position.lerp(targetPosition, 0.03);
 
         if (shouldAutoRotateBack) {
           camera.position.lerp(defaultCamPos, 0.03);

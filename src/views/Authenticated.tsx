@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navigation from "../components/Utils/Navigation/Navigation.tsx";
 import ControlsMenu from "../components/mainPage/ControlsMenu.tsx";
 import StudyStreakBar from "../components/mainPage/StudyStreakBar.tsx";
@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 
 function Authenticated() {
 
-  const [username] = useAtom(usernameAtom);
+  const [username,] = useAtom(usernameAtom);
 
   return (
     <motion.div 

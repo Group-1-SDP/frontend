@@ -42,9 +42,8 @@ function RegisterForm() {
       const data = await response.json();
 
       if (response.status === 201) {
-        console.log(data);
-        setUsername(data.username);
-        setUserID(data.id);
+        setUserID(data.user.id);
+        setUsername(data.user.username);
         setUserAuthenticated(true);
         setNavState("/");
       } else {
