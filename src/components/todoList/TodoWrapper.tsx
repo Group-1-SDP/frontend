@@ -3,7 +3,7 @@ import { TodoForm } from "./TodoForm";
 import { Task, Todo } from "./Todo";
 import { useAtom } from "jotai";
 import { topTodoItem } from "../../App";
-import { APILink, usernameAtom } from "../Utils/GlobalState";
+import { APILink, userIDAtom, usernameAtom } from "../Utils/GlobalState";
 import DropdownSwitcher from "../Utils/DropdownSwitcher";
 import TodoFilter, { Filter } from "./TodoFilter";
 
@@ -23,26 +23,25 @@ TodoWrapper = () => {
   >([]);
   const [topTask, setTopTask] = useAtom(topTodoItem);
   const [username] = useAtom(usernameAtom);
+  const [userID] = useAtom(userIDAtom);
   const APIroot = APILink + "/api/";
   const [activeFilter, setActiveFilter] = useState<string>("To-Do");
-  const [activeTimeFrame, setActiveTimeFrame] = useState<string>("Today");
+  const [activeTimeFrame, setActiveTimeFrame] = useState<string>("All");
   const [inactiveTimeFrames, setInactiveTimeFrames] = useState<string[]>([
+    "Today",
     "Upcoming",
-    "Anytime",
-    "All",
+    "Anytime"
   ]);
 
   useEffect(() => {
     const fetchUserTasks = async () => {
       try {
-        const response = await fetch(APIroot + "getIncompleteUserTasks", {
-          method: "POST",
+        const response = await fetch(APIroot + userID + "/tasks", {
+          method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            username: username,
-          }),
+          
         });
         if (!response.ok) {
           throw new Error("Failed to fetch user tasks");
@@ -66,7 +65,7 @@ TodoWrapper = () => {
     };
 
     fetchUserTasks();
-  }, []);
+  }, [userID]);
 
   useEffect(() => {
     if (tasks.length > 0) {
@@ -81,7 +80,7 @@ TodoWrapper = () => {
       id: task_id,
       text,
       completed: false,
-      date: date ? date.toISOString().split("T")[0] : undefined,
+      due_date: date ? date.toISOString().split("T")[0] : undefined,
     };
     sendToAPI(task_id, text);
     setTasks([...tasks, newTask]);
@@ -89,7 +88,7 @@ TodoWrapper = () => {
 
   const sendToAPI = async (task_id: string, contents: string) => {
     try {
-      const response = await fetch(APIroot + "addTask", {
+      const response = await fetch(APIroot + userID + "/add-task", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -200,8 +199,8 @@ TodoWrapper = () => {
   });
 
   return (
-    <div className="flex justify-center">
-      <div className="">
+    <div className="mt-2 flex justify-center">
+      <div className="w-full">
         <DropdownSwitcher
           active={activeTimeFrame}
           others={inactiveTimeFrames}
