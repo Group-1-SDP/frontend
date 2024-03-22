@@ -1,5 +1,6 @@
 import React from "react";
 import { ImCross } from "react-icons/im";
+import TikTakToe from "./TikTakToe";
 
 interface ModalProps {
   modalVisible: boolean;
@@ -22,11 +23,12 @@ const GameModal: React.FC<ModalProps> = ({ modalVisible, closeModal }) => {
         >
           <button
             onClick={closeModal}
-            className="text-gray-600 hover:text-gray-800"
+            className="absolute top-0 right-0 m-4 text-gray-600 hover:text-gray-800"
             type="button"
           >
             <ImCross size={20} />
           </button>
+          <TikTakToe />
         </div>
       </div>
     </div>
