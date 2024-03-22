@@ -6,6 +6,7 @@ import TimeTracker from "./TimeTracker";
 import TodoTracker from "./TodoTracker";
 import ProgressTracker from "./ProgressTracker";
 import { motion } from "framer-motion";
+import GameWithFriends from "./GameWithFriends";
 
 function MainContainer() {
   const canvasRef = useRef(null);
@@ -40,7 +41,7 @@ function MainContainer() {
         }}
       >
         <TimeTracker />
-        <TimeTracker />
+        <GameWithFriends />
         <TodoTracker />
         <ProgressTracker />
       </motion.div>
