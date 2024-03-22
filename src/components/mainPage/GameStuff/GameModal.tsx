@@ -1,4 +1,5 @@
-import React from 'react'
+import React from "react";
+import { ImCross } from "react-icons/im";
 
 interface ModalProps {
   modalVisible: boolean;
@@ -16,20 +17,20 @@ const GameModal: React.FC<ModalProps> = ({ modalVisible, closeModal }) => {
     >
       <div className="bg-black bg-opacity-50 w-screen h-screen flex items-center justify-center">
         <div
-          className="bg-white rounded-lg shadow-lg px-10 pt-5 pb-5 w-[30%]"
+          className="bg-white rounded-lg shadow-lg px-10 py-10"
           style={{ position: "relative" }}
         >
-          <div className="flex-grow space-y-2">
-          </div>
           <button
             onClick={closeModal}
-            className="text-gray-600 hover:text-gray-800 absolute top-3 right-3"
+            className="text-gray-600 hover:text-gray-800"
             type="button"
-          ></button>
+          >
+            <ImCross size={20} />
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-export default GameModal
+export default GameModal;

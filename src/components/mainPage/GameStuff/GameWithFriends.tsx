@@ -6,6 +6,7 @@ interface GameInterface {
   gameType: string;
   gameState: string;
   isHeading: boolean;
+  openModal?: () => void;
 }
 
 const GameItem: React.FC<GameInterface> = ({
@@ -13,6 +14,7 @@ const GameItem: React.FC<GameInterface> = ({
   gameType,
   gameState,
   isHeading,
+  openModal,
 }) => {
   if (!isHeading) {
     return (
@@ -23,6 +25,8 @@ const GameItem: React.FC<GameInterface> = ({
         </div>
         <button
           type="submit"
+          disabled={gameState !== "Play"}
+          onClick={openModal}
           className={`text-white text-lg font-medium py-2 rounded-lg text-center ${
             gameState === "Play"
               ? "dark:bg-color188764 dark:hover:bg-color046244 text-white font-bold"
@@ -74,33 +78,38 @@ function GameWithFriends() {
           gameType="Tic-Tac-Toe"
           gameState="Play"
           isHeading={false}
+          openModal={openModal}
         />
         <GameItem
           name="Ross"
           gameType="Connect Fo"
           gameState="Play"
           isHeading={false}
+          openModal={openModal}
         />
         <GameItem
           name="Jonathan"
           gameType="Tic-Tac-Toe"
           gameState="Finished"
           isHeading={false}
+          openModal={openModal}
         />
         <GameItem
           name="Matthieu"
           gameType="Connect Fo"
           gameState="Play"
           isHeading={false}
+          openModal={openModal}
         />
         <GameItem
           name="wife"
           gameType="Connect Fo"
           gameState="Play"
           isHeading={false}
+          openModal={openModal}
         />
       </ul>
-      <GameModal modalVisible={modalVisible} closeModal={openModal}/>
+      <GameModal modalVisible={modalVisible} closeModal={closeModal} />
     </div>
   );
 }
