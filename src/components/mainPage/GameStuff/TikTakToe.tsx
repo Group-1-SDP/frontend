@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useTicTacToe } from "./TicTacToeContext";
 import { Board, Player } from "./types";
+import { usernameAtom } from "../../Utils/GlobalState";
+import { useAtom } from "jotai";
 
 interface TikTakToeProps {
   playerName: string;
 }
 
-const calculateWinner = (board: Player[]): Player => {
+const calculateWinner = (board: Board): Player => {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -20,17 +22,24 @@ const calculateWinner = (board: Player[]): Player => {
 
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
-    if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-      return board[a];
+    const [rowA, colA] = [Math.floor(a / 3), a % 3];
+    const [rowB, colB] = [Math.floor(b / 3), b % 3];
+    const [rowC, colC] = [Math.floor(c / 3), c % 3];
+    if (
+      board[rowA][colA] &&
+      board[rowA][colA] === board[rowB][colB] &&
+      board[rowA][colA] === board[rowC][colC]
+    ) {
+      return board[rowA][colA];
     }
   }
-
   return "";
 };
 
 const TikTakToe: React.FC<TikTakToeProps> = ({ playerName }) => {
   const { boards, setBoards } = useTicTacToe();
   const [player, setPlayer] = useState<Player>("X");
+  const [username] = useAtom(usernameAtom);
 
   const initialBoard: Board = [
     ["", "", ""],
@@ -44,15 +53,36 @@ const TikTakToe: React.FC<TikTakToeProps> = ({ playerName }) => {
     }
   }, [playerName, boards, setBoards]);
 
-  const makeMove = (x: number, y: number) => {
-    const currentBoard = boards[playerName];
-    if (!currentBoard) return;
+  useEffect(() => {
+    if (player === "O" && !calculateWinner(boards[playerName] || initialBoard)) {
+      setTimeout(() => makeBotMove(), 500);
+    }
+  }, [player, boards, playerName]);
 
-    const currentWinner = calculateWinner(currentBoard.flat());
-    if (currentWinner || currentBoard[x][y]) return;
+  const makeBotMove = () => {
+    const currentBoard = boards[playerName] || initialBoard;
+    let emptyCells: number[][] | [any, any][] = [];
+    currentBoard.forEach((row, rowIndex) => {
+      row.forEach((cell, cellIndex) => {
+        if (cell === "") {
+          emptyCells.push([rowIndex, cellIndex]);
+        }
+      });
+    });
+
+    if (emptyCells.length > 0) {
+      const randomCellIndex = Math.floor(Math.random() * emptyCells.length);
+      const [x, y] = emptyCells[randomCellIndex];
+      makeMove(x, y, "O");
+    }
+  };
+
+  const makeMove = (x: number, y: number, currentPlayer = player) => {
+    const currentBoard = boards[playerName] || initialBoard;
+    if (currentBoard[x][y] || calculateWinner(currentBoard)) return;
 
     const newBoard = currentBoard.map((row, ri) =>
-      row.map((cell, ci) => (ri === x && ci === y ? player : cell))
+      row.map((cell, ci) => (ri === x && ci === y ? currentPlayer : cell))
     );
 
     setBoards((prev) => ({ ...prev, [playerName]: newBoard }));
@@ -65,11 +95,14 @@ const TikTakToe: React.FC<TikTakToeProps> = ({ playerName }) => {
   };
 
   const currentBoard = boards[playerName] || initialBoard;
+  const winner = calculateWinner(currentBoard);
 
   return (
     <div className="flex flex-col items-center justify-center">
       <h1 className="text-3xl font-bold uppercase mb-8">Tic Tac Toe</h1>
-      <div className="mb-4">Player {player}'s turn</div>
+      <div className="mb-4 text-xl">
+        {player === "X" ? username : playerName}'s turn
+      </div>
       <div className="grid grid-cols-3 gap-3">
         {currentBoard.map((row, x) =>
           row.map((cell, y) => (
@@ -85,9 +118,9 @@ const TikTakToe: React.FC<TikTakToeProps> = ({ playerName }) => {
           ))
         )}
       </div>
-      {calculateWinner(currentBoard.flat()) && (
+      {calculateWinner(currentBoard) && (
         <div className="text-2xl font-bold my-4">
-          Player '{calculateWinner(currentBoard.flat())}' wins!
+          {winner === "X" ? username : playerName} wins!
         </div>
       )}
       <button
