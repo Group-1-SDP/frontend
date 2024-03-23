@@ -1,5 +1,5 @@
-export type Player = "X" | "O" | "";
-export interface Board extends Array<Array<Player>> {}
+export type SquareStates = "X" | "O" | "";
+export interface Board extends Array<Array<SquareStates>> {}
 
 export interface BoardsState {
   [playerName: string]: Board;

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useTicTacToe } from "./TicTacToeContext";
-import { Board, Player } from "./types";
+import { Board, SquareStates } from "./types";
 import { usernameAtom } from "../../Utils/GlobalState";
 import { useAtom } from "jotai";
 
-interface TikTakToeProps {
+interface TicTacToeProps {
   playerName: string;
 }
 
-const calculateWinner = (board: Player[]): Player => {
+const calculateWinner = (board: SquareStates[]): SquareStates => {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -30,9 +30,9 @@ const calculateWinner = (board: Player[]): Player => {
   return "";
 };
 
-const TikTakToe: React.FC<TikTakToeProps> = ({ playerName }) => {
+const TicTacToe: React.FC<TicTacToeProps> = ({ playerName }) => {
   const { boards, setBoards } = useTicTacToe();
-  const [player, setPlayer] = useState<Player>("X");
+  const [player, setPlayer] = useState<SquareStates>("X");
   const [username] = useAtom(usernameAtom);
 
   const initialBoard: Board = [
@@ -127,4 +127,4 @@ const TikTakToe: React.FC<TikTakToeProps> = ({ playerName }) => {
   );
 };
 
-export default TikTakToe;
+export default TicTacToe;

@@ -1,6 +1,6 @@
 import React from "react";
 import { ImCross } from "react-icons/im";
-import TikTakToe from "./TikTakToe";
+import TikTacToe from "./TicTacToe";
 
 interface ModalProps {
   modalVisible: boolean;
@@ -33,7 +33,7 @@ const GameModal: React.FC<ModalProps> = ({
           >
             <ImCross size={20} />
           </button>
-          {modalVisible && <TikTakToe playerName={playerName} />}
+          {modalVisible && <TikTacToe playerName={playerName} />}
         </div>
       </div>
     </div>
