@@ -8,7 +8,7 @@ interface TikTakToeProps {
   playerName: string;
 }
 
-const calculateWinner = (board: Board): Player => {
+const calculateWinner = (board: Player[]): Player => {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -22,17 +22,11 @@ const calculateWinner = (board: Board): Player => {
 
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
-    const [rowA, colA] = [Math.floor(a / 3), a % 3];
-    const [rowB, colB] = [Math.floor(b / 3), b % 3];
-    const [rowC, colC] = [Math.floor(c / 3), c % 3];
-    if (
-      board[rowA][colA] &&
-      board[rowA][colA] === board[rowB][colB] &&
-      board[rowA][colA] === board[rowC][colC]
-    ) {
-      return board[rowA][colA];
+    if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+      return board[a];
     }
   }
+
   return "";
 };
 
@@ -54,7 +48,7 @@ const TikTakToe: React.FC<TikTakToeProps> = ({ playerName }) => {
   }, [playerName, boards, setBoards]);
 
   useEffect(() => {
-    if (player === "O" && !calculateWinner(boards[playerName] || initialBoard)) {
+    if (player === "O" && !calculateWinner(boards[playerName].flat() || initialBoard.flat())) {
       setTimeout(() => makeBotMove(), 500);
     }
   }, [player, boards, playerName]);
@@ -79,7 +73,7 @@ const TikTakToe: React.FC<TikTakToeProps> = ({ playerName }) => {
 
   const makeMove = (x: number, y: number, currentPlayer = player) => {
     const currentBoard = boards[playerName] || initialBoard;
-    if (currentBoard[x][y] || calculateWinner(currentBoard)) return;
+    if (currentBoard[x][y] || calculateWinner(currentBoard.flat())) return;
 
     const newBoard = currentBoard.map((row, ri) =>
       row.map((cell, ci) => (ri === x && ci === y ? currentPlayer : cell))
@@ -95,7 +89,7 @@ const TikTakToe: React.FC<TikTakToeProps> = ({ playerName }) => {
   };
 
   const currentBoard = boards[playerName] || initialBoard;
-  const winner = calculateWinner(currentBoard);
+  const winner = calculateWinner(currentBoard.flat());
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -118,7 +112,7 @@ const TikTakToe: React.FC<TikTakToeProps> = ({ playerName }) => {
           ))
         )}
       </div>
-      {calculateWinner(currentBoard) && (
+      {calculateWinner(currentBoard.flat()) && (
         <div className="text-2xl font-bold my-4">
           {winner === "X" ? username : playerName} wins!
         </div>
