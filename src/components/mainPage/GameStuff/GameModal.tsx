@@ -5,9 +5,14 @@ import TikTakToe from "./TikTakToe";
 interface ModalProps {
   modalVisible: boolean;
   closeModal: () => void;
+  playerName: string;
 }
 
-const GameModal: React.FC<ModalProps> = ({ modalVisible, closeModal }) => {
+const GameModal: React.FC<ModalProps> = ({
+  modalVisible,
+  closeModal,
+  playerName,
+}) => {
   return (
     <div
       className={`fixed left-0 top-0 ${
@@ -28,7 +33,7 @@ const GameModal: React.FC<ModalProps> = ({ modalVisible, closeModal }) => {
           >
             <ImCross size={20} />
           </button>
-          <TikTakToe />
+          {modalVisible && <TikTakToe playerName={playerName} />}
         </div>
       </div>
     </div>

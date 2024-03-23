@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import GameModal from "./GameModal";
+import { TicTacToeProvider } from "./TicTacToeContext";
 
 interface GameInterface {
   name: string;
@@ -54,8 +55,10 @@ const GameItem: React.FC<GameInterface> = ({
 
 function GameWithFriends() {
   const [modalVisible, setModalVisible] = useState(false);
+  const [currentPlayer, setCurrentPlayer] = useState("");
 
-  const openModal = () => {
+  const openModal = (playerName: string) => {
+    setCurrentPlayer(playerName);
     setModalVisible(true);
   };
 
@@ -64,53 +67,59 @@ function GameWithFriends() {
   };
 
   return (
-    <div className="w-[600px] h-[365px] shadow-sm bg-white rounded-xl">
-      <h1 className="font-bold text-[22px] pt-6 pl-6 pb-4">Recent Games</h1>
-      <ul className="space-y-1 flex flex-col items-center overflow-auto max-h-[290px]">
-        <GameItem
-          name="User"
-          gameType="Game"
-          gameState="Game State"
-          isHeading={true}
+    <TicTacToeProvider>
+      <div className="w-[600px] h-[365px] shadow-sm bg-white rounded-xl">
+        <h1 className="font-bold text-[22px] pt-6 pl-6 pb-4">Recent Games</h1>
+        <ul className="space-y-1 flex flex-col items-center overflow-auto max-h-[290px]">
+          <GameItem
+            name="User"
+            gameType="Game"
+            gameState="Game State"
+            isHeading={true}
+          />
+          <GameItem
+            name="Dylan"
+            gameType="Tic-Tac-Toe"
+            gameState="Play"
+            isHeading={false}
+            openModal={() => openModal("Dylan")}
+          />
+          <GameItem
+            name="Ross"
+            gameType="Tic-Tac-Toe"
+            gameState="Play"
+            isHeading={false}
+            openModal={() => openModal("Ross")}
+          />
+          <GameItem
+            name="Jonathan"
+            gameType="Tic-Tac-Toe"
+            gameState="Finished"
+            isHeading={false}
+            openModal={() => openModal("Jonathan")}
+          />
+          <GameItem
+            name="Matthieu"
+            gameType="Tic-Tac-Toe"
+            gameState="Play"
+            isHeading={false}
+            openModal={() => openModal("Matthieu")}
+          />
+          <GameItem
+            name="wife"
+            gameType="Tic-Tac-Toe"
+            gameState="Play"
+            isHeading={false}
+            openModal={() => openModal("wife")}
+          />
+        </ul>
+        <GameModal
+          modalVisible={modalVisible}
+          closeModal={closeModal}
+          playerName={currentPlayer}
         />
-        <GameItem
-          name="Dylan"
-          gameType="Tic-Tac-Toe"
-          gameState="Play"
-          isHeading={false}
-          openModal={openModal}
-        />
-        <GameItem
-          name="Ross"
-          gameType="Connect Fo"
-          gameState="Play"
-          isHeading={false}
-          openModal={openModal}
-        />
-        <GameItem
-          name="Jonathan"
-          gameType="Tic-Tac-Toe"
-          gameState="Finished"
-          isHeading={false}
-          openModal={openModal}
-        />
-        <GameItem
-          name="Matthieu"
-          gameType="Connect Fo"
-          gameState="Play"
-          isHeading={false}
-          openModal={openModal}
-        />
-        <GameItem
-          name="wife"
-          gameType="Connect Fo"
-          gameState="Play"
-          isHeading={false}
-          openModal={openModal}
-        />
-      </ul>
-      <GameModal modalVisible={modalVisible} closeModal={closeModal} />
-    </div>
+      </div>
+    </TicTacToeProvider>
   );
 }
 
