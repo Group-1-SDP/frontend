@@ -80,15 +80,17 @@ const ModuleCard = () => {
             zCamPosition={10}
             yCamPosition={10}
             FOV={20}
-            mirror={true}
-            rotateY={-0.3}
+            rotateY={0.3}
           />
         </div>
         <div className="text-xl font-semibold">
           <h1>Box Number: AA4457</h1>
           <div>
             <h1>Enable Notification Detection</h1>
-            <SelectionSwitch value={notfictionDetection} onChange={setNotificationDetection}/>
+            <SelectionSwitch
+              value={notfictionDetection}
+              onChange={setNotificationDetection}
+            />
           </div>
           <div>
             <h1>Enable Tickagotchi Mode</h1>

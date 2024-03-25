@@ -26,7 +26,6 @@ function MainContainer() {
             zCamPosition={4}
             yCamPosition={3.1}
             FOV={40}
-            mirror={true}
             rotateY={-2.3}
           />
         </div>
