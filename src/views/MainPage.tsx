@@ -1,14 +1,16 @@
 import Authenticated from "./Authenticated.tsx";
-import AuthenticatorPage from "./AuthenticatorPage.tsx";
 import { useAtom } from "jotai";
-import { authenticated } from "../App.tsx";
 import { atom } from 'jotai';
+import { useEffect } from "react";
+import { APILink, userIDAtom } from "../components/Utils/GlobalState.ts";
 
 export const topTodoItem = atom("");
 
+
 function MainPage() {
 
-  const [userAuthenticated] = useAtom(authenticated)
+  
+
 
   return (
     <>

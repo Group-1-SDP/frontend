@@ -17,7 +17,7 @@ function MainContainer() {
           <StudyCircleContainer />
         </div>
         <div className="mt-[20px]">
-          <canvas ref={canvasRef} className=""></canvas>
+          {/* <canvas ref={canvasRef} className=""></canvas>
           <Model
             canvasRef={canvasRef}
             width={1230}
@@ -27,7 +27,7 @@ function MainContainer() {
             FOV={40}
             mirror={true}
             rotateY={-2.3}
-          />
+          /> */}
         </div>
       </div>
       <motion.div

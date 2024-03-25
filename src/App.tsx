@@ -5,7 +5,6 @@ import { io } from "socket.io-client";
 import { Socket } from "socket.io-client";
 
 import { atomWithStorage } from "jotai/utils";
-import MainPage from "./views/MainPage";
 import { TodoList } from "./views/TodoList";
 import FriendsPage from "./views/FriendsPage";
 import ProfilePage from "./views/ProfilePage";

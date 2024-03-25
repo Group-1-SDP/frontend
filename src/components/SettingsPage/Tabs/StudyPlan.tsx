@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Slider, ThemeProvider, createTheme } from "@mui/material";
 import InputSwitch from "../../Utils/ReusableComponents/InputSwitch";
-
-interface StudyGoal {
-  dailyStudyGoal: number;
-  sessionStudyGoal: number;
-}
+import { useAtom } from "jotai";
+import { APILink, userIDAtom } from "../../Utils/GlobalState";
+import { motion } from "framer-motion";
 
 interface StudyGoal {
   dailyStudyGoal: number;
@@ -15,7 +13,7 @@ interface StudyGoal {
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#046244", 
+      main: "#046244",
     },
   },
 });
@@ -39,8 +37,6 @@ const sessionStudyIncrements = [
 ];
 
 const StudyPlan: React.FC = () => {
-  
-
   const [studyGoals, setStudyGoals] = useState<StudyGoal>({
     dailyStudyGoal: 25,
     sessionStudyGoal: 25,
@@ -54,7 +50,84 @@ const StudyPlan: React.FC = () => {
     setStudyGoals((prev) => ({ ...prev, [goal]: value as number }));
   };
 
-  const [scheduleEnabled, setScheduleEnabled] = useState<boolean>(true);
+  const [scheduleEnabled, setScheduleEnabled] = useState<boolean>(false);
+
+  const [userID] = useAtom(userIDAtom);
+  const [apiResponse, setApiResponse] = useState("");
+
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch(
+        APILink + "/api/" + userID + "/update-study-goals",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            daily_study_goal: studyGoals.dailyStudyGoal,
+            session_study_goal: studyGoals.sessionStudyGoal,
+            scheduling_enabled: scheduleEnabled,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.status === 200) {
+        // Handle success
+        console.log("Successfully updated study goals");
+        setApiResponse("Successfully updated study goals!");
+      } else {
+        // Handle error
+        console.error(data.message); // Log the error message
+        setApiResponse("An error occurred: " + data.message);
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+      setApiResponse("An error occurred: " + error);
+    }
+  };
+
+  useEffect(() => {
+    const fetchStudyGoals = async () => {
+      if (userID) {
+        const response = await fetch(
+          APILink + "/api/" + userID + "/get-study-goals",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (!response.ok) {
+          return;
+        }
+
+        const apiResponse = await response.json();
+
+        if (response.status !== 200) {
+          console.log("Error fetching study goals:");
+          return;
+        }
+
+        const data = apiResponse.study_goals;
+
+        if (data) {
+          setStudyGoals({
+            dailyStudyGoal: data.daily_study_goal,
+            sessionStudyGoal: data.session_study_goal,
+          });
+
+          setScheduleEnabled(data.scheduling_enabled);
+        }
+      }
+    };
+
+    fetchStudyGoals();
+  }, [userID]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -137,6 +210,22 @@ const StudyPlan: React.FC = () => {
             <p>Earn extra XP for following the schedule.</p>
           </div>
         </div>
+
+        <button
+          className="w-[640px]  bg-greenAccent py-3 px-4 flex justify-center items-center rounded-xl text-white"
+          onClick={handleSubmit}
+        >
+          Update
+        </button>
+        <motion.div
+          key="apiResponse"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          exit={{ opacity: 0, y: -20 }}
+        >
+          {apiResponse}
+        </motion.div>
       </div>
     </ThemeProvider>
   );

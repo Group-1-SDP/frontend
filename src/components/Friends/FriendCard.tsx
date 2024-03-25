@@ -1,13 +1,11 @@
 import { ActivityRings } from "@jonasdoesthings/react-activity-rings";
-import React from "react";
-
 
 interface FriendCardProps {
-    username: string;
-    level: number;
-    profilePic: string;
-    progress: number;
-  }
+  username: string;
+  level: number;
+  profilePic: string;
+  progress: number;
+}
 
 function FriendCard(props: FriendCardProps) {
   return (
@@ -19,7 +17,9 @@ function FriendCard(props: FriendCardProps) {
             <h2 className="font-bold text-[16px]">Level {props.level}</h2>
           </div>
           <div>
-            <div className="w-11 h-11 bg-green-600 rounded-full"><img className="rounded-full"src={props.profilePic}></img></div>
+            <div className="w-11 h-11 bg-green-600 rounded-full">
+              <img className="rounded-full" src={props.profilePic}></img>
+            </div>
           </div>
         </div>
         <div className="flex justify-center">

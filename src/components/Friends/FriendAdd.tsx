@@ -7,16 +7,10 @@ import InputBox from "../Utils/ReusableComponents/InputBox";
 
 function FriendAdd() {
   const [username, setUsername] = useState("");
-  const [userID, setUserID] = useAtom(userIDAtom);
+  const [userID] = useAtom(userIDAtom);
   const [friendAdded, setFriendAdded] = useAtom(friendAddedAtom);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-
-  const handleTyping = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(event.target.value);
-    setErrorMessage("");
-    setSuccessMessage("");
-  }
 
   const handleConnect = async (event: { preventDefault: () => void }) => {
     try {
@@ -41,7 +35,7 @@ function FriendAdd() {
       setFriendAdded(!friendAdded);
       setSuccessMessage(`Friend ${username} added successfully!`);
       setErrorMessage("");
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error while adding friend:", error.message);
       setSuccessMessage("");
       setErrorMessage(error.message);

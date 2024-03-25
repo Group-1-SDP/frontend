@@ -26,7 +26,7 @@ const ConnectBox = ({ sendConnection }: ConnectBoxProps) => {
       exit={{ y: -10, opacity: 0 }}
       transition={{ duration: 0.4 }}
     >
-      <div className="py-[45px]">
+      <div className="">
         <h1 className="py-3 text-xl font-bold">Connect Your Box</h1>
         <AnimatePresence mode="wait">
           <div className="flex w-[640px] h-[120px] border-black border-dashed border items-center justify-center bg-gray-100 px-20 py-15 rounded-xl text-2xl">
