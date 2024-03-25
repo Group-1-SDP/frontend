@@ -11,13 +11,13 @@ function MainContainer() {
   const canvasRef = useRef(null);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col space-y-3">
       <div className="flex h-[480px] bg-white rounded-2xl justify-between px-[25px]">
         <div className="flex items-center">
           <StudyCircleContainer />
         </div>
         <div className="mt-[20px]">
-          {/* <canvas ref={canvasRef} className=""></canvas>
+          <canvas ref={canvasRef} className=""></canvas>
           <Model
             canvasRef={canvasRef}
             width={1230}
@@ -27,11 +27,11 @@ function MainContainer() {
             FOV={40}
             mirror={true}
             rotateY={-2.3}
-          /> */}
+          />
         </div>
       </div>
       <motion.div
-        className="flex w-full h-[405px] rounded-2xl items-center justify-between"
+        className="flex h-[405px] rounded-2xl items-center justify-between overflow-x-scroll space-x-3"
         initial="hidden"
         animate="visible"
         variants={{

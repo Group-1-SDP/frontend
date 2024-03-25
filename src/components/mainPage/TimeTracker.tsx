@@ -3,7 +3,7 @@ import { ActivityRings } from "@jonasdoesthings/react-activity-rings";
 
 function TimeTracker() {
   return (
-    <div className="w-[380px] h-[365px] shadow-sm bg-white rounded-xl">
+    <div className="min-w-[380px] h-[365px] shadow-sm bg-white rounded-xl">
       <h1 className="font-bold text-[22px] p-6">Current Time Today</h1>
       <div className="flex justify-center">
         <div className="mt-[-70px]">

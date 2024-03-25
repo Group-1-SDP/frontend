@@ -61,6 +61,7 @@ function App() {
 
       socket.on("phoneDisconnected", () => {
         setPhoneConnected(false);
+        setBoxTime("");
       });
     }
 

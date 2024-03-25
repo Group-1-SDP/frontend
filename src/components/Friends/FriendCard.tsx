@@ -18,7 +18,7 @@ function FriendCard(props: FriendCardProps) {
           </div>
           <div>
             <div className="w-11 h-11 bg-green-600 rounded-full">
-              <img className="rounded-full" src={props.profilePic}></img>
+              <img className="rounded-full" src={`src/assets/sampleProfiles/${props.profilePic}`}></img>
             </div>
           </div>
         </div>
