@@ -34,9 +34,20 @@ function Model({
     // Scene
     const scene = new THREE.Scene();
 
-    const light = new THREE.PointLight(0xffffff, 750, 200);
-    light.position.set(4.5, 10, 4.5);
-    scene.add(light);
+    // First Point Light
+    const light1 = new THREE.PointLight(0xffffff, 300, 200);
+    light1.position.set(4.5, 8, 8);
+    scene.add(light1);
+
+    // Second Point Light
+    const light2 = new THREE.PointLight(0xffffff, 300, 200);
+    light2.position.set(4.5, 8, -6);
+    scene.add(light2);
+
+    // Lower Point Light
+    const light3 = new THREE.PointLight(0xffffff, 50, 200);
+    light3.position.set(4.5, -6, -4.5);
+    scene.add(light3);
 
     // Camera
     const camera = new THREE.PerspectiveCamera(FOV, width / height, 0.1, 1000);
