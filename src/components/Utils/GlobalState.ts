@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 
 //API link
-export const APILink = "https://musical-winner-pqvwr795vj6345r-5000.app.github.dev";
+export const APILink = "http://127.0.0.1:5000";
 
 // Username storage
 export const usernameAtom = atomWithStorage("username", "");
