@@ -1,9 +1,12 @@
-import React from 'react'
+import ScheduleWrapper from "../components/schedulePage/ScheduleWrapper";
 
 function SchedulePage() {
   return (
-    <div>SchedulePage</div>
-  )
+    <div>
+      <h1 className="font-light text-4xl">Schedule</h1>
+      <ScheduleWrapper />
+    </div>
+  );
 }
 
-export default SchedulePage
+export default SchedulePage;
