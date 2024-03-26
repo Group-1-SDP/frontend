@@ -13,7 +13,6 @@ interface ModelProps {
   yCamPosition: number;
   FOV: number;
   rotateY: number;
-  mirror: boolean;
 }
 
 function Model({
@@ -24,7 +23,6 @@ function Model({
   yCamPosition,
   FOV,
   rotateY,
-  mirror,
 }: ModelProps) {
   const [phoneConnected] = useAtom(phoneConnectedState);
   const [playStart, setPlayStart] = useState(true);
@@ -35,6 +33,21 @@ function Model({
     }
     // Scene
     const scene = new THREE.Scene();
+
+    // First Point Light
+    const light1 = new THREE.PointLight(0xffffff, 300, 200);
+    light1.position.set(4.5, 8, 8);
+    scene.add(light1);
+
+    // Second Point Light
+    const light2 = new THREE.PointLight(0xffffff, 300, 200);
+    light2.position.set(4.5, 8, -6);
+    scene.add(light2);
+
+    // Lower Point Light
+    const light3 = new THREE.PointLight(0xffffff, 50, 200);
+    light3.position.set(4.5, -6, -4.5);
+    scene.add(light3);
 
     // Camera
     const camera = new THREE.PerspectiveCamera(FOV, width / height, 0.1, 1000);
@@ -77,12 +90,8 @@ function Model({
       //Load Model
       const model = gltf.scene;
 
-      if (mirror) {
-        model.scale.x = -1;
-      }
+      model.position.setX(-0.75);
 
-      model.position.setX(-0.75)
-      
       model.rotateY(-Math.PI / rotateY);
       scene.add(model);
       let mixer = new THREE.AnimationMixer(model);
@@ -153,7 +162,6 @@ function Model({
     yCamPosition,
     FOV,
     rotateY,
-    mirror,
     phoneConnected,
   ]);
 

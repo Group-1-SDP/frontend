@@ -6,6 +6,7 @@ import TimeTracker from "./TimeTracker";
 import TodoTracker from "./TodoTracker";
 import ProgressTracker from "./ProgressTracker";
 import { motion } from "framer-motion";
+import GameWithFriends from "./GameStuff/GameWithFriends";
 
 function MainContainer() {
   const canvasRef = useRef(null);
@@ -25,7 +26,6 @@ function MainContainer() {
             zCamPosition={4}
             yCamPosition={3.1}
             FOV={40}
-            mirror={true}
             rotateY={-2.3}
           />
         </div>
@@ -40,7 +40,7 @@ function MainContainer() {
         }}
       >
         <TimeTracker />
-        <TimeTracker />
+        <GameWithFriends />
         <TodoTracker />
         <ProgressTracker />
       </motion.div>
