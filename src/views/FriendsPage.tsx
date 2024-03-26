@@ -49,7 +49,7 @@ function FriendsPage() {
             <FriendAdd />
           </motion.div>
         )}
-        <motion.div className="pt-4 ">
+        <motion.div className="pt-4 min-h-[650px]">
           <motion.div>
             <FriendsContainer />
           </motion.div>

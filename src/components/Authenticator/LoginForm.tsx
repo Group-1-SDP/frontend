@@ -1,13 +1,10 @@
 import { useAtom } from "jotai";
-import { FaUser } from "react-icons/fa";
-import { RiLockPasswordFill } from "react-icons/ri";
 import { authenticated } from "../../App";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { userIDAtom, usernameAtom } from "../Utils/GlobalState";
 import { APILink } from "../Utils/GlobalState";
 import { navStateAtom } from "../Utils/GlobalState";
 import { AnimatePresence, motion } from "framer-motion";
-import InputForm from "../Utils/ReusableComponents/InputBox";
 import InputBox from "../Utils/ReusableComponents/InputBox";
 
 function LoginForm() {

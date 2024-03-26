@@ -65,7 +65,7 @@ function AccountSettings() {
   };
 
   return (
-    <div className="w-full h-full flex flex-col py-10 items-center">
+    <div className="w-full h-full flex flex-col items-center">
       <div className="flex w-[640px] h-[120px] items-center justify-between bg-gray-100 px-20 rounded-xl text-2xl">
         <UserDisplay />
         <button className="bg-greenAccent text-sm text-white px-4 py-3 rounded-xl">

@@ -1,6 +1,4 @@
-import React from 'react'
 import LeaderboardElement from './LeaderboardElement'
-import { motion } from 'framer-motion'
 
 export interface User {
   username: string;

@@ -1,7 +1,4 @@
 import { useAtom } from "jotai";
-import { FaUser } from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
-import { RiLockPasswordFill } from "react-icons/ri";
 import { authenticated } from "../../App";
 import { useState } from "react";
 import {
@@ -16,7 +13,7 @@ import InputBox from "../Utils/ReusableComponents/InputBox";
 function RegisterForm() {
   const [, setUserAuthenticated] = useAtom(authenticated);
   const [username, setUsername] = useAtom(usernameAtom);
-  const [userID, setUserID] = useAtom(userIDAtom);
+  const [, setUserID] = useAtom(userIDAtom);
   const [, setNavState] = useAtom(navStateAtom);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useAtom } from "jotai";
-import { topTodoItem } from "../../App";
 
 export interface TodoFormProps {
   addTask: (task: string, date?: Date) => void;
@@ -9,7 +8,6 @@ export interface TodoFormProps {
 export const TodoForm = ({ addTask }: TodoFormProps) => {
   const [value, setValue] = useState("");
   const [date, setDate] = useState<Date | undefined>(undefined);
-  const [topTask, setTopTask] = useAtom(topTodoItem);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -17,7 +15,6 @@ export const TodoForm = ({ addTask }: TodoFormProps) => {
       return;
     }
     addTask(value, date);
-    setTopTask(value);
     setValue("");
     setDate(undefined);
   };

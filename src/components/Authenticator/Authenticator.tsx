@@ -1,10 +1,5 @@
-import AuthenticatorNavigation from "./AuthenticatorNavigation";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
-import { SectionAtom } from "./AuthenticatorStates";
-import { useAtom } from "jotai";
-import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
 import Icon from "./Icon";
 import SelectionSlider from "../Utils/ReusableComponents/SelectionSlider";
 

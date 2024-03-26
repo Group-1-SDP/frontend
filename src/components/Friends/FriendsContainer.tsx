@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import FriendCard from "./FriendCard";
 import { useAtom } from "jotai";
 import { APILink, friendAddedAtom } from "../Utils/GlobalState";
@@ -65,13 +65,13 @@ function FriendsContainer() {
   }, [userID, friendAdded]);
 
   return (
-    <motion.div layout="position" >
+    <motion.div layout="position">
       {friends.length === 0 ? (
         <div className="flex items-center justify-center h-[635px]">
           <h1>No friends yet. Try adding some!</h1>
         </div>
       ) : (
-        <div className="min-h-[635px] grid grid-cols-4 gap-8 py-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 py-4">
           {friends.map((friend, index) => (
             <FriendCard
               key={index}

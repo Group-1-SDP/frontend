@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { TodoForm } from "./TodoForm";
 import { Task, Todo } from "./Todo";
 import { useAtom } from "jotai";
-import { topTodoItem } from "../../App";
 import { APILink, userIDAtom, usernameAtom } from "../Utils/GlobalState";
 import DropdownSwitcher from "../Utils/DropdownSwitcher";
 import TodoFilter, { Filter } from "./TodoFilter";
@@ -21,7 +20,6 @@ TodoWrapper = () => {
   const [tasks, setTasks] = useState<
     { id: string; text: string; completed: boolean; date?: string }[]
   >([]);
-  const [topTask, setTopTask] = useAtom(topTodoItem);
   const [username] = useAtom(usernameAtom);
   const [userID] = useAtom(userIDAtom);
   const APIroot = APILink + "/api/";
@@ -70,7 +68,6 @@ TodoWrapper = () => {
   useEffect(() => {
     if (tasks.length > 0) {
       const newTopTask = tasks[0].text;
-      setTopTask(newTopTask);
     }
   }, [tasks]);
 
