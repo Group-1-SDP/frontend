@@ -70,7 +70,7 @@ function GameWithFriends() {
     <TicTacToeProvider>
       <div className="w-[600px] h-[365px] shadow-sm bg-white rounded-xl">
         <h1 className="font-bold text-[22px] pt-6 pl-6 pb-4">Recent Games</h1>
-        <ul className="space-y-1 flex flex-col items-center overflow-auto max-h-[290px]">
+        <ul className="space-y-1 flex flex-col items-center overflow-auto max-h-[290px] px-4">
           <GameItem
             name="User"
             gameType="Game"

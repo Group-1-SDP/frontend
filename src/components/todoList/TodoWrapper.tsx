@@ -15,8 +15,7 @@ function generateRandomString(): string {
   }
   return result;
 }
-export const 
-TodoWrapper = () => {
+export const TodoWrapper = () => {
   const [tasks, setTasks] = useState<
     { id: string; text: string; completed: boolean; date?: string }[]
   >([]);
@@ -28,7 +27,7 @@ TodoWrapper = () => {
   const [inactiveTimeFrames, setInactiveTimeFrames] = useState<string[]>([
     "Today",
     "Upcoming",
-    "Anytime"
+    "Anytime",
   ]);
 
   useEffect(() => {
@@ -39,7 +38,6 @@ TodoWrapper = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          
         });
         if (!response.ok) {
           throw new Error("Failed to fetch user tasks");
@@ -125,8 +123,28 @@ TodoWrapper = () => {
     }
   };
 
-  const deleteTask = (id: string) => {
-    setTasks(tasks.filter((task) => task.id !== id));
+  const deleteTask = async (id: string) => {
+    try {
+      const response = await fetch(APIroot + userID + "/delete-task", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          task_id: id,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete task");
+      } else {
+        console.log("deleted task");
+      }
+
+      setTasks(tasks.filter((task) => task.id !== id));
+    } catch (error) {
+      console.error("Error deleting task:", error);
+    }
   };
 
   const toggleCompleted = (id: string) => {
@@ -166,34 +184,36 @@ TodoWrapper = () => {
     a.completed === b.completed ? 0 : a.completed ? 1 : -1
   );
 
-  const filteredTasks = sortedTasks.filter((task) => {
-    // Apply active filter
-    switch (activeFilter) {
-      case "All":
-        return true;
-      case "Completed":
-        return task.completed;
-      case "To-Do":
-        return !task.completed;
-      default:
-        return false; // Handle invalid filters
-    }
-  }).filter((task) => {
-    // Apply active time frame filter
-    switch (activeTimeFrame) {
-      case "Today":
-        // Assuming date is in the format YYYY-MM-DD
-        return task.date === new Date().toISOString().split("T")[0];
-      case "Upcoming":
-        // Assuming date is in the format YYYY-MM-DD
-        return task.date && new Date(task.date) > new Date();
-      case "Anytime":
-        // Assuming task has no date
-        return !task.date;
-      default:
-        return true; // Include all tasks for "All" option
-    }
-  });
+  const filteredTasks = sortedTasks
+    .filter((task) => {
+      // Apply active filter
+      switch (activeFilter) {
+        case "All":
+          return true;
+        case "Completed":
+          return task.completed;
+        case "To-Do":
+          return !task.completed;
+        default:
+          return false; // Handle invalid filters
+      }
+    })
+    .filter((task) => {
+      // Apply active time frame filter
+      switch (activeTimeFrame) {
+        case "Today":
+          // Assuming date is in the format YYYY-MM-DD
+          return task.date === new Date().toISOString().split("T")[0];
+        case "Upcoming":
+          // Assuming date is in the format YYYY-MM-DD
+          return task.date && new Date(task.date) > new Date();
+        case "Anytime":
+          // Assuming task has no date
+          return !task.date;
+        default:
+          return true; // Include all tasks for "All" option
+      }
+    });
 
   return (
     <div className="mt-2 flex justify-center">
