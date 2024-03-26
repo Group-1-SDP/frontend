@@ -31,7 +31,7 @@ function MainContainer() {
         </div>
       </div>
       <motion.div
-        className="flex h-[405px] rounded-2xl items-center justify-between overflow-x-scroll space-x-3"
+        className="flex h-[405px] rounded-2xl items-center justify-between overflow-x-scroll space-x-[25px] "
         initial="hidden"
         animate="visible"
         variants={{

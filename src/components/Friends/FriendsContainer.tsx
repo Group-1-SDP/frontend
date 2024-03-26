@@ -71,7 +71,7 @@ function FriendsContainer() {
           <h1>No friends yet. Try adding some!</h1>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 py-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 py-4">
           {friends.map((friend, index) => (
             <FriendCard
               key={index}

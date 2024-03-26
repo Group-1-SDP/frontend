@@ -10,7 +10,6 @@ import {
   profilePicAtom,
   studyGoalDailyAtom,
   studyGoalSessionAtom,
-  studyTimeAtom,
   userIDAtom,
   usernameAtom,
 } from "../components/Utils/GlobalState.ts";
@@ -22,7 +21,6 @@ function Authenticated() {
   const [profilePic, setProfilePic] = useAtom(profilePicAtom);
   const [level, setLevel] = useAtom(levelAtom);
   const [currentXP, setCurrentXP] = useAtom(currentXPAtom);
-  const [studyTime, setStudyTime] = useAtom(studyTimeAtom);
   const [studyGoalDaily, setStudyGoalDaily] = useAtom(studyGoalDailyAtom);
   const [studyGoalSession, setStudyGoalSession] = useAtom(studyGoalSessionAtom);
   const [userID] = useAtom(userIDAtom);
@@ -44,12 +42,12 @@ function Authenticated() {
         if (response.status === 200) {
           // Handle success
           setUsername(data.username);
-          setStudyTime(data.study_hours_today);
           setProfilePic(data.profile_picture);
           setLevel(data.level);
           setCurrentXP(data.current_xp);
           setStudyGoalDaily(data.study_goal_daily);
           setStudyGoalSession(data.study_goal_session);
+          
         } else {
           // Handle error
           console.error(data.message); // Log the error message
