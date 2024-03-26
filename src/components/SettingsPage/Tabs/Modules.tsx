@@ -111,7 +111,6 @@ const ModuleCard = ({ disconnectBox }: ModuleCardProps) => {
               zCamPosition={10}
               yCamPosition={10}
               FOV={20}
-              mirror={true}
               rotateY={0.3}
             />
           </div>
