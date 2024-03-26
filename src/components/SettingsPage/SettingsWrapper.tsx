@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import AccountSettings from "./Tabs/AccountSettings";
-import LoginSecurity from "./Tabs/LoginSecurity";
 import Modules from "./Tabs/Modules";
 import StudyPlan from "./Tabs/StudyPlan";
 import { motion, AnimatePresence } from "framer-motion";
