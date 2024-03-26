@@ -10,12 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/styled": "^11.11.0",
     "@jonasdoesthings/react-activity-rings": "^1.1.2",
+    "@mui/material": "^5.15.14",
+    "@mui/styled-engine": "^5.15.14",
     "@react-spring/web": "^9.7.3",
     "d3": "^7.8.5",
     "framer-motion": "^11.0.3",
     "install": "^0.13.0",
     "jotai": "^2.6.4",
+    "mui": "^0.0.1",
     "npm": "^10.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

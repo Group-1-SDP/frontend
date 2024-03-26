@@ -40,8 +40,6 @@ function ScheduleElement({ event }: ScheduleElementProps) {
   // Type assertion to inform TypeScript that event.color will always be a key of colourMap
   const colour = colourMap[event.color as keyof typeof colourMap];
 
-  console.log(colour);
-
   return (
     <div className="p-2 flex rounded-lg items-center justify-between bg-white hover:bg-gray-100 transition duration-300">
       <div className="flex items-center">
