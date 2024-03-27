@@ -10,7 +10,7 @@ interface FriendCardProps {
 function FriendCard(props: FriendCardProps) {
   return (
     <div>
-      <div className="w-[360px] h-[365px] shadow-md bg-white rounded-xl">
+      <div className="w-[360px] h-[365px] shadow-md bg-white rounded-xl my-4">
         <div className="flex items-center justify-between px-4">
           <div className="py-6">
             <h1 className="font-bold text-[22px]">{props.username}</h1>

@@ -51,7 +51,7 @@ function FriendAdd() {
           placeholder="Friend Username"
           onChange={setUsername}
         />
-        <motion.div className="flex justify-center h-12 text-sm">
+        <motion.div className="flex justify-center h-12 text-sm px-2">
           <button
             type="submit"
             onClick={handleConnect}
