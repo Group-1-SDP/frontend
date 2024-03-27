@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Model from "../../Utils/Model";
 import InputSwitch from "../../Utils/ReusableComponents/InputSwitch";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { APILink } from "../../Utils/GlobalState";
 
 interface ConnectBoxProps {
   sendConnection: (boxCode: string) => void;
@@ -86,6 +87,19 @@ const ModuleCard = ({ disconnectBox }: ModuleCardProps) => {
   const [notfictionDetection, setNotificationDetection] = useState(false);
   const [tickagotchiMode, setTickagotchiMode] = useState(false);
 
+  const saveChanges = async () => {
+    try {
+      await fetch(APILink + "/api/tickagotchi-changed", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  };
+
   return (
     <motion.div
       initial={{ y: 10, opacity: 0 }}
@@ -133,6 +147,12 @@ const ModuleCard = ({ disconnectBox }: ModuleCardProps) => {
               onChange={setTickagotchiMode}
             />
           </div>
+          <button
+            className="flex items-center justify-center w-full py-2 px-3 rounded-xl bg-greenAccent text-white"
+            onClick={saveChanges}
+          >
+            Save Changes
+          </button>
         </div>
       </div>
     </motion.div>
@@ -140,14 +160,13 @@ const ModuleCard = ({ disconnectBox }: ModuleCardProps) => {
 };
 
 function Modules() {
-  const [boxConnected, setBoxConnected] = useState(false);
+  const [boxConnected, setBoxConnected] = useState(true);
 
   const disconnectBox = () => {
     setBoxConnected(false);
   };
 
   const sendConnection = (boxCode: string) => {
-    console.log(boxCode);
     setBoxConnected(true);
   };
 

@@ -19,7 +19,6 @@ function ToDoControlComponent() {
   useEffect(() => {
     if (ticked) {
       setTopTodo("")
-      console.log(topTodo)
     }
   }, [])
   

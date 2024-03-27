@@ -22,7 +22,7 @@ function TodoTracker() {
 
   const updateAPI = async (task_id: string) => {
     try {
-      const response = await fetch(APIroot + "updateTask", {
+      const response = await fetch(APIroot + userID + "/complete-task/" + task_id, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

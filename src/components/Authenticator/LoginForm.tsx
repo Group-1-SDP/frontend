@@ -38,7 +38,6 @@ function LoginForm() {
         setUsername(data.username);
         setNavState("/");
         setUserAuthenticated(true);
-        console.log(response.status);
       } else {
         setError(data.message);
       }

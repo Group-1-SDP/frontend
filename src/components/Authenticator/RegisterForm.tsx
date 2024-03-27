@@ -39,7 +39,6 @@ function RegisterForm() {
       const data = await response.json();
 
       if (response.status === 201) {
-        console.log(data)
         setUserID(data.id);
         setUsername(data.username);
         setUserAuthenticated(true);
@@ -47,7 +46,6 @@ function RegisterForm() {
       } else {
         setError(data.message);
       }
-      console.log(response.status);
     } catch (error) {
       console.error("Error:", error);
     }

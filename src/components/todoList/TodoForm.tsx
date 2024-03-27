@@ -35,12 +35,7 @@ export const TodoForm = ({ addTask }: TodoFormProps) => {
           onChange={(e) => setValue(e.target.value)}
           // style={{ width: "calc(100% - 68px)" }} // Adjust 68px according to your button's width and margins
         />
-        <input
-          type="date"
-          className="outline-none"
-          value={date?.toISOString().slice(0, 10)}
-          onChange={(e) => setDate(new Date(e.target.value))}
-        />
+        
       </form>
     </div>
   );
