@@ -77,41 +77,41 @@ function GameWithFriends() {
           <GameItem
             name="User"
             gameType="Game"
-            gameState={makeMove ? "Play" : "Do Work"}
+            gameState={"Play"}
             isHeading={true}
           />
           <GameItem
             name="Dylan"
             gameType="Tic-Tac-Toe"
-            gameState={makeMove ? "Play" : "Do Work"}
+            gameState={"Play"}
             isHeading={false}
             openModal={() => openModal("Dylan")}
           />
           <GameItem
             name="Ross"
             gameType="Tic-Tac-Toe"
-            gameState={makeMove ? "Play" : "Do Work"}
+            gameState={"Play"}
             isHeading={false}
             openModal={() => openModal("Ross")}
           />
           <GameItem
             name="Jonathan"
             gameType="Tic-Tac-Toe"
-            gameState={makeMove ? "Play" : "Do Work"}
+            gameState={"Play"}
             isHeading={false}
             openModal={() => openModal("Jonathan")}
           />
           <GameItem
             name="Matthieu"
             gameType="Tic-Tac-Toe"
-            gameState={makeMove ? "Play" : "Do Work"}
+            gameState={"Play"}
             isHeading={false}
             openModal={() => openModal("Matthieu")}
           />
           <GameItem
             name="wife"
             gameType="Tic-Tac-Toe"
-            gameState={makeMove ? "Play" : "Do Work"}
+            gameState={"Play"}
             isHeading={false}
             openModal={() => openModal("wife")}
           />
