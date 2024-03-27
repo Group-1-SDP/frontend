@@ -9,7 +9,6 @@ type NavigationProps = {
 function Navigation({ paddingLeft }: NavigationProps) {
 
   useEffect( () => {
-    console.log('loaded')
 
   }, [])
   return (

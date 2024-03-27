@@ -76,7 +76,6 @@ const StudyPlan: React.FC = () => {
 
       if (response.status === 200) {
         // Handle success
-        console.log("Successfully updated study goals");
         setApiResponse("Successfully updated study goals!");
       } else {
         // Handle error
@@ -109,7 +108,6 @@ const StudyPlan: React.FC = () => {
         const apiResponse = await response.json();
 
         if (response.status !== 200) {
-          console.log("Error fetching study goals:");
           return;
         }
 

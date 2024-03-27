@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import GameModal from "./GameModal";
 import { TicTacToeProvider } from "./TicTacToeContext";
+import { useAtom } from "jotai";
+import { rewardAvailableAtom } from "../../Utils/GlobalState";
 
 interface GameInterface {
   name: string;
@@ -56,6 +58,7 @@ const GameItem: React.FC<GameInterface> = ({
 function GameWithFriends() {
   const [modalVisible, setModalVisible] = useState(false);
   const [currentPlayer, setCurrentPlayer] = useState("");
+  const [makeMove] = useAtom(rewardAvailableAtom);
 
   const openModal = (playerName: string) => {
     setCurrentPlayer(playerName);
@@ -74,41 +77,41 @@ function GameWithFriends() {
           <GameItem
             name="User"
             gameType="Game"
-            gameState="Game State"
+            gameState={makeMove ? "Play" : "Do Work"}
             isHeading={true}
           />
           <GameItem
             name="Dylan"
             gameType="Tic-Tac-Toe"
-            gameState="Play"
+            gameState={makeMove ? "Play" : "Do Work"}
             isHeading={false}
             openModal={() => openModal("Dylan")}
           />
           <GameItem
             name="Ross"
             gameType="Tic-Tac-Toe"
-            gameState="Play"
+            gameState={makeMove ? "Play" : "Do Work"}
             isHeading={false}
             openModal={() => openModal("Ross")}
           />
           <GameItem
             name="Jonathan"
             gameType="Tic-Tac-Toe"
-            gameState="Finished"
+            gameState={makeMove ? "Play" : "Do Work"}
             isHeading={false}
             openModal={() => openModal("Jonathan")}
           />
           <GameItem
             name="Matthieu"
             gameType="Tic-Tac-Toe"
-            gameState="Play"
+            gameState={makeMove ? "Play" : "Do Work"}
             isHeading={false}
             openModal={() => openModal("Matthieu")}
           />
           <GameItem
             name="wife"
             gameType="Tic-Tac-Toe"
-            gameState="Play"
+            gameState={makeMove ? "Play" : "Do Work"}
             isHeading={false}
             openModal={() => openModal("wife")}
           />

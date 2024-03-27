@@ -37,7 +37,6 @@ function AccountsForm() {
 
         }
         if (newEmail) {
-          console.log("todo")
         }
         setSuccess(data.message);
       } else {

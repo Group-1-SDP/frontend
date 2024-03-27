@@ -45,7 +45,6 @@ function ScheduleForm({ addEvent }: ScheduleFormProps) {
     if (isNaN(hoursNumber) || hoursNumber < 0 || hoursNumber > 23) {
       return;
     }
-    console.log(`Adding Event "${name}", "${hours}:00", "${color}"...`);
     addEvent(name, `${hours}:00`, color);
     setName("");
     setHours("");

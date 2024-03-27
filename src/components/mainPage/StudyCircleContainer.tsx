@@ -3,7 +3,9 @@ import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import {
   APILink,
+  rewardAvailableAtom,
   studyGoalSessionAtom,
+  studyTimeDailyAtom,
   studyTimeSessionAtom,
   userIDAtom,
 } from "../Utils/GlobalState";
@@ -14,6 +16,8 @@ function StudyCircleContainer() {
   const [studyGoalSession] = useAtom(studyGoalSessionAtom);
   const [userID] = useAtom(userIDAtom);
   const [studyTimeSession, setStudyTimeSession] = useAtom(studyTimeSessionAtom);
+  const [studyTimeDaily] = useAtom(studyTimeDailyAtom)
+  const [rewardAvailable, setRewardAvailable] = useAtom(rewardAvailableAtom);
 
 
   function convertMinutesToHHMM(seconds: number) {
@@ -73,54 +77,16 @@ function StudyCircleContainer() {
   const [boxTime] = useAtom(phoneConnectedTime);
   const [phoneBoxTime, setPhoneBoxTime] = useState("0hrs 0mins");
   const [progress, setProgress] = useState(0);
-  const [dispense, setDispense] = useState(0);
 
   useEffect(() => {
-    if (phoneConnected) {
-      const { hours, minutes } = calculateTimeSinceBoxTime(boxTime);
-      setPhoneBoxTime(`${hours}hrs ${minutes}mins`);
-      const totalMins = hours * 60 + minutes;
-      setProgress(totalMins / ((studyGoalSession / 100) * 480));
-      console.log(progress)
-      
-    } else {
-      setStudyTimeSession(0);
-      setProgress(0);
-    }
-  }, [phoneConnected, studyGoalSession, phoneBoxTime, progress]);
-
-  // rerender every 1 minute if phone is connected
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (phoneConnected) {
-      console.log("phone connected");
-      interval = setInterval(() => {
-        setStudyTimeSession((prevStudyTimeSession) => prevStudyTimeSession + 1); // Increment studyTimeSession by 1
-      }, 1000);
-
-    }
-
-    return () => clearInterval(interval); // Cleanup function clears the interval when component unmounts or phoneConnected becomes false
-  }, [phoneConnected]);
-
-  useEffect(() => {
-    setProgress((studyTimeSession / 60) / ((studyGoalSession / 100) * 480));
-    // if (progress >= 0.1 && dispense === 0) {
-    //   // emit socketio "task-complete"
-    //   fetch(APILink + "/websocket/study-goal-reached", {
-    //     method: "GET",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   });
-    //   setDispense(1);
-    // }
-  }, [studyTimeSession, studyGoalSession]);
+    setProgress((studyTimeSession / (studyGoalSession*480*60)) * 100);
+    
+  }, [studyTimeSession]);
 
     
 
   return (
-    <div className="w-[400px] h-[420px] shadow-md rounded-2xl">
+    <div className="w-[400px] h-[420px] rounded-2xl">
       <div className=" px-5">
         <h1 className="text-xl font-bold">Current Study Session:</h1>
         <div className={`mt-[-30px] ${phoneConnected && "animate-pulse"}`}>

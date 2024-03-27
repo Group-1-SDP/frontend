@@ -1,6 +1,6 @@
 import React from "react";
 import { ActivityRings } from "@jonasdoesthings/react-activity-rings";
-import { studyGoalDailyAtom, studyTimeDailyAtom } from "../Utils/GlobalState";
+import { studyGoalDailyAtom, studyTimeDailyAtom, studyTimeSessionAtom } from "../Utils/GlobalState";
 import { useAtom } from "jotai";
 
 function TimeTracker() {
@@ -87,7 +87,7 @@ function TimeTracker() {
           </div>
         </div>
         <div className="text-right">
-          <h1 className="text-xl font-bold">{studyTimeDaily}</h1>
+          <h1 className="text-xl font-bold">{secondsToHHMM(studyTimeDaily)}</h1>
           <div className="flex items-center space-x-3 justify-end">
             <h2 className="text-[16px] font-semibold">Today So Far</h2>
             <div className="bg-greenAccent w-[15px] h-[15px] rounded-full"></div>

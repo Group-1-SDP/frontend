@@ -10,7 +10,7 @@ function generateRandomString(): string {
   const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   let result = "";
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 15; i++) {
     result += characters.charAt(Math.floor(Math.random() * characters.length));
   }
   return result;
@@ -102,18 +102,13 @@ export const TodoWrapper = () => {
     }
   };
 
-  const updateAPI = async (task_id: string) => {
+  const updateAPI = async (id: string) => {
     try {
-      const response = await fetch(APIroot + "updateTask", {
+      const response = await fetch(APIroot + userID + "/complete-task/" + id, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: "testusername",
-          task_id: task_id,
-          completed: "true",
-        }),
+        }
       });
       if (!response.ok) {
         throw new Error("Failed to update user task");
@@ -125,20 +120,16 @@ export const TodoWrapper = () => {
 
   const deleteTask = async (id: string) => {
     try {
-      const response = await fetch(APIroot + userID + "/delete-task", {
-        method: "POST",
+      const response = await fetch(APIroot + userID + "/delete-task/" + id, {
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          task_id: id,
-        }),
+        }
       });
 
       if (!response.ok) {
         throw new Error("Failed to delete task");
       } else {
-        console.log("deleted task");
       }
 
       setTasks(tasks.filter((task) => task.id !== id));
@@ -218,11 +209,11 @@ export const TodoWrapper = () => {
   return (
     <div className="mt-2 flex justify-center">
       <div className="w-full">
-        <DropdownSwitcher
+        {/* <DropdownSwitcher
           active={activeTimeFrame}
           others={inactiveTimeFrames}
           switcher={changeTimeFrame}
-        />
+        /> */}
         <TodoFilter
           filter={{
             name: "To-Do",

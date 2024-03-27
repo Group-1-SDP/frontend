@@ -15,7 +15,6 @@ function FriendAdd() {
   const handleConnect = async (event: { preventDefault: () => void }) => {
     try {
       event.preventDefault();
-      console.log(username);
       setUsername("");
       if (userID) {
         const response = await fetch(`${APILink}/api/${userID}/add-friend`, {

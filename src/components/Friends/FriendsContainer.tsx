@@ -15,7 +15,6 @@ function FriendsContainer() {
   useEffect(() => {
     const fetchUserFriends = async () => {
       if (userID) {
-        console.log(userID);
         const response = await fetch(
           APILink + "/api/" + userID + "/get-friends",
           {
@@ -30,11 +29,9 @@ function FriendsContainer() {
         }
         const apiResponse = await response.json();
         if (response.status !== 200) {
-          console.log("Error fetching user friends:");
           return;
         }
 
-        console.log(apiResponse.friends);
         const data = apiResponse.friends;
 
         if (Array.isArray(data)) {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useTicTacToe } from "./TicTacToeContext";
 import { Board, SquareStates } from "./types";
-import { usernameAtom } from "../../Utils/GlobalState";
+import { rewardAvailableAtom, usernameAtom } from "../../Utils/GlobalState";
 import { useAtom } from "jotai";
 
 interface TicTacToeProps {
@@ -34,6 +34,7 @@ const TicTacToe: React.FC<TicTacToeProps> = ({ playerName }) => {
   const { boards, setBoards } = useTicTacToe();
   const [player, setPlayer] = useState<SquareStates>("X");
   const [username] = useAtom(usernameAtom);
+  const [makeMoveGlobal, setMakeMoveGlobal] = useAtom(rewardAvailableAtom);
 
   const initialBoard: Board = [
     ["", "", ""],
@@ -81,6 +82,7 @@ const TicTacToe: React.FC<TicTacToeProps> = ({ playerName }) => {
 
     setBoards((prev) => ({ ...prev, [playerName]: newBoard }));
     setPlayer((prevPlayer) => (prevPlayer === "X" ? "O" : "X"));
+    setMakeMoveGlobal(false);
   };
 
   const resetGame = () => {
@@ -103,7 +105,7 @@ const TicTacToe: React.FC<TicTacToeProps> = ({ playerName }) => {
             <div
               key={`${x}-${y}`}
               className={`w-24 h-24 border flex items-center justify-center cursor-pointer border-gray-800 bg-gray-300 text-3xl ${
-                cell === "X" ? "text-pink-500" : "text-blue-500"
+                cell === "X" ? "text-greenAccent" : "text-blue-500"
               }`}
               onClick={() => makeMove(x, y)}
             >
@@ -118,7 +120,7 @@ const TicTacToe: React.FC<TicTacToeProps> = ({ playerName }) => {
         </div>
       )}
       <button
-        className="mt-4 px-4 py-2 bg-pink-500 text-white uppercase rounded hover:bg-pink-600 transition duration-300"
+        className="mt-4 px-4 py-2 bg-greenAccent text-white uppercase rounded  transition duration-300"
         onClick={resetGame}
       >
         Reset

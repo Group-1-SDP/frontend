@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 
 //API link
-export const APILink = "http://127.0.0.1:5000";
+export const APILink = "https://musical-winner-pqvwr795vj6345r-5000.app.github.dev/";
 
 // Username storage
 export const usernameAtom = atomWithStorage("username", "");
@@ -22,6 +22,7 @@ export const studyGoalDailyAtom = atomWithStorage("studyGoalDaily", 0);
 export const studyGoalSessionAtom = atomWithStorage("studyGoalSession", 0);
 export const phoneInBoxAtom = atomWithStorage("phoneInBox", false);
 export const lastPhoneInBoxAtom = atomWithStorage("lastPhoneInBox", "");
+export const rewardAvailableAtom = atomWithStorage("rewardAvailable", false);
 
 
 // Navigation State

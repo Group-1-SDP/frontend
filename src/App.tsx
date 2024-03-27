@@ -4,7 +4,14 @@ import { io } from "socket.io-client";
 import { Socket } from "socket.io-client";
 import { atomWithStorage } from "jotai/utils";
 import { useAtom } from "jotai";
-import { APILink, studyTimeDailyAtom, userIDAtom } from "./components/Utils/GlobalState";
+import {
+  APILink,
+  rewardAvailableAtom,
+  studyGoalSessionAtom,
+  studyTimeDailyAtom,
+  studyTimeSessionAtom,
+  userIDAtom,
+} from "./components/Utils/GlobalState";
 import AuthenticatorPage from "./views/AuthenticatorPage";
 import Authenticated from "./views/Authenticated";
 import Navigation from "./components/Utils/Navigation/Navigation";
@@ -24,15 +31,16 @@ export const phoneConnectedState = atomWithStorage(
 );
 export const phoneConnectedTime = atomWithStorage("phoneConnectedTime", "");
 
-
 function App() {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [, setSocketConnected] = useState(false);
-  const [, setPhoneConnected] = useAtom(phoneConnectedState);
+  const [phoneConnected, setPhoneConnected] = useAtom(phoneConnectedState);
   const [phoneBoxTime, setPhoneBoxTime] = useAtom(phoneConnectedTime);
   const [userID] = useAtom(userIDAtom);
   const [studyTimeDaily, setStudyTimeDaily] = useAtom(studyTimeDailyAtom);
-  const [studyTimeSession, setStudyTimeSession] = useAtom(studyTimeDailyAtom);
+  const [studyTimeSession, setStudyTimeSession] = useAtom(studyTimeSessionAtom);
+  const [studyGoalSession] = useAtom(studyGoalSessionAtom);
+  const [rewardAvailable, setRewardAvailable] = useAtom(rewardAvailableAtom);
 
   const socketRef = useRef<Socket | null>(null);
 
@@ -52,17 +60,14 @@ function App() {
     if (!socket) return;
 
     const handleConnect = () => {
-      console.log("connected");
       setSocketConnected(true);
     };
 
     const handleDisconnect = () => {
-      console.log("disconnected!");
       setSocketConnected(false);
     };
 
     const handlePhoneConnected = () => {
-      console.log("phoneConnected!");
       setPhoneConnected(true);
       const current_date: Date = new Date();
       const formatted_date: string = current_date.toLocaleString();
@@ -70,9 +75,37 @@ function App() {
       phoneConnectedAPI();
     };
 
-    const handlePhoneDisconnected = () => {
-      console.log("phoneDisconnected!");
+    const handlePhoneDisconnected = async () => {
+      if (((studyTimeSession / 60) * 480) / studyGoalSession >= 1) {
+        setRewardAvailable(true);
+        
+        try {
+          const response = await fetch(
+            APILink + "/websocket/" + "study-goal-reached",
+            {
+              method: "POST", 
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          if (response.ok) {
+            console.log("Study goal reached notification sent successfully.");
+          } else {
+            console.error("Failed to send study goal reached notification.");
+          }
+        } catch (error) {
+          console.error("An error occurred:", error);
+        }
+      }
+
       setPhoneConnected(false);
+      setStudyTimeDaily(
+        (prevStudyTimeDaily) => prevStudyTimeDaily + studyTimeSession
+      );
+      setStudyTimeSession(0);
+
       phoneDisconnectedAPI();
     };
 
@@ -88,6 +121,15 @@ function App() {
       socket.off("phoneDisconnected", handlePhoneDisconnected);
     };
   }, [setPhoneConnected, setPhoneBoxTime, userID]);
+
+  useEffect(() => {
+    if (phoneConnected) {
+      const intervalId = setInterval(() => {
+        setStudyTimeSession((prevStudyTimeSession) => prevStudyTimeSession + 1);
+      }, 1000);
+      return () => clearInterval(intervalId);
+    }
+  }, [phoneConnected]);
 
   const phoneConnectedAPI = async () => {
     if (userID === "") {
@@ -126,16 +168,13 @@ function App() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            time_studied: studyTimeDaily,
+            time_studied: studyTimeSession,
           }),
         }
       );
       const data = await response.json();
 
       if (response.status === 200) {
-        console.log(studyTimeSession)
-        setStudyTimeDaily(studyTimeDaily + studyTimeSession);
-        setStudyTimeSession(0);
       } else {
         console.error(data.message);
       }
