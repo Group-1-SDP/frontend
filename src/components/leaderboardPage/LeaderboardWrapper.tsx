@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Podium from "./Podium";
 import Leaderboard from "./Leaderboard";
 import LeagueSwitcher from "./LeagueSwitcher";
+import { APILink, userIDAtom, usernameAtom } from "../Utils/GlobalState";
+import { useAtom } from "jotai";
 
-const leagues = [
+const initLeaderbaords = [
   {
     name: "SDP Group 1",
-    id: 3452778,
+    id: "3452778",
     users: [
       {
         username: "Jonathan",
@@ -29,7 +31,7 @@ const leagues = [
   },
   {
     name: "Premier League 2023/24",
-    id: 6949284,
+    id: "6949284",
     users: [
       { username: "Arsenal", points: 64, currentUser: false },
       { username: "Liverpool", points: 64, currentUser: false },
@@ -60,28 +62,79 @@ function getRandomNumber(min: number, max: number) {
 }
 
 function LeaderboardWrapper() {
+  const [leagues, setLeagues] = useState(initLeaderbaords);
   const [activeLeague, setActiveLeague] = useState<number>(0);
-  const [inactiveLeagues, setInactiveLeagues] = useState<number[]>(
-    Array.from({ length: leagues.length - 1 }, (_, i) => i + 1)
-  );
+  const [userID] = useAtom(userIDAtom);
+  const [currentUsername] = useAtom(usernameAtom);
+
+  const inactiveLeagues = leagues
+    .map((_, index) => index)
+    .filter((index) => index !== activeLeague);
 
   const changeLeague = (newIndex: number) => {
     if (newIndex < 0 || newIndex >= leagues.length) {
       return;
     }
 
-    const updatedInactiveLeagues = inactiveLeagues.filter(
-      (index) => index !== newIndex
-    );
-
-    setInactiveLeagues(updatedInactiveLeagues);
-
-    setInactiveLeagues([...updatedInactiveLeagues, activeLeague]);
-
     setActiveLeague(newIndex);
   };
 
-  leagues[activeLeague].users.sort((a, b) => b.points - a.points);
+  useEffect(() => {
+    const fetchLeaderboardData = async () => {
+      try {
+        const response = await fetch(
+          APILink + "/api/" + userID + "/friends-study-hours",
+          {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        const data = await response.json();
+        if (response.status === 200) {
+          const dynamicLeaderboard = {
+            name: "Friends Study Hours",
+            id: "WEEWOO",
+            users: data
+              .map((user: { username: string; study_hours_today: any }) => ({
+                username: user.username,
+                points: user.study_hours_today,
+                currentUser: user.username === currentUsername,
+              }))
+              .sort(
+                (a: { points: number }, b: { points: number }) =>
+                  b.points - a.points
+              ),
+          };
+
+          setLeagues((currentLeagues) => {
+            const index = currentLeagues.findIndex(
+              (league) => league.id === dynamicLeaderboard.id
+            );
+            if (index > -1) {
+              return currentLeagues.map((league, idx) =>
+                idx === index ? dynamicLeaderboard : league
+              );
+            } else {
+              return [...currentLeagues, dynamicLeaderboard];
+            }
+          });
+        } else {
+          console.error("Failed to fetch leaderboard data:", data.message);
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+    };
+
+    if (currentUsername) {
+      fetchLeaderboardData();
+    }
+  }, [userID, currentUsername]);
+
+  const sortedUsers =
+    leagues.length > activeLeague
+      ? [...leagues[activeLeague].users].sort((a, b) => b.points - a.points)
+      : [];
 
   return (
     <div className="flex justify-center">
@@ -100,9 +153,7 @@ function LeaderboardWrapper() {
 
         <Podium users={leagues[activeLeague].users.slice(0, 3)} />
 
-        {leagues[activeLeague].users.length > 3 && (
-          <Leaderboard users={leagues[activeLeague].users.slice(3, -1)} />
-        )}
+        {sortedUsers.length > 3 && <Leaderboard users={sortedUsers.slice(3)} />}
       </div>
     </div>
   );
