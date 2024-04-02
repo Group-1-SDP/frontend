@@ -76,17 +76,15 @@ function App() {
     };
 
     const handlePhoneDisconnected = async () => {
+      console.log(studyTimeSession);
       if (((studyTimeSession / 60) * 480) / studyGoalSession >= 1) {
         setRewardAvailable(true);
-        
+
         try {
           const response = await fetch(
             APILink + "/websocket/" + "study-goal-reached",
             {
-              method: "POST", 
-              headers: {
-                "Content-Type": "application/json",
-              },
+              method: "POST",
             }
           );
 
@@ -104,7 +102,6 @@ function App() {
       setStudyTimeDaily(
         (prevStudyTimeDaily) => prevStudyTimeDaily + studyTimeSession
       );
-      setStudyTimeSession(0);
 
       phoneDisconnectedAPI();
     };
@@ -167,14 +164,15 @@ function App() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            time_studied: studyTimeSession,
-          }),
+          // body: JSON.stringify({
+          //   time_since: studyTimeSession,
+          // }),
         }
       );
       const data = await response.json();
 
       if (response.status === 200) {
+        setStudyTimeSession(0);
       } else {
         console.error(data.message);
       }

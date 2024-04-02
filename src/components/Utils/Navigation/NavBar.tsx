@@ -118,7 +118,7 @@ const SettingsNavigation: React.FC<SettingsNavigationProps> = ({
             icon={MdLeaderboard}
           />
           <NavItem
-            name="Schedule"
+            name="Study Plan"
             isActive={navState === "Schedule"}
             path="/schedule"
             isLogOut={false}

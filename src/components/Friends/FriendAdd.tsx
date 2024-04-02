@@ -15,7 +15,7 @@ function FriendAdd() {
   const handleConnect = async (event: { preventDefault: () => void }) => {
     try {
       event.preventDefault();
-      setUsername("");
+      // setUsername(""); who the fuck put this in - 
       if (userID) {
         const response = await fetch(`${APILink}/api/${userID}/add-friend`, {
           method: "POST",

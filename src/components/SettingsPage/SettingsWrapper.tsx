@@ -16,7 +16,7 @@ function SettingsWrapper() {
   const [selectedTab, setSelectedTab] = useState(settingsTabs[0]);
   return (
     <div className="flex justify-center w-full h-full">
-      <div className="flex items-center w-[1135px] h-[800px] bg-white rounded-xl">
+      <div className="flex items-center w-[1135px] h-[800px] bg-white rounded-xl px-[200px] ">
         <SelectionSlider tabs={settingsTabs} />
       </div>
     </div>
