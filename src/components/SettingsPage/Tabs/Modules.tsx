@@ -86,6 +86,23 @@ const ModuleCard = ({ disconnectBox }: ModuleCardProps) => {
 
   const [notfictionDetection, setNotificationDetection] = useState(false);
   const [tickagotchiMode, setTickagotchiMode] = useState(false);
+  const [customWords, setCustomWords] = useState("");
+  const [apiResponse, setAPIResponse] = useState("");
+
+  useEffect(() => {
+    // Fetch data from API
+    const fetchData = async () => {
+      try {
+        const response = await fetch(APILink + "/api/box-settings");
+        const data = await response.json();
+        setNotificationDetection(data.notificationDetection);
+        setTickagotchiMode(data.tickagotchiMode);
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const saveChanges = async () => {
     try {
@@ -95,8 +112,9 @@ const ModuleCard = ({ disconnectBox }: ModuleCardProps) => {
           "Content-Type": "application/json",
         },
       });
+      setAPIResponse("Changes saved successfully!");
     } catch (error) {
-      console.error("An error occurred:", error);
+      setAPIResponse("Failed to save changes. Please try again later.");
     }
   };
 
@@ -140,6 +158,14 @@ const ModuleCard = ({ disconnectBox }: ModuleCardProps) => {
               onChange={setNotificationDetection}
             />
           </div>
+          <div>
+            <h1>Enter notifications you want Tickbox to inform you about.</h1>
+            <InputBox
+              value={customWords}
+              placeholder="Custom Notification Words"
+              onChange={setCustomWords}
+            />
+          </div>
           <div className="flex items-center justify-between w-full py-2 px-3 rounded-xl bg-gray-200">
             <h1>Enable Tickagotchi Mode</h1>
             <InputSwitch
@@ -153,6 +179,9 @@ const ModuleCard = ({ disconnectBox }: ModuleCardProps) => {
           >
             Save Changes
           </button>
+          <div>
+            {apiResponse}
+          </div>
         </div>
       </div>
     </motion.div>

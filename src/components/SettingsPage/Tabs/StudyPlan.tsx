@@ -28,7 +28,7 @@ const dailyStudyIncrements = [
 ];
 
 const sessionStudyIncrements = [
-  { value: 1.0415, label: "5 mins" },
+  { value: 0.069, label: "20 seconds" },
   { value: 12.5, label: "1 hr" },
   { value: 25, label: "2 hrs" },
   { value: 37.5, label: "3 hrs" },
@@ -129,8 +129,8 @@ const StudyPlan: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="w-full h-full flex flex-col items-center">
-        <div className="w-[640px]">
+      <div className="w-full h-full flex flex-col items-center flex space-y-4">
+        <div className="w-full">
           <div className="bg-gray-100 my-2 py-2 px-6 rounded-xl">
             <h1 className="text-xl font-bold py-2">Daily Study Goal</h1>
             <Slider
@@ -210,7 +210,7 @@ const StudyPlan: React.FC = () => {
         </div>
 
         <button
-          className="w-[640px]  bg-greenAccent py-3 px-4 flex justify-center items-center rounded-xl text-white"
+          className="w-full bg-greenAccent my-2 py-3 px-4 flex justify-center items-center rounded-xl text-white font-bold"
           onClick={handleSubmit}
         >
           Update

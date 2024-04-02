@@ -1,8 +1,8 @@
 import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
-
+  
 //API link
-export const APILink = "https://musical-winner-pqvwr795vj6345r-5000.app.github.dev/";
+export const APILink = "https://obscure-invention-4x774xpv7fqxqx-5000.app.github.dev";
 
 // Username storage
 export const usernameAtom = atomWithStorage("username", "");
