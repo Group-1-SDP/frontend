@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Slider, ThemeProvider, createTheme } from "@mui/material";
 import InputSwitch from "../../Utils/ReusableComponents/InputSwitch";
 import { useAtom } from "jotai";
-import { APILink, userIDAtom } from "../../Utils/GlobalState";
+import { APILink, leaderboardOptInAtom, userIDAtom } from "../../Utils/GlobalState";
 import { motion } from "framer-motion";
 
 interface StudyGoal {
@@ -51,6 +51,7 @@ const StudyPlan: React.FC = () => {
   };
 
   const [scheduleEnabled, setScheduleEnabled] = useState<boolean>(false);
+  const [leaderboardOptIn, setLeaderboardOptIn] = useAtom(leaderboardOptInAtom);
 
   const [userID] = useAtom(userIDAtom);
   const [apiResponse, setApiResponse] = useState("");
@@ -129,7 +130,7 @@ const StudyPlan: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="w-full h-full flex flex-col items-center flex space-y-4">
+      <div className="w-full h-full flex flex-col items-center space-y-4">
         <div className="w-full">
           <div className="bg-gray-100 my-2 py-2 px-6 rounded-xl">
             <h1 className="text-xl font-bold py-2">Daily Study Goal</h1>
@@ -206,6 +207,20 @@ const StudyPlan: React.FC = () => {
             </div>
 
             <p>Earn extra XP for following the schedule.</p>
+          </div>
+
+          <div className="bg-gray-100 my-2 py-2 px-6 rounded-xl">
+            <div className="flex justify-between items-center">
+              <h1 className="text-xl font-bold py-2">Enable Leaderboard</h1>
+              <InputSwitch
+                value={leaderboardOptIn}
+                onChange={() => {
+                  setLeaderboardOptIn(!leaderboardOptIn);
+                }}
+              />
+            </div>
+
+            <p>Compete with your friends.</p>
           </div>
         </div>
 

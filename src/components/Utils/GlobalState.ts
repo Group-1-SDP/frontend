@@ -31,3 +31,5 @@ export const navStateAtom = atomWithStorage("navState", window.location.pathname
 // Friend Added State
 export const friendAddedAtom = atom(false);
 
+export const leaderboardOptInAtom = atomWithStorage("leaderboardOptIn", false);
+

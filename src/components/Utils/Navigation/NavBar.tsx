@@ -1,5 +1,9 @@
 import { useAtom } from "jotai";
-import { navStateAtom, usernameAtom } from "../GlobalState";
+import {
+  leaderboardOptInAtom,
+  navStateAtom,
+  usernameAtom,
+} from "../GlobalState";
 import Logo from "../Logo";
 import { authenticated } from "../../../App";
 import { IoHome, IoSettingsSharp } from "react-icons/io5";
@@ -79,6 +83,7 @@ const SettingsNavigation: React.FC<SettingsNavigationProps> = ({
   paddingLeft = 0,
 }) => {
   const [navState] = useAtom(navStateAtom);
+  const [leaderboardOptIn] = useAtom(leaderboardOptInAtom);
 
   return (
     <div
@@ -110,13 +115,16 @@ const SettingsNavigation: React.FC<SettingsNavigationProps> = ({
             isLogOut={false}
             icon={FaUserFriends}
           />
-          <NavItem
-            name="Leaderboard"
-            isActive={navState === "Leaderboard"}
-            path="/leaderboard"
-            isLogOut={false}
-            icon={MdLeaderboard}
-          />
+          {leaderboardOptIn && (
+            <NavItem
+              name="Leaderboard"
+              isActive={navState === "Leaderboard"}
+              path="/leaderboard"
+              isLogOut={false}
+              icon={MdLeaderboard}
+            />
+          )}
+
           <NavItem
             name="Study Plan"
             isActive={navState === "Schedule"}
