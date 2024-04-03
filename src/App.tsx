@@ -43,6 +43,7 @@ function App() {
   const [rewardAvailable, setRewardAvailable] = useAtom(rewardAvailableAtom);
 
   const socketRef = useRef<Socket | null>(null);
+  const studyTimeSessionRef = useRef(studyTimeSession);
 
   useEffect(() => {
     socketRef.current = io(APILink);
@@ -54,6 +55,10 @@ function App() {
       }
     };
   }, []);
+
+  useEffect(() => {
+    studyTimeSessionRef.current = studyTimeSession;
+  }, [studyTimeSession]);
 
   useEffect(() => {
     const socket = socketRef.current;
@@ -76,8 +81,10 @@ function App() {
     };
 
     const handlePhoneDisconnected = async () => {
-      console.log(studyTimeSession);
-      if (((studyTimeSession / 60) * 480) / studyGoalSession >= 1) {
+      console.log(studyTimeSessionRef.current/28800*100);
+      console.log(studyGoalSession);
+
+      if (studyTimeSessionRef.current / 28800*100 > studyGoalSession) {
         setRewardAvailable(true);
 
         try {
@@ -100,7 +107,7 @@ function App() {
 
       setPhoneConnected(false);
       setStudyTimeDaily(
-        (prevStudyTimeDaily) => prevStudyTimeDaily + studyTimeSession
+        (prevStudyTimeDaily) => prevStudyTimeDaily + studyTimeSessionRef.current
       );
 
       phoneDisconnectedAPI();
